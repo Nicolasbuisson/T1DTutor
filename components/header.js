@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, StyleSheet, Image } from "react-native";
+import { Text, View, StyleSheet, Image, TouchableOpacity } from "react-native";
 //import { styles } from "../style/style";
 
 import colors from "../style/colors";
@@ -7,6 +7,9 @@ import colors from "../style/colors";
 export default function Header() {
   return (
     <View style={styles.headerContainer}>
+      <TouchableOpacity style={styles.backArrow}>
+        <Image source={require("../assets/backArrow.png")} />
+      </TouchableOpacity>
       <Text style={styles.headerText}>T1D App</Text>
       <Image style={styles.fakeLogo} />
     </View>
@@ -14,6 +17,11 @@ export default function Header() {
 }
 
 const styles = StyleSheet.create({
+  backArrow: {
+    position: "absolute",
+    top: 25,
+    left: 10,
+  },
   fakeLogo: {
     backgroundColor: colors.primary,
     height: 30,
