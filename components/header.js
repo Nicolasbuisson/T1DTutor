@@ -4,17 +4,20 @@ import { Text, View, StyleSheet, Image, TouchableOpacity } from "react-native";
 
 import colors from "../style/colors";
 
-export default function Header() {
+const Header = (props) => {
   return (
     <View style={styles.headerContainer}>
-      <TouchableOpacity style={styles.backArrow}>
+      <TouchableOpacity
+        style={props.backArrow ? styles.backArrow : styles.noDisplay}
+      >
         <Image source={require("../assets/backArrow.png")} />
       </TouchableOpacity>
-      <Text style={styles.headerText}>T1D App</Text>
-      <Image style={styles.fakeLogo} />
+      <Text style={styles.headerText}>{props.title}</Text>
+      <Image style={props.logo ? styles.fakeLogo : styles.noDisplay} />
     </View>
   );
-}
+};
+export default Header;
 
 const styles = StyleSheet.create({
   backArrow: {
@@ -42,5 +45,8 @@ const styles = StyleSheet.create({
   headerText: {
     color: colors.primary,
     fontSize: 30,
+  },
+  noDisplay: {
+    display: "none",
   },
 });
