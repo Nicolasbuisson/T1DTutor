@@ -1,6 +1,5 @@
 import React from "react";
 import { Text, View, StyleSheet, Image, TouchableOpacity } from "react-native";
-//import { styles } from "../style/style";
 
 import colors from "../style/colors";
 
@@ -9,6 +8,7 @@ const Header = (props) => {
     <View style={styles.headerContainer}>
       <TouchableOpacity
         style={props.backArrow ? styles.backArrow : styles.noDisplay}
+        onPress={props.function}
       >
         <Image source={require("../assets/backArrow.png")} />
       </TouchableOpacity>
@@ -33,7 +33,8 @@ const styles = StyleSheet.create({
   },
   headerContainer: {
     display: "flex",
-    flex: 0.1,
+    flex: 1,
+    alignSelf: "stretch",
     flexDirection: "row",
     backgroundColor: colors.background,
     justifyContent: "center",
