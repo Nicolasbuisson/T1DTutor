@@ -19,4 +19,5 @@ export default function App() {
   const AppNavigator = createAppContainer(AppSwitchNavigator);
 
   return <AppNavigator />;
+  //<EmailLoginScreen></EmailLoginScreen>;
 }

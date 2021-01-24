@@ -1,6 +1,16 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
 import firebase from "firebase";
+import dbh from "../firebase";
+import colors from "../style/colors.js";
+import Header from "../components/header";
 
 class EmailLoginScreen extends Component {
   constructor() {
@@ -8,14 +18,68 @@ class EmailLoginScreen extends Component {
     this.state = {
       email: "",
       password: "",
-      confirmPassword: "",
     };
+
+    //functions
+    this.backFunction = this.backFunction.bind(this);
+    this.signIn = this.signIn.bind(this);
+    this.goToSignUp = this.goToSignUp.bind(this);
+  }
+
+  backFunction() {
+    this.props.navigation.navigate("LoginScreen");
+  }
+
+  goToSignUp() {
+    this.props.navigation.navigate("EmailSignUpScreen");
+  }
+
+  signIn() {
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(this.state.email, this.state.password)
+      .then((userCredential) => {
+        // Signed in
+        var user = userCredential.user;
+        // ...
+      })
+      .catch((error) => {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+      });
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <Text>Email Login</Text>
+        <Header
+          title="Login"
+          backArrow={true}
+          function={this.backFunction}
+        ></Header>
+        <View style={styles.fieldsContainer}>
+          <Text style={styles.field}>Email</Text>
+          <TextInput
+            autoCorrect={false}
+            onChangeText={(text) => this.setState({ email: text })}
+            value={this.state.email}
+            style={styles.input}
+          ></TextInput>
+          <Text style={styles.field}>Password</Text>
+          <TextInput
+            autoCorrect={false}
+            secureTextEntry={true}
+            onChangeText={(text) => this.setState({ password: text })}
+            value={this.state.password}
+            style={styles.input}
+          ></TextInput>
+          <TouchableOpacity style={styles.button} onPress={this.signIn}>
+            <Text style={styles.buttonText}>Login</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={this.goToSignUp}>
+            <Text style={styles.buttonText}>Sign Up</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
@@ -28,5 +92,43 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: colors.background,
+  },
+
+  fieldsContainer: {
+    flex: 8,
+    alignItems: "flex-start",
+    justifyContent: "center",
+  },
+
+  field: {
+    fontSize: 20,
+    color: colors.primary,
+  },
+
+  input: {
+    height: 25,
+    width: 300,
+    borderColor: colors.grey,
+    borderWidth: 3,
+    marginTop: 5,
+    marginBottom: 25,
+  },
+
+  button: {
+    marginTop: 30,
+    height: 30,
+    width: 100,
+    backgroundColor: colors.primary,
+    borderRadius: 20,
+    alignSelf: "center",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  buttonText: {
+    textAlign: "center",
+    fontSize: 20,
+    color: colors.white,
   },
 });

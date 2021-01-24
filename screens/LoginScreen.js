@@ -3,8 +3,15 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import * as Google from "expo-google-app-auth";
 import firebase from "firebase";
 import dbh from "../firebase";
+import colors from "../style/colors";
 
 class LoginScreen extends Component {
+  constructor() {
+    super();
+
+    //functions
+    this.goToEmailScreen = this.goToEmailScreen.bind(this);
+  }
   signInWithGoogleAsync = async () => {
     try {
       const result = await Google.logInAsync({
@@ -94,16 +101,27 @@ class LoginScreen extends Component {
     }
     return false;
   };
+
+  goToEmailScreen() {
+    return this.props.navigation.navigate("EmailLoginScreen");
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <Text>Login</Text>
+        <Text style={styles.title}>App Name</Text>
         <View>
           <TouchableOpacity
-            style={{ marginTop: 30, marginLeft: 30 }}
+            style={styles.button}
             onPress={this.signInWithGoogleAsync}
           >
-            <Text>Google Login</Text>
+            <Text style={styles.buttonText}>Google Login</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={this.goToEmailScreen}
+          >
+            <Text style={styles.buttonText}>Email Login</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -118,5 +136,28 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+  },
+
+  title: {
+    fontSize: 42,
+    fontWeight: "bold",
+    marginBottom: 80,
+  },
+
+  button: {
+    marginTop: 20,
+    height: 30,
+    width: 150,
+    backgroundColor: colors.primary,
+    borderRadius: 20,
+    alignSelf: "center",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  buttonText: {
+    textAlign: "center",
+    fontSize: 20,
+    color: colors.white,
   },
 });

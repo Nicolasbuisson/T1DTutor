@@ -12,7 +12,7 @@ import dbh from "../firebase";
 import colors from "../style/colors.js";
 import Header from "../components/header";
 
-class EmailLoginScreen extends Component {
+class EmailSignUpScreen extends Component {
   constructor() {
     super();
     this.state = {
@@ -66,6 +66,9 @@ class EmailLoginScreen extends Component {
         });
       console.log("what it thinks the error message is" + errorMessage);
       //ERROR DOESNT HAVE TIME TO COME BACK IN TIME, NEED TO DO SOME ASYNC AWAIT SHIT?
+      //OR WE MUST DO OUR OWN PRELIMINARY CHECKS, SUCH AS EMAIL FORMATTING AND PASSWORD MUST BE AT LEAST 6 CHAR
+
+      //SAVE USER INFO TO DBH LIKE WE DID WITH GOOGLE LOGIN
       if (errorMessage !== "") {
         Alert.alert(
           "Error",
@@ -135,7 +138,7 @@ class EmailLoginScreen extends Component {
   }
 }
 
-export default EmailLoginScreen;
+export default EmailSignUpScreen;
 
 const styles = StyleSheet.create({
   container: {
