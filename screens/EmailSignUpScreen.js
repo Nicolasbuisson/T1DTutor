@@ -35,18 +35,32 @@ class EmailLoginScreen extends Component {
   }
 
   signUp() {
-    Alert.alert(
-      "Successfully Signed Up",
-      "",
-      [
-        {
-          text: "OK",
-          // onPress: () => console.log("OK Pressed"),
-          style: "cancel",
-        },
-      ],
-      { cancelable: false }
-    );
+    if (!this.checkPasswords()) {
+      Alert.alert(
+        "Password must match",
+        "",
+        [
+          {
+            text: "OK",
+            style: "cancel",
+          },
+        ],
+        { cancelable: false }
+      );
+    } else {
+      Alert.alert(
+        "Successfully Signed Up",
+        "",
+        [
+          {
+            text: "OK",
+            // onPress: () => console.log("OK Pressed"),
+            style: "cancel",
+          },
+        ],
+        { cancelable: false }
+      );
+    }
   }
 
   render() {
