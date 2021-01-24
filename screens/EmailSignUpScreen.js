@@ -8,6 +8,7 @@ import {
   Alert,
 } from "react-native";
 import firebase from "firebase";
+import dbh from "../firebase";
 import colors from "../style/colors.js";
 import Header from "../components/header";
 
@@ -35,6 +36,7 @@ class EmailLoginScreen extends Component {
   }
 
   signUp() {
+    let errorMessage = "";
     if (!this.checkPasswords()) {
       Alert.alert(
         "Password must match",
@@ -48,18 +50,47 @@ class EmailLoginScreen extends Component {
         { cancelable: false }
       );
     } else {
-      Alert.alert(
-        "Successfully Signed Up",
-        "",
-        [
-          {
-            text: "OK",
-            // onPress: () => console.log("OK Pressed"),
-            style: "cancel",
-          },
-        ],
-        { cancelable: false }
-      );
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(this.state.email, this.state.password)
+        .then((userCredential) => {
+          // Signed in
+          var user = userCredential.user;
+          // ...
+        })
+        .catch((error) => {
+          var errorCode = error.code;
+          errorMessage = error.message;
+          console.log(errorMessage);
+          // ..
+        });
+      console.log("what it thinks the error message is" + errorMessage);
+      //ERROR DOESNT HAVE TIME TO COME BACK IN TIME, NEED TO DO SOME ASYNC AWAIT SHIT?
+      if (errorMessage !== "") {
+        Alert.alert(
+          "Error",
+          errorMessage,
+          [
+            {
+              text: "OK",
+              style: "cancel",
+            },
+          ],
+          { cancelable: false }
+        );
+      } else {
+        Alert.alert(
+          "Successfully Signed Up",
+          "",
+          [
+            {
+              text: "OK",
+              style: "cancel",
+            },
+          ],
+          { cancelable: false }
+        );
+      }
     }
   }
 

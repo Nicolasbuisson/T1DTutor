@@ -6,7 +6,6 @@ import dbh from "../firebase";
 
 class LoginScreen extends Component {
   signInWithGoogleAsync = async () => {
-    console.log("google");
     try {
       const result = await Google.logInAsync({
         behavior: "web",
