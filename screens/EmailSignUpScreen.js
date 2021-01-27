@@ -56,11 +56,38 @@ class EmailSignUpScreen extends Component {
         .then((userCredential) => {
           // Signed in
           var user = userCredential.user;
-          // ...
+          //save to dbh
+          if (user) {
+            Alert.alert(
+              "Successfully Signed Up",
+              "",
+              [
+                {
+                  text: "OK",
+                  style: "cancel",
+                },
+              ],
+              { cancelable: false }
+            );
+            // ...
+          }
         })
         .catch((error) => {
           var errorCode = error.code;
           errorMessage = error.message;
+          if (errorMessage !== "") {
+            Alert.alert(
+              "Error",
+              errorMessage,
+              [
+                {
+                  text: "OK",
+                  style: "cancel",
+                },
+              ],
+              { cancelable: false }
+            );
+          }
           console.log(errorMessage);
           // ..
         });
@@ -69,31 +96,6 @@ class EmailSignUpScreen extends Component {
       //OR WE MUST DO OUR OWN PRELIMINARY CHECKS, SUCH AS EMAIL FORMATTING AND PASSWORD MUST BE AT LEAST 6 CHAR
 
       //SAVE USER INFO TO DBH LIKE WE DID WITH GOOGLE LOGIN
-      if (errorMessage !== "") {
-        Alert.alert(
-          "Error",
-          errorMessage,
-          [
-            {
-              text: "OK",
-              style: "cancel",
-            },
-          ],
-          { cancelable: false }
-        );
-      } else {
-        Alert.alert(
-          "Successfully Signed Up",
-          "",
-          [
-            {
-              text: "OK",
-              style: "cancel",
-            },
-          ],
-          { cancelable: false }
-        );
-      }
     }
   }
 
