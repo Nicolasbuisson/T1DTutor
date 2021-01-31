@@ -24,6 +24,7 @@ class EmailLoginScreen extends Component {
     this.backFunction = this.backFunction.bind(this);
     this.signIn = this.signIn.bind(this);
     this.goToSignUp = this.goToSignUp.bind(this);
+    this.passwordReset = this.passwordReset.bind(this);
   }
 
   backFunction() {
@@ -49,6 +50,10 @@ class EmailLoginScreen extends Component {
       });
   }
 
+  passwordReset() {
+    this.props.navigation.navigate("PasswordResetScreen");
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -71,8 +76,16 @@ class EmailLoginScreen extends Component {
             secureTextEntry={true}
             onChangeText={(text) => this.setState({ password: text })}
             value={this.state.password}
-            style={styles.input}
+            style={styles.inputPassword}
           ></TextInput>
+          <TouchableOpacity
+            style={(styles.button, styles.buttonForgotPassword)}
+            onPress={this.passwordReset}
+          >
+            <Text style={styles.buttonTextForgotPassword}>
+              Forgot Password?
+            </Text>
+          </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={this.signIn}>
             <Text style={styles.buttonText}>Login</Text>
           </TouchableOpacity>
@@ -115,6 +128,15 @@ const styles = StyleSheet.create({
     marginBottom: 25,
   },
 
+  inputPassword: {
+    height: 25,
+    width: 300,
+    borderColor: colors.grey,
+    borderWidth: 3,
+    marginTop: 5,
+    marginBottom: 5,
+  },
+
   button: {
     marginTop: 30,
     height: 30,
@@ -126,9 +148,21 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 
+  buttonForgotPassword: {
+    backgroundColor: colors.background,
+    marginTop: 1,
+  },
+
   buttonText: {
     textAlign: "center",
     fontSize: 20,
     color: colors.white,
+  },
+
+  buttonTextForgotPassword: {
+    textAlign: "center",
+    opacity: 0.6,
+    fontSize: 14,
+    color: colors.primary,
   },
 });
