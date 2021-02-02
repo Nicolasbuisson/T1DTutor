@@ -4,6 +4,8 @@ import * as Google from "expo-google-app-auth";
 import firebase from "firebase";
 import dbh from "../firebase";
 import colors from "../style/colors";
+import Googlebutton from "../components/googlebutton"
+import Greenbutton from "../components/greenButton"
 
 class LoginScreen extends Component {
   constructor() {
@@ -111,18 +113,10 @@ class LoginScreen extends Component {
       <View style={styles.container}>
         <Text style={styles.title}>App Name</Text>
         <View>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={this.signInWithGoogleAsync}
-          >
-            <Text style={styles.buttonText}>Google Login</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={this.goToEmailScreen}
-          >
-            <Text style={styles.buttonText}>Email Login</Text>
-          </TouchableOpacity>
+          
+          <Googlebutton title="Google Login" onPress={this.signInWithGoogleAsync}></Googlebutton>
+          
+          <Greenbutton title="Email Login" onPress={this.goToEmailScreen}></Greenbutton>
         </View>
       </View>
     );

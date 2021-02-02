@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderBottomColor: colors.grey,
     borderBottomWidth: 3,
-    paddingTop: 10,
+    paddingTop: 20,
   },
   headerText: {
     color: colors.primary,
