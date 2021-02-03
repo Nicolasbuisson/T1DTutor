@@ -13,6 +13,7 @@ class LoginScreen extends Component {
 
     //functions
     this.goToEmailScreen = this.goToEmailScreen.bind(this);
+    this.goToQuestions = this.goToQuestions.bind(this);
   }
   signInWithGoogleAsync = async () => {
     try {
@@ -108,6 +109,10 @@ class LoginScreen extends Component {
     return this.props.navigation.navigate("EmailLoginScreen");
   }
 
+  goToQuestions() {
+    return this.props.navigation.navigate("Question1screen");
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -117,6 +122,8 @@ class LoginScreen extends Component {
           <Googlebutton title="Google Login" onPress={this.signInWithGoogleAsync}></Googlebutton>
           
           <Greenbutton title="Email Login" onPress={this.goToEmailScreen}></Greenbutton>
+
+          <Greenbutton title="Questions" onPress={this.goToQuestions}></Greenbutton>
         </View>
       </View>
     );
