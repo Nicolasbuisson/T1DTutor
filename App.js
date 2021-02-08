@@ -9,8 +9,9 @@ import EmailSignUpScreen from "./screens/EmailSignUpScreen";
 import PasswordResetScreen from "./screens/PasswordResetScreen";
 import Question1screen from "./screens/Question1Screen";
 import Question2screen from "./screens/Question2Screen";
-import Question2bisscreen from "./screens/Question2bisScreen"
+import Question2bisscreen from "./screens/Question2bisScreen";
 import Question3screen from "./screens/Question3Screen";
+import Footer from "./components/footer";
 
 export default function App() {
   const AppSwitchNavigator = createSwitchNavigator({
@@ -23,10 +24,10 @@ export default function App() {
     Question1screen: Question1screen,
     Question2screen: Question2screen,
     Question2bisscreen: Question2bisscreen,
-    Question3screen: Question3screen
+    Question3screen: Question3screen,
   });
 
   const AppNavigator = createAppContainer(AppSwitchNavigator);
-
-  return <AppNavigator />;
+  return <Footer page="reminder"></Footer>;
+  //return <AppNavigator />;
 }
