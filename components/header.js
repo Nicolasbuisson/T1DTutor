@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
   headerText: {
     color: colors.primary,
     fontSize: 30,
+    fontWeight: "700",
   },
   noDisplay: {
     display: "none",
