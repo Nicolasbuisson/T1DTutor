@@ -12,15 +12,16 @@ import dbh from "../firebase";
 import colors from "../style/colors.js";
 import Header from "../components/header";
 import Greenbutton from "../components/greenButton"
-import Dropdown from 'react-dropdown';
+import QuestionDescription from "../components/QuestionDescription"
 
-class Question1screen extends Component {
+class FixedDosesScreen extends Component {
   constructor() {
     super();
     this.state = {
-      age: "",
-      diagnosisdate: "",
-      pregnant: "",
+        breakfast: "",
+        lunch: "",
+        dinner: "",
+        snack: "",
     };
 
     //functions
@@ -30,14 +31,17 @@ class Question1screen extends Component {
   }
 
   backFunction() {
-    this.props.navigation.navigate("LoginScreen");
+    this.props.navigation.navigate("Question4screen");
   }
 
   goToNextScreen() {
-    this.props.navigation.navigate("Question2screen");
+    this.props.navigation.navigate("Question1screen");
   }
 
-  
+  goToSubQuestionScreen() {
+    this.props.navigation.navigate("Question2bisscreen");
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -46,53 +50,50 @@ class Question1screen extends Component {
           backArrow={true}
           function={this.backFunction}
         ></Header>
+        {/* <QuestionDescription title="Please enter your fixed doses"></QuestionDescription> */}
         <View style={styles.fieldsContainer}>
-          <Text style={styles.field}>Age</Text>
+        
+        <Text style={styles.field}>Breakfast Doses</Text>
           <TextInput
             autoCorrect={false}
-            onChangeText={(text) => this.setState({ age: text })}
+            onChangeText={(text) => this.setState({ breakfast: text })}
             value={this.state.age}
             style={styles.input}
           ></TextInput>
-          <Text style={styles.field}>Date of diagnosis with T1D</Text>
+          <Text style={styles.field}>Lunch Doses</Text>
           <TextInput
             autoCorrect={false}
             secureTextEntry={false}
-            onChangeText={(text) => this.setState({ diagnosisdate: text })}
+            onChangeText={(text) => this.setState({ lunch: text })}
             value={this.state.diagnosisdate}
             style={styles.input}
           ></TextInput>
-          <Text style={styles.field}>Is it possible for you to get pregnant?</Text>
+          <Text style={styles.field}>Dinner Doses</Text>
           <TextInput
             autoCorrect={false}
             secureTextEntry={false}
-            onChangeText={(text) => this.setState({ pregnant: text })}
+            onChangeText={(text) => this.setState({ dinner: text })}
             value={this.state.pregnant}
             style={styles.input}
           ></TextInput>
-         
-          {/* <Dropdown options={options} onChange={this._onSelect} value={defaultOption} placeholder="Select an option" />; */}
+          <Text style={styles.field}>Snack Doses</Text>
+          <TextInput
+            autoCorrect={false}
+            secureTextEntry={false}
+            onChangeText={(text) => this.setState({ snack: text })}
+            value={this.state.diagnosisdate}
+            style={styles.input}
+          ></TextInput>
+          </View>
           
-          {/* <TextInput list="yes_no" type="text" style={styles.input}>
-            <datalist id="yes_no">
-              <option value="Yes"/>
-              <option value="No"/>
-            </datalist>
-          </TextInput> */}
-          <Greenbutton title="Next" onPress={this.goToNextScreen}></Greenbutton>
-        </View>
+          <View style={styles.fieldsContainer}><Greenbutton title="Next" onPress={this.goToNextScreen}></Greenbutton></View>
+
       </View>
     );
   }
 }
 
-export default Question1screen;
-
-const options = [
-  'Yes', 'No'
-];
-
-const defaultOption = options[0];
+export default FixedDosesScreen;
 
 const styles = StyleSheet.create({
   container: {
@@ -103,14 +104,10 @@ const styles = StyleSheet.create({
   },
 
   fieldsContainer: {
-    flex: 8,
-    alignItems: "center",
+    flex: 3,
+    alignItems: "flex-start",
     justifyContent: "center",
-  },
-
-  field: {
-    fontSize: 20,
-    color: colors.primary,
+    marginTop: 50,
   },
 
   input: {
