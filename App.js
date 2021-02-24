@@ -9,13 +9,18 @@ import EmailSignUpScreen from "./screens/EmailSignUpScreen";
 import PasswordResetScreen from "./screens/PasswordResetScreen";
 import Question1screen from "./screens/Question1Screen";
 import Question2screen from "./screens/Question2Screen";
-import Question2bisscreen from "./screens/Question2bisScreen"
+import Question2bisscreen from "./screens/Question2bisScreen";
 import Question3screen from "./screens/Question3Screen";
+import TrackingScreen from "./screens/TrackingScreen";
+import RemindersScreen from "./screens/RemindersScreen";
+import MoreScreen from "./screens/MoreScreen";
+import LearningModulesScreen from "./screens/LearningModulesScreen";
 import Question4screen from "./screens/Question4Screen";
 import FixedDosesScreen from "./screens/FixedDosesScreen";
 
 export default function App() {
   const AppSwitchNavigator = createSwitchNavigator({
+    TrackingScreen: TrackingScreen,
     LoadingScreen: LoadingScreen,
     LoginScreen: LoginScreen,
     DashboardScreen: DashboardScreen,
@@ -26,11 +31,13 @@ export default function App() {
     Question2screen: Question2screen,
     Question2bisscreen: Question2bisscreen,
     Question3screen: Question3screen,
+    RemindersScreen: RemindersScreen,
+    MoreScreen: MoreScreen,
+    LearningModulesScreen: LearningModulesScreen,
     Question4screen: Question4screen,
     FixedDosesScreen: FixedDosesScreen
   });
 
   const AppNavigator = createAppContainer(AppSwitchNavigator);
-
   return <AppNavigator />;
 }

@@ -1,14 +1,19 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
-//import firebase from "firebase";
-import * as firebase from "firebase";
-import "firebase/auth";
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
+import firebase from "firebase";
+import dbh from "../firebase";
+import colors from "../style/colors.js";
 import Header from "../components/header";
 import Footer from "../components/footer";
-import icon from "../assets/icon.png";
-import colors from "../style/colors.js";
 
-class DashboardScreen extends Component {
+class LearningModulesScreen extends Component {
   constructor() {
     super();
     this.state = {
@@ -47,13 +52,10 @@ class DashboardScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Header title="T1D App" logo />
-
-        <View style={styles.fieldsContainer}>
-          <Button title="Sign out" onPress={() => firebase.auth().signOut()} />
-        </View>
+        <Header title="Learning Modules"></Header>
+        <View style={styles.fieldsContainer}></View>
         <Footer
-          page="home"
+          page="learn"
           homeFunction={this.goToHome}
           trackFunction={this.goToTrack}
           learnFunction={this.goToLearningModules}
@@ -65,7 +67,7 @@ class DashboardScreen extends Component {
   }
 }
 
-export default DashboardScreen;
+export default LearningModulesScreen;
 
 const styles = StyleSheet.create({
   container: {
