@@ -15,6 +15,8 @@ import TrackingScreen from "./screens/TrackingScreen";
 import RemindersScreen from "./screens/RemindersScreen";
 import MoreScreen from "./screens/MoreScreen";
 import LearningModulesScreen from "./screens/LearningModulesScreen";
+import Question4screen from "./screens/Question4Screen";
+import FixedDosesScreen from "./screens/FixedDosesScreen";
 
 export default function App() {
   const AppSwitchNavigator = createSwitchNavigator({
@@ -32,6 +34,8 @@ export default function App() {
     RemindersScreen: RemindersScreen,
     MoreScreen: MoreScreen,
     LearningModulesScreen: LearningModulesScreen,
+    Question4screen: Question4screen,
+    FixedDosesScreen: FixedDosesScreen
   });
 
   const AppNavigator = createAppContainer(AppSwitchNavigator);
