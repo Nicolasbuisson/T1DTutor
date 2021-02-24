@@ -20,7 +20,6 @@ import FixedDosesScreen from "./screens/FixedDosesScreen";
 
 export default function App() {
   const AppSwitchNavigator = createSwitchNavigator({
-    TrackingScreen: TrackingScreen,
     LoadingScreen: LoadingScreen,
     LoginScreen: LoginScreen,
     DashboardScreen: DashboardScreen,
@@ -31,11 +30,12 @@ export default function App() {
     Question2screen: Question2screen,
     Question2bisscreen: Question2bisscreen,
     Question3screen: Question3screen,
+    Question4screen: Question4screen,
+    FixedDosesScreen: FixedDosesScreen,
+    TrackingScreen: TrackingScreen,
     RemindersScreen: RemindersScreen,
     MoreScreen: MoreScreen,
     LearningModulesScreen: LearningModulesScreen,
-    Question4screen: Question4screen,
-    FixedDosesScreen: FixedDosesScreen
   });
 
   const AppNavigator = createAppContainer(AppSwitchNavigator);
