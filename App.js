@@ -17,9 +17,11 @@ import MoreScreen from "./screens/MoreScreen";
 import LearningModulesScreen from "./screens/LearningModulesScreen";
 import Question4screen from "./screens/Question4Screen";
 import FixedDosesScreen from "./screens/FixedDosesScreen";
+import MythBusters from "./screens/learningModules/MythBusters";
 
 export default function App() {
   const AppSwitchNavigator = createSwitchNavigator({
+    MythBusters: MythBusters,
     LoadingScreen: LoadingScreen,
     LoginScreen: LoginScreen,
     DashboardScreen: DashboardScreen,

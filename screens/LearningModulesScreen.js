@@ -1,17 +1,11 @@
 import React, { Component } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  TouchableOpacity,
-  Alert,
-} from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import firebase from "firebase";
 import dbh from "../firebase";
 import colors from "../style/colors.js";
 import Header from "../components/header";
 import Footer from "../components/footer";
+import { ScrollView } from "react-native-gesture-handler";
 
 class LearningModulesScreen extends Component {
   constructor() {
@@ -27,6 +21,7 @@ class LearningModulesScreen extends Component {
     this.goToTrack = this.goToTrack.bind(this);
     this.goToReminders = this.goToReminders.bind(this);
     this.goToMore = this.goToMore.bind(this);
+    this.goToMythBusters = this.goToMythBusters.bind(this);
   }
 
   goToHome() {
@@ -49,11 +44,134 @@ class LearningModulesScreen extends Component {
     this.props.navigation.navigate("TrackingScreen");
   }
 
+  goToMythBusters() {
+    this.props.navigation.navigate("MythBusters");
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <Header title="Learning Modules"></Header>
-        <View style={styles.fieldsContainer}></View>
+        <ScrollView
+          contentContainerStyle={styles.fieldsContainer}
+          style={{ height: "55%" }}
+          showsVerticalScrollIndicator={false}
+        >
+          <TouchableOpacity
+            style={styles.moduleTouchable}
+            onPress={this.goToMythBusters}
+          >
+            <Text style={styles.moduleText}>Type I Diabetes Myth Busters</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.moduleTouchable}
+            onPress={this.goToMythBusters}
+          >
+            <Text style={styles.moduleText}>Keeping your Sugars at Target</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.moduleTouchable}
+            onPress={this.goToMythBusters}
+          >
+            <Text style={styles.moduleText}>Low Blood Sugar</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.moduleTouchable}
+            onPress={this.goToMythBusters}
+          >
+            <Text style={styles.moduleText}>High Blood Sugar</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.moduleTouchable}
+            onPress={this.goToMythBusters}
+          >
+            <Text style={styles.moduleText}>Food and You</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.moduleTouchable}
+            onPress={this.goToMythBusters}
+          >
+            <Text style={styles.moduleText}>Exericse and You</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.moduleTouchable}
+            onPress={this.goToMythBusters}
+          >
+            <Text style={styles.moduleText}>Finding Patterns</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.moduleTouchable}
+            onPress={this.goToMythBusters}
+          >
+            <Text style={styles.moduleText}>Preventing Complications</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.moduleTouchable}
+            onPress={this.goToMythBusters}
+          >
+            <Text style={styles.moduleText}>Sick Day Management</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.moduleTouchable}
+            onPress={this.goToMythBusters}
+          >
+            <Text style={styles.moduleText}>If your Pump Breaks</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.moduleTouchable}
+            onPress={this.goToMythBusters}
+          >
+            <Text style={styles.moduleText}>Alcohol and other Substances</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.moduleTouchable}
+            onPress={this.goToMythBusters}
+          >
+            <Text style={styles.moduleText}>Driving with Diabetes</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.moduleTouchable}
+            onPress={this.goToMythBusters}
+          >
+            <Text style={styles.moduleText}>Diabetes and Pregnancy</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.moduleTouchable}
+            onPress={this.goToMythBusters}
+          >
+            <Text style={styles.moduleText}>Travel</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.moduleTouchable}
+            onPress={this.goToMythBusters}
+          >
+            <Text style={styles.moduleText}>
+              Skin and your Diabetes Supplies
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.moduleTouchable}
+            onPress={this.goToMythBusters}
+          >
+            <Text style={styles.moduleText}>
+              Peer Support and Mental Health
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.moduleTouchable}
+            onPress={this.goToMythBusters}
+          >
+            <Text style={styles.moduleText}>
+              Innovative Diabetes Technologies
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.moduleTouchable}
+            onPress={this.goToMythBusters}
+          >
+            <Text style={styles.moduleText}>Who to Call</Text>
+          </TouchableOpacity>
+        </ScrollView>
         <Footer
           page="learn"
           homeFunction={this.goToHome}
@@ -77,8 +195,23 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
   },
   fieldsContainer: {
-    flex: 8,
-    alignItems: "flex-start",
+    width: "100%",
+    alignItems: "center",
     justifyContent: "center",
+  },
+  moduleTouchable: {
+    marginBottom: 10,
+    marginTop: 10,
+    minWidth: "80%",
+    height: 40,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: colors.secondary,
+    borderColor: colors.grey,
+    borderWidth: 2,
+  },
+  moduleText: {
+    fontSize: 18,
+    color: colors.black,
   },
 });
