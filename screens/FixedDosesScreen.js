@@ -18,24 +18,24 @@ class FixedDosesScreen extends Component {
   constructor() {
     super();
     this.state = {
-        breakfast: "",
-        lunch: "",
-        dinner: "",
-        snack: "",
+      breakfast: "",
+      lunch: "",
+      dinner: "",
+      snack: "",
     };
 
     //functions
     this.backFunction = this.backFunction.bind(this);
     this.goToNextScreen = this.goToNextScreen.bind(this);
-    
+
   }
 
   backFunction() {
-    this.props.navigation.navigate("Question4screen");
+    this.props.navigation.navigate("InjectionScreen2");
   }
 
   goToNextScreen() {
-    this.props.navigation.navigate("Question1screen");
+    this.props.navigation.navigate("InjectionScreen2");
   }
 
   goToSubQuestionScreen() {
@@ -52,8 +52,8 @@ class FixedDosesScreen extends Component {
         ></Header>
         {/* <QuestionDescription title="Please enter your fixed doses"></QuestionDescription> */}
         <View style={styles.fieldsContainer}>
-        
-        <Text style={styles.field}>Breakfast Doses</Text>
+
+          <Text style={styles.field}>Breakfast Doses</Text>
           <TextInput
             autoCorrect={false}
             onChangeText={(text) => this.setState({ breakfast: text })}
@@ -84,9 +84,9 @@ class FixedDosesScreen extends Component {
             value={this.state.diagnosisdate}
             style={styles.input}
           ></TextInput>
-          </View>
-          
-          <View style={styles.fieldsContainer}><Greenbutton title="Next" onPress={this.goToNextScreen}></Greenbutton></View>
+        </View>
+
+        <View style={styles.fieldsContainer}><Greenbutton title="Confirm" onPress={this.goToNextScreen}></Greenbutton></View>
 
       </View>
     );

@@ -14,27 +14,31 @@ import Header from "../components/header";
 import Greenbutton from "../components/greenButton"
 import QuestionDescription from "../components/QuestionDescription"
 
-class Question3screen extends Component {
+class InjectionScreen2 extends Component {
   constructor() {
     super();
     this.state = {
-      
+
     };
 
     //functions
     this.backFunction = this.backFunction.bind(this);
     this.goToNextScreen = this.goToNextScreen.bind(this);
-    
+    this.goToFixedDosesScreen = this.goToFixedDosesScreen.bind(this);
+
   }
 
   backFunction() {
-    this.props.navigation.navigate("Question2screen");
+    this.props.navigation.navigate("InjectionScreen1");
   }
 
   goToNextScreen() {
-    this.props.navigation.navigate("Question4screen");
+    this.props.navigation.navigate("DashboardScreen");
   }
 
+  goToFixedDosesScreen() {
+    this.props.navigation.navigate("FixedDosesScreen");
+  }
 
   render() {
     return (
@@ -44,19 +48,21 @@ class Question3screen extends Component {
           backArrow={true}
           function={this.backFunction}
         ></Header>
-        <QuestionDescription title="Are you on injections or pump?"></QuestionDescription>
-          <View style={styles.fieldsContainer}>
-            <Greenbutton title="Injections" onPress={this.goToNextScreen}></Greenbutton>
-            <Greenbutton title="Pump" onPress={this.goToEmailScreen}></Greenbutton>
-          </View>
-          <View style={styles.fieldsContainer}><Greenbutton title="Next" onPress={this.goToNextScreen}></Greenbutton></View>
+        <QuestionDescription title="You are on Injections"></QuestionDescription>
+        <QuestionDescription title="What do you use for meals?"></QuestionDescription>
+        <View style={styles.fieldsContainer}>
+          <Greenbutton title="Insulin to carbs ratios" onPress={this.goToEmailScreen}></Greenbutton>
+          <Greenbutton title="Fixed Doses" onPress={this.goToFixedDosesScreen}></Greenbutton>
+        </View>
+
+        <View style={styles.fieldsContainer}><Greenbutton title="Go to Dashboard!" onPress={this.goToNextScreen}></Greenbutton></View>
 
       </View>
     );
   }
 }
 
-export default Question3screen;
+export default InjectionScreen2;
 
 const styles = StyleSheet.create({
   container: {

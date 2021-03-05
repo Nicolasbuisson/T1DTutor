@@ -18,13 +18,13 @@ class Question2screen extends Component {
   constructor() {
     super();
     this.state = {
-      
+
     };
 
     //functions
     this.backFunction = this.backFunction.bind(this);
     this.goToNextScreen = this.goToNextScreen.bind(this);
-    
+
   }
 
   backFunction() {
@@ -32,7 +32,7 @@ class Question2screen extends Component {
   }
 
   goToNextScreen() {
-    this.props.navigation.navigate("Question3screen");
+    this.props.navigation.navigate("Question2screen");
   }
 
 
@@ -45,13 +45,13 @@ class Question2screen extends Component {
           function={this.backFunction}
         ></Header>
         <QuestionDescription title="What type of Real-time CGM?"></QuestionDescription>
-          <View style={styles.fieldsContainer}>
-            <Greenbutton title="Dexcom" onPress={this.goToEmailScreen}></Greenbutton> 
-            {/* //onPress to be done */}
-            <Greenbutton title="Medtronic Guardian Con." onPress={this.goToEmailScreen}></Greenbutton>
-            <Greenbutton title="Medtronic Guardian/Enlite" onPress={this.goToEmailScreen}></Greenbutton>
-          </View>
-          <View style={styles.fieldsContainer}><Greenbutton title="Next" onPress={this.goToNextScreen}></Greenbutton></View>
+        <View style={styles.fieldsContainer}>
+          <Greenbutton title="Dexcom" onPress={this.goToEmailScreen}></Greenbutton>
+          {/* //onPress to be done */}
+          <Greenbutton title="Medtronic Guardian Con." onPress={this.goToEmailScreen}></Greenbutton>
+          <Greenbutton title="Medtronic Guardian/Enlite" onPress={this.goToEmailScreen}></Greenbutton>
+        </View>
+        <View style={styles.fieldsContainer}><Greenbutton title="Confirm" onPress={this.goToNextScreen}></Greenbutton></View>
 
       </View>
     );
