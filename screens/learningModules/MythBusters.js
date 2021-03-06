@@ -24,6 +24,7 @@ class MythBusters extends Component {
           title="Myth Busters"
           backArrow={true}
           function={this.goToLearningModules}
+          small={true}
         />
 
         <ScrollView

@@ -24,7 +24,7 @@ class HighBloodSugar extends Component {
           title="High Blood Sugar"
           backArrow={true}
           function={this.goToLearningModules}
-          small={false}
+          small={true}
         />
 
         <ScrollView
