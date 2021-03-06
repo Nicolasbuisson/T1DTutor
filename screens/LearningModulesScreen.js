@@ -41,6 +41,7 @@ class LearningModulesScreen extends Component {
     this.goToInnovativeDiabetesTech = this.goToInnovativeDiabetesTech.bind(
       this
     );
+    this.goToWhoToCall = this.goToWhoToCall.bind(this);
   }
 
   goToHome() {
@@ -101,6 +102,10 @@ class LearningModulesScreen extends Component {
 
   goToInnovativeDiabetesTech() {
     this.props.navigation.navigate("InnovativeDiabetesTech");
+  }
+
+  goToWhoToCall() {
+    this.props.navigation.navigate("WhoToCall");
   }
 
   render() {
@@ -222,7 +227,7 @@ class LearningModulesScreen extends Component {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.moduleTouchable}
-            onPress={this.goToMythBusters}
+            onPress={this.goToWhoToCall}
           >
             <Text style={styles.moduleText}>Who to Call</Text>
           </TouchableOpacity>

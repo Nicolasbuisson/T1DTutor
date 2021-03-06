@@ -27,6 +27,7 @@ import DrivingWithDiabetes from "./screens/learningModules/DrivingWithDiabetes";
 import DiabetesAndPregnancy from "./screens/learningModules/DiabetesAndPregancy";
 import PeerSupportAndMentalHealth from "./screens/learningModules/PeerSupportAndMentalHealth";
 import InnovativeDiabetesTech from "./screens/learningModules/InnovativeDiabetesTech";
+import WhoToCall from "./screens/learningModules/WhoToCall";
 
 export default function App() {
   const AppSwitchNavigator = createSwitchNavigator({
@@ -56,6 +57,7 @@ export default function App() {
     DiabetesAndPregnancy: DiabetesAndPregnancy,
     PeerSupportAndMentalHealth: PeerSupportAndMentalHealth,
     InnovativeDiabetesTech: InnovativeDiabetesTech,
+    WhoToCall: WhoToCall,
   });
 
   const AppNavigator = createAppContainer(AppSwitchNavigator);
