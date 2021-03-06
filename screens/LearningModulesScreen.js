@@ -38,6 +38,9 @@ class LearningModulesScreen extends Component {
     this.goToPeerSupportAndMentalHealth = this.goToPeerSupportAndMentalHealth.bind(
       this
     );
+    this.goToInnovativeDiabetesTech = this.goToInnovativeDiabetesTech.bind(
+      this
+    );
   }
 
   goToHome() {
@@ -94,6 +97,10 @@ class LearningModulesScreen extends Component {
 
   goToPeerSupportAndMentalHealth() {
     this.props.navigation.navigate("PeerSupportAndMentalHealth");
+  }
+
+  goToInnovativeDiabetesTech() {
+    this.props.navigation.navigate("InnovativeDiabetesTech");
   }
 
   render() {
@@ -207,7 +214,7 @@ class LearningModulesScreen extends Component {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.moduleTouchable}
-            onPress={this.goToMythBusters}
+            onPress={this.goToInnovativeDiabetesTech}
           >
             <Text style={styles.moduleText}>
               Innovative Diabetes Technologies
