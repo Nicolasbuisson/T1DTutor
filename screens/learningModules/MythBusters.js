@@ -28,7 +28,7 @@ class MythBusters extends Component {
 
         <ScrollView
           contentContainerStyle={styles.fieldsContainer}
-          style={{ height: "77%" }}
+          style={{ height: "77%", marginBottom: 5 }}
           showsVerticalScrollIndicator={false}
         >
           <View style={styles.listItem}>

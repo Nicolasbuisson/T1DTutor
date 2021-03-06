@@ -27,6 +27,9 @@ class LearningModulesScreen extends Component {
     );
     this.goToLowBloodSugar = this.goToLowBloodSugar.bind(this);
     this.goToHighBloodSugar = this.goToHighBloodSugar.bind(this);
+    this.goToPreventingComplications = this.goToPreventingComplications.bind(
+      this
+    );
   }
 
   goToHome() {
@@ -63,6 +66,10 @@ class LearningModulesScreen extends Component {
 
   goToHighBloodSugar() {
     this.props.navigation.navigate("HighBloodSugar");
+  }
+
+  goToPreventingComplications() {
+    this.props.navigation.navigate("PreventingComplications");
   }
 
   render() {
@@ -118,7 +125,7 @@ class LearningModulesScreen extends Component {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.moduleTouchable}
-            onPress={this.goToMythBusters}
+            onPress={this.goToPreventingComplications}
           >
             <Text style={styles.moduleText}>Preventing Complications</Text>
           </TouchableOpacity>
