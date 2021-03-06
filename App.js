@@ -19,6 +19,8 @@ import Question4screen from "./screens/Question4Screen";
 import FixedDosesScreen from "./screens/FixedDosesScreen";
 import MythBusters from "./screens/learningModules/MythBusters";
 import KeepingYourSugarsAtTarget from "./screens/learningModules/KeepingYourSugarsAtTarget";
+import LowBloodSugar from "./screens/learningModules/LowBloodSugar";
+import HighBloodSugar from "./screens/learningModules/HighBloodSugar";
 
 export default function App() {
   const AppSwitchNavigator = createSwitchNavigator({
@@ -40,6 +42,8 @@ export default function App() {
     LearningModulesScreen: LearningModulesScreen,
     MythBusters: MythBusters,
     KeepingYourSugarsAtTarget: KeepingYourSugarsAtTarget,
+    LowBloodSugar: LowBloodSugar,
+    HighBloodSugar: HighBloodSugar,
   });
 
   const AppNavigator = createAppContainer(AppSwitchNavigator);

@@ -111,11 +111,6 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: colors.grey,
   },
-  title: {
-    fontSize: 18,
-    fontWeight: "700",
-    marginBottom: 3,
-  },
   text: {
     fontWeight: "500",
     lineHeight: 22,
