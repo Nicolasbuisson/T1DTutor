@@ -33,6 +33,8 @@ class LearningModulesScreen extends Component {
     this.goToAlcoholAndOtherSubstances = this.goToAlcoholAndOtherSubstances.bind(
       this
     );
+    this.goToDrivingWithDiabetes = this.goToDrivingWithDiabetes.bind(this);
+    this.goToDiabetesAndPregnancy = this.goToDiabetesAndPregnancy.bind(this);
   }
 
   goToHome() {
@@ -77,6 +79,14 @@ class LearningModulesScreen extends Component {
 
   goToAlcoholAndOtherSubstances() {
     this.props.navigation.navigate("AlcoholAndOtherSubstances");
+  }
+
+  goToDrivingWithDiabetes() {
+    this.props.navigation.navigate("DrivingWithDiabetes");
+  }
+
+  goToDiabetesAndPregnancy() {
+    this.props.navigation.navigate("DiabetesAndPregnancy");
   }
 
   render() {
@@ -156,13 +166,13 @@ class LearningModulesScreen extends Component {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.moduleTouchable}
-            onPress={this.goToMythBusters}
+            onPress={this.goToDrivingWithDiabetes}
           >
             <Text style={styles.moduleText}>Driving with Diabetes</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.moduleTouchable}
-            onPress={this.goToMythBusters}
+            onPress={this.goToDiabetesAndPregnancy}
           >
             <Text style={styles.moduleText}>Diabetes and Pregnancy</Text>
           </TouchableOpacity>
