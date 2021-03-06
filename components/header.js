@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   },
   headerTextSmall: {
     color: colors.primary,
-    fontSize: 22,
+    fontSize: 20,
     fontWeight: "700",
     maxWidth: "85%",
   },

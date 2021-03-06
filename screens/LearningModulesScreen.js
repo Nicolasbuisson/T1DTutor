@@ -30,6 +30,9 @@ class LearningModulesScreen extends Component {
     this.goToPreventingComplications = this.goToPreventingComplications.bind(
       this
     );
+    this.goToAlcoholAndOtherSubstances = this.goToAlcoholAndOtherSubstances.bind(
+      this
+    );
   }
 
   goToHome() {
@@ -70,6 +73,10 @@ class LearningModulesScreen extends Component {
 
   goToPreventingComplications() {
     this.props.navigation.navigate("PreventingComplications");
+  }
+
+  goToAlcoholAndOtherSubstances() {
+    this.props.navigation.navigate("AlcoholAndOtherSubstances");
   }
 
   render() {
@@ -143,7 +150,7 @@ class LearningModulesScreen extends Component {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.moduleTouchable}
-            onPress={this.goToMythBusters}
+            onPress={this.goToAlcoholAndOtherSubstances}
           >
             <Text style={styles.moduleText}>Alcohol and other Substances</Text>
           </TouchableOpacity>

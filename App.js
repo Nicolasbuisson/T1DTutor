@@ -22,6 +22,7 @@ import KeepingYourSugarsAtTarget from "./screens/learningModules/KeepingYourSuga
 import LowBloodSugar from "./screens/learningModules/LowBloodSugar";
 import HighBloodSugar from "./screens/learningModules/HighBloodSugar";
 import PreventingComplications from "./screens/learningModules/PreventingComplications";
+import AlcoholAndOtherSubstances from "./screens/learningModules/AlcoholAndOtherSubstances";
 
 export default function App() {
   const AppSwitchNavigator = createSwitchNavigator({
@@ -46,6 +47,7 @@ export default function App() {
     LowBloodSugar: LowBloodSugar,
     HighBloodSugar: HighBloodSugar,
     PreventingComplications: PreventingComplications,
+    AlcoholAndOtherSubstances: AlcoholAndOtherSubstances,
   });
 
   const AppNavigator = createAppContainer(AppSwitchNavigator);
