@@ -22,6 +22,9 @@ class LearningModulesScreen extends Component {
     this.goToReminders = this.goToReminders.bind(this);
     this.goToMore = this.goToMore.bind(this);
     this.goToMythBusters = this.goToMythBusters.bind(this);
+    this.goToKeepingYourSugarsAtTarget = this.goToKeepingYourSugarsAtTarget.bind(
+      this
+    );
   }
 
   goToHome() {
@@ -48,6 +51,10 @@ class LearningModulesScreen extends Component {
     this.props.navigation.navigate("MythBusters");
   }
 
+  goToKeepingYourSugarsAtTarget() {
+    this.props.navigation.navigate("KeepingYourSugarsAtTarget");
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -65,13 +72,13 @@ class LearningModulesScreen extends Component {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.moduleTouchable}
-            onPress={this.goToMythBusters}
+            onPress={this.goToKeepingYourSugarsAtTarget}
           >
             <Text style={styles.moduleText}>Keeping your Sugars at Target</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.moduleTouchable}
-            onPress={this.goToMythBusters}
+            onPress={this.goToKeepingYourSugarsAtTarget}
           >
             <Text style={styles.moduleText}>Low Blood Sugar</Text>
           </TouchableOpacity>

@@ -8,10 +8,6 @@ import { ScrollView } from "react-native-gesture-handler";
 class MythBusters extends Component {
   constructor() {
     super();
-    this.state = {
-      email: "",
-      password: "",
-    };
 
     //functions
     this.goToLearningModules = this.goToLearningModules.bind(this);

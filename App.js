@@ -18,10 +18,10 @@ import LearningModulesScreen from "./screens/LearningModulesScreen";
 import Question4screen from "./screens/Question4Screen";
 import FixedDosesScreen from "./screens/FixedDosesScreen";
 import MythBusters from "./screens/learningModules/MythBusters";
+import KeepingYourSugarsAtTarget from "./screens/learningModules/KeepingYourSugarsAtTarget";
 
 export default function App() {
   const AppSwitchNavigator = createSwitchNavigator({
-    MythBusters: MythBusters,
     LoadingScreen: LoadingScreen,
     LoginScreen: LoginScreen,
     DashboardScreen: DashboardScreen,
@@ -38,6 +38,8 @@ export default function App() {
     RemindersScreen: RemindersScreen,
     MoreScreen: MoreScreen,
     LearningModulesScreen: LearningModulesScreen,
+    MythBusters: MythBusters,
+    KeepingYourSugarsAtTarget: KeepingYourSugarsAtTarget,
   });
 
   const AppNavigator = createAppContainer(AppSwitchNavigator);
