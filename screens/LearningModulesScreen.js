@@ -35,6 +35,9 @@ class LearningModulesScreen extends Component {
     );
     this.goToDrivingWithDiabetes = this.goToDrivingWithDiabetes.bind(this);
     this.goToDiabetesAndPregnancy = this.goToDiabetesAndPregnancy.bind(this);
+    this.goToPeerSupportAndMentalHealth = this.goToPeerSupportAndMentalHealth.bind(
+      this
+    );
   }
 
   goToHome() {
@@ -87,6 +90,10 @@ class LearningModulesScreen extends Component {
 
   goToDiabetesAndPregnancy() {
     this.props.navigation.navigate("DiabetesAndPregnancy");
+  }
+
+  goToPeerSupportAndMentalHealth() {
+    this.props.navigation.navigate("PeerSupportAndMentalHealth");
   }
 
   render() {
@@ -192,7 +199,7 @@ class LearningModulesScreen extends Component {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.moduleTouchable}
-            onPress={this.goToMythBusters}
+            onPress={this.goToPeerSupportAndMentalHealth}
           >
             <Text style={styles.moduleText}>
               Peer Support and Mental Health
