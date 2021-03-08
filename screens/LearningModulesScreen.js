@@ -45,6 +45,9 @@ class LearningModulesScreen extends Component {
     this.goToFindingPatterns = this.goToFindingPatterns.bind(this);
     this.goToTravel = this.goToTravel.bind(this);
     this.goToFoodAndYou = this.goToFoodAndYou.bind(this);
+    this.goToSkinAndYourDiabetesSupplies = this.goToSkinAndYourDiabetesSupplies.bind(
+      this
+    );
   }
 
   goToHome() {
@@ -121,6 +124,10 @@ class LearningModulesScreen extends Component {
 
   goToFoodAndYou() {
     this.props.navigation.navigate("FoodAndYou");
+  }
+
+  goToSkinAndYourDiabetesSupplies() {
+    this.props.navigation.navigate("SkinAndYourDiabetesSupplies");
   }
 
   render() {
@@ -218,7 +225,7 @@ class LearningModulesScreen extends Component {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.moduleTouchable}
-            onPress={this.goToMythBusters}
+            onPress={this.goToSkinAndYourDiabetesSupplies}
           >
             <Text style={styles.moduleText}>
               Skin and your Diabetes Supplies

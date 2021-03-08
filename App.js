@@ -31,6 +31,7 @@ import WhoToCall from "./screens/learningModules/WhoToCall";
 import FindingPatterns from "./screens/learningModules/FindingPatterns";
 import Travel from "./screens/learningModules/Travel";
 import FoodAndYou from "./screens/learningModules/FoodAndYou";
+import SkinAndYourDiabetesSupplies from "./screens/learningModules/SkinAndYourDiabetesSupplies";
 
 export default function App() {
   const AppSwitchNavigator = createSwitchNavigator({
@@ -64,6 +65,7 @@ export default function App() {
     FindingPatterns: FindingPatterns,
     Travel: Travel,
     FoodAndYou: FoodAndYou,
+    SkinAndYourDiabetesSupplies: SkinAndYourDiabetesSupplies,
   });
 
   const AppNavigator = createAppContainer(AppSwitchNavigator);
