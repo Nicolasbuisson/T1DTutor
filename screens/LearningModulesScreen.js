@@ -44,6 +44,7 @@ class LearningModulesScreen extends Component {
     this.goToWhoToCall = this.goToWhoToCall.bind(this);
     this.goToFindingPatterns = this.goToFindingPatterns.bind(this);
     this.goToTravel = this.goToTravel.bind(this);
+    this.goToFoodAndYou = this.goToFoodAndYou.bind(this);
   }
 
   goToHome() {
@@ -118,6 +119,10 @@ class LearningModulesScreen extends Component {
     this.props.navigation.navigate("Travel");
   }
 
+  goToFoodAndYou() {
+    this.props.navigation.navigate("FoodAndYou");
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -153,7 +158,7 @@ class LearningModulesScreen extends Component {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.moduleTouchable}
-            onPress={this.goToMythBusters}
+            onPress={this.goToFoodAndYou}
           >
             <Text style={styles.moduleText}>Food and You</Text>
           </TouchableOpacity>
