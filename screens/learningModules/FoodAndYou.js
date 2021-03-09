@@ -399,7 +399,7 @@ class FoodAndYou extends Component {
           <View style={styles.listItem}>
             <Text style={styles.title}>Other helpful online resources</Text>
             <Text
-              style={styles.text}
+              style={styles.link}
               onPress={() => {
                 WebBrowser.openBrowserAsync(
                   "https://diabetes.ca/DiabetesCanadaWebsite/media/Managing-My-Diabetes/Tools%20and%20Resources/basic-carbohydrate-counting.pdf?ext=.pdf"
@@ -410,7 +410,7 @@ class FoodAndYou extends Component {
               https://diabetes.ca/DiabetesCanadaWebsite/media/Managing-My-Diabetes/Tools%20and%20Resources/basic-carbohydrate-counting.pdf?ext=.pdf
             </Text>
             <Text
-              style={styles.text}
+              style={styles.link}
               onPress={() => {
                 WebBrowser.openBrowserAsync(
                   "https://diabetes.ca/DiabetesCanadaWebsite/media/Managing-My-Diabetes/Tools%20and%20Resources/handy-portion-guide.pdf?ext=.pdf"
@@ -421,7 +421,7 @@ class FoodAndYou extends Component {
               https://diabetes.ca/DiabetesCanadaWebsite/media/Managing-My-Diabetes/Tools%20and%20Resources/handy-portion-guide.pdf?ext=.pdf
             </Text>
             <Text
-              style={styles.text}
+              style={styles.link}
               onPress={() => {
                 WebBrowser.openBrowserAsync(
                   "https://diabetes.ca/managing-my-diabetes/tools---resources/the-glycemic-index-(gi)"
@@ -432,7 +432,7 @@ class FoodAndYou extends Component {
               https://diabetes.ca/managing-my-diabetes/tools---resources/the-glycemic-index-(gi)
             </Text>
             <Text
-              style={styles.text}
+              style={styles.link}
               onPress={() => {
                 WebBrowser.openBrowserAsync(
                   "https://www.diabete.qc.ca/wp-content/uploads/2016/03/Dq-guideresto-2018-montage-anglais5-2.pdf"
@@ -443,7 +443,7 @@ class FoodAndYou extends Component {
               https://www.diabete.qc.ca/wp-content/uploads/2016/03/Dq-guideresto-2018-montage-anglais5-2.pdf
             </Text>
             <Text
-              style={styles.text}
+              style={styles.link}
               onPress={() => {
                 WebBrowser.openBrowserAsync(
                   "https://www.canada.ca/content/dam/hc-sc/migration/hc-sc/fn-an/alt_formats/pdf/nutrition/fiche-nutri-data/nvscf-vnqau-eng.pdf"
@@ -591,6 +591,11 @@ const styles = StyleSheet.create({
   },
   hide: {
     display: "none",
+  },
+  link: {
+    fontWeight: "500",
+    lineHeight: 22,
+    marginBottom: 8,
   },
   listItem: {
     padding: 5,
