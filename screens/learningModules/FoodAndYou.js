@@ -4,6 +4,7 @@ import "firebase/auth";
 import Header from "../../components/header";
 import colors from "../../style/colors.js";
 import { ScrollView } from "react-native-gesture-handler";
+import * as WebBrowser from "expo-web-browser";
 
 class FoodAndYou extends Component {
   constructor() {
@@ -114,7 +115,14 @@ class FoodAndYou extends Component {
             <Text style={styles.title}>
               Helpful links if you don’t count carbs and want to know more
             </Text>
-            <Text style={styles.text}>
+            <Text
+              style={styles.text}
+              onPress={() => {
+                WebBrowser.openBrowserAsync(
+                  "https://diabetes.ca/DiabetesCanadaWebsite/media/Managing-My-Diabetes/Tools%20and%20Resources/basic-carbohydrate-counting.pdf?ext=.pdf"
+                );
+              }}
+            >
               https://diabetes.ca/DiabetesCanadaWebsite/media/Managing-My-Diabetes/Tools%20and%20Resources/basic-carbohydrate-counting.pdf?ext=.pdf
             </Text>
           </View>
@@ -122,7 +130,14 @@ class FoodAndYou extends Component {
             <Text style={styles.title}>
               Helpful links if you use 15 gram Carb Choices/Portions/Exchanges
             </Text>
-            <Text style={styles.text}>
+            <Text
+              style={styles.text}
+              onPress={() => {
+                WebBrowser.openBrowserAsync(
+                  "https://www.diabete.qc.ca/wp-content/uploads/2014/08/Guide-dalimentation-anglais-2.pdf"
+                );
+              }}
+            >
               https://www.diabete.qc.ca/wp-content/uploads/2014/08/Guide-dalimentation-anglais-2.pdf
             </Text>
           </View>
@@ -199,7 +214,13 @@ class FoodAndYou extends Component {
               </View>
               <View style={styles.appRow}>
                 <View style={styles.appColumn}>
-                  <Text>
+                  <Text
+                    onPress={() => {
+                      WebBrowser.openBrowserAsync(
+                        "https://www.carbfactors.com/browse"
+                      );
+                    }}
+                  >
                     Carb Factors{"\n"}https://www.carbfactors.com/browse
                   </Text>
                 </View>
@@ -218,7 +239,13 @@ class FoodAndYou extends Component {
               </View>
               <View style={styles.appRow}>
                 <View style={styles.appColumn}>
-                  <Text>
+                  <Text
+                    onPress={() => {
+                      WebBrowser.openBrowserAsync(
+                        "https://www.calorieking.com/gb/en/"
+                      );
+                    }}
+                  >
                     Calorie King{"\n"}https://www.calorieking.com/gb/en/
                   </Text>
                 </View>
@@ -237,7 +264,13 @@ class FoodAndYou extends Component {
               </View>
               <View style={styles.appRow}>
                 <View style={styles.appColumn}>
-                  <Text>
+                  <Text
+                    onPress={() => {
+                      WebBrowser.openBrowserAsync(
+                        "https://www.myfitnesspal.com/food/search"
+                      );
+                    }}
+                  >
                     My Fitness Pal{"\n"}(E, Fr + others){"\n"}
                     https://www.myfitnesspal.com/food/search
                   </Text>
@@ -341,7 +374,15 @@ class FoodAndYou extends Component {
               </View>
               <View style={styles.appRow}>
                 <View style={styles.appColumn}>
-                  <Text>Sparkpeople{"\n"}https://www.sparkpeople.com/</Text>
+                  <Text
+                    onPress={() => {
+                      WebBrowser.openBrowserAsync(
+                        "https://www.sparkpeople.com/"
+                      );
+                    }}
+                  >
+                    Sparkpeople{"\n"}https://www.sparkpeople.com/
+                  </Text>
                 </View>
                 <View style={styles.phoneColumn}>
                   <Text>X</Text>
@@ -357,16 +398,59 @@ class FoodAndYou extends Component {
           </View>
           <View style={styles.listItem}>
             <Text style={styles.title}>Other helpful online resources</Text>
-            <Text style={styles.text}>
-              {"\n"} -
+            <Text
+              style={styles.text}
+              onPress={() => {
+                WebBrowser.openBrowserAsync(
+                  "https://diabetes.ca/DiabetesCanadaWebsite/media/Managing-My-Diabetes/Tools%20and%20Resources/basic-carbohydrate-counting.pdf?ext=.pdf"
+                );
+              }}
+            >
+              -
               https://diabetes.ca/DiabetesCanadaWebsite/media/Managing-My-Diabetes/Tools%20and%20Resources/basic-carbohydrate-counting.pdf?ext=.pdf
-              {"\n"} -
+            </Text>
+            <Text
+              style={styles.text}
+              onPress={() => {
+                WebBrowser.openBrowserAsync(
+                  "https://diabetes.ca/DiabetesCanadaWebsite/media/Managing-My-Diabetes/Tools%20and%20Resources/handy-portion-guide.pdf?ext=.pdf"
+                );
+              }}
+            >
+              -
               https://diabetes.ca/DiabetesCanadaWebsite/media/Managing-My-Diabetes/Tools%20and%20Resources/handy-portion-guide.pdf?ext=.pdf
-              {"\n"} -
+            </Text>
+            <Text
+              style={styles.text}
+              onPress={() => {
+                WebBrowser.openBrowserAsync(
+                  "https://diabetes.ca/managing-my-diabetes/tools---resources/the-glycemic-index-(gi)"
+                );
+              }}
+            >
+              -
               https://diabetes.ca/managing-my-diabetes/tools---resources/the-glycemic-index-(gi)
-              {"\n"} -
+            </Text>
+            <Text
+              style={styles.text}
+              onPress={() => {
+                WebBrowser.openBrowserAsync(
+                  "https://www.diabete.qc.ca/wp-content/uploads/2016/03/Dq-guideresto-2018-montage-anglais5-2.pdf"
+                );
+              }}
+            >
+              -
               https://www.diabete.qc.ca/wp-content/uploads/2016/03/Dq-guideresto-2018-montage-anglais5-2.pdf
-              {"\n"} -
+            </Text>
+            <Text
+              style={styles.text}
+              onPress={() => {
+                WebBrowser.openBrowserAsync(
+                  "https://www.canada.ca/content/dam/hc-sc/migration/hc-sc/fn-an/alt_formats/pdf/nutrition/fiche-nutri-data/nvscf-vnqau-eng.pdf"
+                );
+              }}
+            >
+              -
               https://www.canada.ca/content/dam/hc-sc/migration/hc-sc/fn-an/alt_formats/pdf/nutrition/fiche-nutri-data/nvscf-vnqau-eng.pdf
             </Text>
           </View>
