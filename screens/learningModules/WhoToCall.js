@@ -4,6 +4,7 @@ import "firebase/auth";
 import Header from "../../components/header";
 import colors from "../../style/colors.js";
 import { ScrollView } from "react-native-gesture-handler";
+import * as Linking from "expo-linking";
 
 class WhoToCall extends Component {
   constructor() {
@@ -16,7 +17,7 @@ class WhoToCall extends Component {
   goToLearningModules() {
     this.props.navigation.navigate("LearningModulesScreen");
   }
-  //ADD LINKS TO WEBSITES IN LAST PARAGRAPH
+
   render() {
     return (
       <View style={styles.container}>
@@ -42,8 +43,22 @@ class WhoToCall extends Component {
               {"\n"} - To know how to get in touch with your endocrinologist for
               any other issue. Secretaries answer the phone from Monday to
               Friday between 8 am to 4 pm. The phone number of the Glen site
-              clinic is 514-934-8224. The phone number for the Montreal General
-              Hospital clinic is 514-934-1934, extension 44760.
+              clinic is{" "}
+              <Text
+                onPress={() => {
+                  Linking.openURL("tel:+15149348224");
+                }}
+              >
+                514-934-8224
+              </Text>
+              . The phone number for the Montreal General Hospital clinic is{" "}
+              <Text
+                onPress={() => {
+                  Linking.openURL("tel:+1514934193444760");
+                }}
+              >
+                514-934-1934, extension 44760.
+              </Text>
             </Text>
           </View>
           <View style={styles.listItem}>
@@ -51,7 +66,15 @@ class WhoToCall extends Component {
               Call one of the diabetes nurse educators if you need any other
               help with your diabetes care. They answer the phone from Monday to
               Friday between 8 am to 4 pm. Call the McGill University Health
-              Centre at (514) 934-1934 and use the extension numbers below.
+              Centre at{" "}
+              <Text
+                onPress={() => {
+                  Linking.openURL("tel:+15149341934");
+                }}
+              >
+                514-934-1934
+              </Text>{" "}
+              and use the extension numbers below.
               {"\n"} - Maria D'Errico: 38006
               {"\n"} - Panhavat Huor: 38004
               {"\n"} - Other diabetes personnel [ Name ] [contact]
@@ -61,11 +84,46 @@ class WhoToCall extends Component {
             <Text style={styles.text}>
               For any technical or delivery support for your diabetes
               technology, you should call the support hotline of the company.
-              {"\n"} - OmniPod: 1-800-591-3455
-              {"\n"} - Medtronic: 1-800-284-4416
-              {"\n"} - Tandem Diabetes: 1-877-801-6901.
-              {"\n"} - Abbott/Freestyle Libre: 1-888-205-8296
-              {"\n"} - Dexcom: 1-844-832-1810
+              {"\n"} - OmniPod:{" "}
+              <Text
+                onPress={() => {
+                  Linking.openURL("tel:+18005913455");
+                }}
+              >
+                1-800-591-3455
+              </Text>
+              {"\n"} - Medtronic:{" "}
+              <Text
+                onPress={() => {
+                  Linking.openURL("tel:+18002844416");
+                }}
+              >
+                1-800-284-4416
+              </Text>
+              {"\n"} - Tandem Diabetes:{" "}
+              <Text
+                onPress={() => {
+                  Linking.openURL("tel:+18778016901");
+                }}
+              >
+                1-877-801-6901
+              </Text>
+              {"\n"} - Abbott/Freestyle Libre:{" "}
+              <Text
+                onPress={() => {
+                  Linking.openURL("tel:+18882058296");
+                }}
+              >
+                1-888-205-8296
+              </Text>
+              {"\n"} - Dexcom:{" "}
+              <Text
+                onPress={() => {
+                  Linking.openURL("tel:+18448321810");
+                }}
+              >
+                1-844-832-1810
+              </Text>
               {"\n"} - Other company: [insert name ] [insert phone number]
             </Text>
           </View>
