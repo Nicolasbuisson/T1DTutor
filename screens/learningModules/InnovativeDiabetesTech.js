@@ -4,6 +4,7 @@ import "firebase/auth";
 import Header from "../../components/header";
 import colors from "../../style/colors.js";
 import { ScrollView } from "react-native-gesture-handler";
+import * as WebBrowser from "expo-web-browser";
 
 class InnovativeDiabetesTech extends Component {
   constructor() {
@@ -16,7 +17,7 @@ class InnovativeDiabetesTech extends Component {
   goToLearningModules() {
     this.props.navigation.navigate("LearningModulesScreen");
   }
-  //ADD LINKS TO WEBSITES IN LAST PARAGRAPH
+
   render() {
     return (
       <View style={styles.container}>
@@ -150,8 +151,26 @@ class InnovativeDiabetesTech extends Component {
             <Text style={styles.text}>
               There are many advances on the way to help with type 1 diabetes.
               If you ever want to help with the progress of diabetes treatment,
-              you can volunteer through research! These can be found at the
-              clinical trial website or CONNECT1D.
+              you can volunteer through research! These can be found at{" "}
+              <Text
+                style={styles.text}
+                onPress={() => {
+                  WebBrowser.openBrowserAsync(
+                    "https://www.clinicaltrials.gov/"
+                  );
+                }}
+              >
+                the clinical trial website
+              </Text>{" "}
+              or{" "}
+              <Text
+                style={styles.text}
+                onPress={() => {
+                  WebBrowser.openBrowserAsync("https://www.connect1d.ca/home");
+                }}
+              >
+                CONNECT1D.
+              </Text>
             </Text>
           </View>
         </ScrollView>
