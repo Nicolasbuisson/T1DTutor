@@ -14,31 +14,37 @@ import Header from "../components/header";
 import Greenbutton from "../components/greenButton"
 import QuestionDescription from "../components/QuestionDescription"
 
-class Question4screen extends Component {
+class InjectionOrPumpScreen extends Component {
   constructor() {
     super();
     this.state = {
-      
+
     };
 
     //functions
     this.backFunction = this.backFunction.bind(this);
     this.goToNextScreen = this.goToNextScreen.bind(this);
-    this.goToFixedDosesScreen = this.goToFixedDosesScreen.bind(this);
-    
+    this.goToInjectionScreens = this.goToInjectionScreens.bind(this);
+    this.goToPumpScreens = this.goToPumpScreens.bind(this);
+
   }
 
   backFunction() {
-    this.props.navigation.navigate("Question3screen");
+    this.props.navigation.navigate("Question2screen");
   }
 
   goToNextScreen() {
-    this.props.navigation.navigate("Question1screen");
+    this.props.navigation.navigate("InjectionScreen1");
   }
 
-  goToFixedDosesScreen() {
-    this.props.navigation.navigate("FixedDosesScreen");
+  goToInjectionScreens() {
+    this.props.navigation.navigate("InjectionScreen1");
   }
+
+  goToPumpScreens() {
+    this.props.navigation.navigate("PumpScreen1");
+  }
+
 
   render() {
     return (
@@ -48,21 +54,19 @@ class Question4screen extends Component {
           backArrow={true}
           function={this.backFunction}
         ></Header>
-        <QuestionDescription title="You are on Injections"></QuestionDescription>
-        <QuestionDescription title="What do you use for meals?"></QuestionDescription>
-          <View style={styles.fieldsContainer}>
-            <Greenbutton title="Insulin to carbs ratios" onPress={this.goToEmailScreen}></Greenbutton>
-            <Greenbutton title="Fixed Doses" onPress={this.goToFixedDosesScreen}></Greenbutton>
-          </View>
-          
-          <View style={styles.fieldsContainer}><Greenbutton title="Next" onPress={this.goToNextScreen}></Greenbutton></View>
+        <QuestionDescription title="Are you on injections or pump?"></QuestionDescription>
+        <View style={styles.fieldsContainer}>
+          <Greenbutton title="Injections" onPress={this.goToInjectionScreens}></Greenbutton>
+          <Greenbutton title="Pump" onPress={this.goToPumpScreens}></Greenbutton>
+        </View>
+        <View style={styles.fieldsContainer}><Greenbutton title="Next" onPress={this.goToNextScreen}></Greenbutton></View>
 
       </View>
     );
   }
 }
 
-export default Question4screen;
+export default InjectionOrPumpScreen;
 
 const styles = StyleSheet.create({
   container: {

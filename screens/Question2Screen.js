@@ -18,14 +18,14 @@ class Question2screen extends Component {
   constructor() {
     super();
     this.state = {
-      
+
     };
 
     //functions
     this.backFunction = this.backFunction.bind(this);
     this.goToNextScreen = this.goToNextScreen.bind(this);
     this.goToSubQuestionScreen = this.goToSubQuestionScreen.bind(this);
-    
+
   }
 
   backFunction() {
@@ -33,7 +33,7 @@ class Question2screen extends Component {
   }
 
   goToNextScreen() {
-    this.props.navigation.navigate("Question3screen");
+    this.props.navigation.navigate("InjectionOrPumpScreen");
   }
 
   goToSubQuestionScreen() {
@@ -49,12 +49,12 @@ class Question2screen extends Component {
           function={this.backFunction}
         ></Header>
         <QuestionDescription title="What do you use to check blood sugars?"></QuestionDescription>
-          <View style={styles.fieldsContainer}>
-            <Greenbutton title="Finger-prick testing" onPress={this.goToEmailScreen}></Greenbutton>
-            <Greenbutton title="Flash CGM" onPress={this.goToEmailScreen}></Greenbutton>
-            <Greenbutton title="Real-time CGM" onPress={this.goToSubQuestionScreen}></Greenbutton>
-          </View>
-          <View style={styles.fieldsContainer}><Greenbutton title="Next" onPress={this.goToNextScreen}></Greenbutton></View>
+        <View style={styles.fieldsContainer}>
+          <Greenbutton title="Finger-prick testing" onPress={this.goToEmailScreen}></Greenbutton>
+          <Greenbutton title="Flash CGM" onPress={this.goToEmailScreen}></Greenbutton>
+          <Greenbutton title="Real-time CGM" onPress={this.goToSubQuestionScreen}></Greenbutton>
+        </View>
+        <View style={styles.fieldsContainer}><Greenbutton title="Next" onPress={this.goToNextScreen}></Greenbutton></View>
 
       </View>
     );
