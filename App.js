@@ -34,6 +34,7 @@ import FoodAndYou from "./screens/learningModules/FoodAndYou";
 import SkinAndYourDiabetesSupplies from "./screens/learningModules/SkinAndYourDiabetesSupplies";
 import TimeOffThePump from "./screens/learningModules/TimeOffThePump";
 import SickDayManagement from "./screens/learningModules/SickDayManagement";
+import ExerciseAndYou from "./screens/learningModules/ExerciseAndYou";
 
 export default function App() {
   const AppSwitchNavigator = createSwitchNavigator({
@@ -70,6 +71,7 @@ export default function App() {
     SkinAndYourDiabetesSupplies: SkinAndYourDiabetesSupplies,
     TimeOffThePump: TimeOffThePump,
     SickDayManagement: SickDayManagement,
+    ExerciseAndYou: ExerciseAndYou,
   });
 
   const AppNavigator = createAppContainer(AppSwitchNavigator);

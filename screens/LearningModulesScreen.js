@@ -50,6 +50,7 @@ class LearningModulesScreen extends Component {
     );
     this.goToTimeOffThePump = this.goToTimeOffThePump.bind(this);
     this.goToSickDayManagement = this.goToSickDayManagement.bind(this);
+    this.goToExerciseAndYou = this.goToExerciseAndYou.bind(this);
   }
 
   goToHome() {
@@ -140,6 +141,10 @@ class LearningModulesScreen extends Component {
     this.props.navigation.navigate("SickDayManagement");
   }
 
+  goToExerciseAndYou() {
+    this.props.navigation.navigate("ExerciseAndYou");
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -181,7 +186,7 @@ class LearningModulesScreen extends Component {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.moduleTouchable}
-            onPress={this.goToMythBusters}
+            onPress={this.goToExerciseAndYou}
           >
             <Text style={styles.moduleText}>Exericse and You</Text>
           </TouchableOpacity>
