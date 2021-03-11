@@ -1,5 +1,11 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, TextInput } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
 import "firebase/auth";
 import Header from "../../components/header";
 import colors from "../../style/colors.js";
@@ -12,14 +18,94 @@ class SickDayManagement extends Component {
       totalBasal: 0,
       totalBolus: 0,
       totalInsulin: 0,
+      bloodPressurePills: [],
+      bloodPressurePillsInput: "",
+      diabetesPills: [],
+      diabetesPillsInput: "",
+      painMedications: [],
+      painMedicationsInput: "",
     };
 
     //functions
     this.goToLearningModules = this.goToLearningModules.bind(this);
+    this.calculateTDD = this.calculateTDD.bind(this);
+    this.onInputChangeBasal = this.onInputChangeBasal.bind(this);
+    this.onInputChangeBolus = this.onInputChangeBolus.bind(this);
+    this.addToBloodPressurePills = this.addToBloodPressurePills.bind(this);
+    this.addToDiabetesPills = this.addToDiabetesPills.bind(this);
+    this.addToPainMedications = this.addToPainMedications.bind(this);
   }
 
   goToLearningModules() {
     this.props.navigation.navigate("LearningModulesScreen");
+  }
+
+  calculateTDD(bool, value) {
+    //true for basal, false for bolus since setState isn't synchronous
+    if (bool) {
+      this.setState({
+        totalInsulin: +value + +this.state.totalBolus,
+      });
+    } else {
+      this.setState({
+        totalInsulin: +value + +this.state.totalBasal,
+      });
+    }
+  }
+
+  onInputChangeBasal(text) {
+    this.setState({ totalBasal: text });
+    this.calculateTDD(true, text);
+  }
+
+  onInputChangeBolus(text) {
+    this.setState({ totalBolus: text });
+    this.calculateTDD(false, text);
+  }
+
+  addToBloodPressurePills() {
+    if (
+      this.state.bloodPressurePills.length < 5 &&
+      this.state.bloodPressurePillsInput
+    ) {
+      this.setState({
+        bloodPressurePills: [
+          ...this.state.bloodPressurePills,
+          this.state.bloodPressurePillsInput,
+        ],
+      });
+    }
+    //clear input afterwards
+    this.setState({ bloodPressurePillsInput: "" });
+  }
+
+  addToDiabetesPills() {
+    if (this.state.diabetesPills.length < 3 && this.state.diabetesPillsInput) {
+      this.setState({
+        diabetesPills: [
+          ...this.state.diabetesPills,
+          this.state.diabetesPillsInput,
+        ],
+      });
+    }
+    //clear input afterwards
+    this.setState({ diabetesPillsInput: "" });
+  }
+
+  addToPainMedications() {
+    if (
+      this.state.painMedications.length < 3 &&
+      this.state.painMedicationsInput
+    ) {
+      this.setState({
+        painMedications: [
+          ...this.state.painMedications,
+          this.state.painMedicationsInput,
+        ],
+      });
+    }
+    //clear input afterwards
+    this.setState({ painMedicationsInput: "" });
   }
 
   render() {
@@ -87,12 +173,33 @@ class SickDayManagement extends Component {
             </Text>
           </View>
           <View style={styles.listItem}>
-            <View>
-              <Text>Total basal insulin:</Text>
-              <TextInput></TextInput>
-              <Text>Total bolus insulin:</Text>
-              <TextInput></TextInput>
-              <Text>Total daily dose of insulin:</Text>
+            <View style={styles.inputContainer}>
+              <View style={styles.inputView}>
+                <Text style={styles.inputText}>
+                  Enter these fields to obtain your extra dose
+                </Text>
+              </View>
+              <View style={styles.inputView}>
+                <Text>Total basal insulin:</Text>
+                <TextInput
+                  style={styles.input}
+                  onChangeText={(text) => this.onInputChangeBasal(text)}
+                  keyboardType="numeric"
+                  value={this.state.totalBasal}
+                ></TextInput>
+              </View>
+              <View style={styles.inputView}>
+                <Text>Total bolus insulin:</Text>
+                <TextInput
+                  style={styles.input}
+                  onChangeText={(text) => this.onInputChangeBolus(text)}
+                  keyboardType="numeric"
+                  value={this.state.totalBolus}
+                ></TextInput>
+              </View>
+              <Text>
+                Total daily dose of insulin: {this.state.totalInsulin}
+              </Text>
             </View>
             <View style={styles.table}>
               <View style={styles.row}>
@@ -169,7 +276,7 @@ class SickDayManagement extends Component {
                   <Text>Take 10% of TDD</Text>
                 </View>
                 <View style={styles.durationColumn}>
-                  <Text> </Text>
+                  <Text>{this.state.totalInsulin * 0.1}</Text>
                 </View>
               </View>
               <View style={styles.row}>
@@ -186,7 +293,7 @@ class SickDayManagement extends Component {
                   <Text>Take 10% of TDD</Text>
                 </View>
                 <View style={styles.durationColumn}>
-                  <Text> </Text>
+                  <Text>{this.state.totalInsulin * 0.1}</Text>
                 </View>
               </View>
               <View style={styles.row}>
@@ -203,7 +310,7 @@ class SickDayManagement extends Component {
                   <Text>Take 15% of TDD</Text>
                 </View>
                 <View style={styles.durationColumn}>
-                  <Text> </Text>
+                  <Text>{this.state.totalInsulin * 0.15}</Text>
                 </View>
               </View>
               <View style={styles.row}>
@@ -220,7 +327,7 @@ class SickDayManagement extends Component {
                   <Text>Take 20% of TDD</Text>
                 </View>
                 <View style={styles.durationColumn}>
-                  <Text> </Text>
+                  <Text>{this.state.totalInsulin * 0.2}</Text>
                 </View>
               </View>
             </View>
@@ -271,22 +378,79 @@ class SickDayManagement extends Component {
               </Text>{" "}
               .
             </Text>
-            <View>
-              <Text style={styles.text}>Blood pressure pills</Text>
-              <TextInput></TextInput>
-              <View></View>
-            </View>
-            <View>
-              <Text style={styles.text}>Diabetes pills</Text>
-              <TextInput></TextInput>
-              <View></View>
-            </View>
-            <View>
+            <View style={styles.inputContainer}>
+              <Text style={styles.text}>Blood pressure pills: (Max 5)</Text>
+              <View>
+                {this.state.bloodPressurePills.map((item) => (
+                  <Text>- {item}</Text>
+                ))}
+              </View>
+              <View style={styles.inputView}>
+                <TextInput
+                  style={styles.listInput}
+                  value={this.state.bloodPressurePillsInput}
+                  onChangeText={(text) =>
+                    this.setState({ bloodPressurePillsInput: text })
+                  }
+                ></TextInput>
+                <TouchableOpacity style={styles.addButton}>
+                  <Text
+                    style={styles.addButtonText}
+                    onPress={() => this.addToBloodPressurePills()}
+                  >
+                    Add
+                  </Text>
+                </TouchableOpacity>
+              </View>
+              <Text style={styles.text}>Diabetes pills: (Max 3)</Text>
+              <View>
+                {this.state.diabetesPills.map((item) => (
+                  <Text>- {item}</Text>
+                ))}
+              </View>
+              <View style={styles.inputView}>
+                <TextInput
+                  style={styles.listInput}
+                  value={this.state.diabetesPillsInput}
+                  onChangeText={(text) =>
+                    this.setState({ diabetesPillsInput: text })
+                  }
+                ></TextInput>
+                <TouchableOpacity style={styles.addButton}>
+                  <Text
+                    style={styles.addButtonText}
+                    onPress={() => this.addToDiabetesPills()}
+                  >
+                    Add
+                  </Text>
+                </TouchableOpacity>
+              </View>
+
               <Text style={styles.text}>
-                Anti-inflammatory pain medications
+                Anti-inflammatory pain medications: (Max 3)
               </Text>
-              <TextInput></TextInput>
-              <View></View>
+              <View>
+                {this.state.painMedications.map((item) => (
+                  <Text>- {item}</Text>
+                ))}
+              </View>
+              <View style={styles.inputView}>
+                <TextInput
+                  style={styles.listInput}
+                  value={this.state.painMedicationsInput}
+                  onChangeText={(text) =>
+                    this.setState({ painMedicationsInput: text })
+                  }
+                ></TextInput>
+                <TouchableOpacity style={styles.addButton}>
+                  <Text
+                    style={styles.addButtonText}
+                    onPress={() => this.addToPainMedications()}
+                  >
+                    Add
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
           <View style={styles.listItem}>
@@ -359,6 +523,7 @@ const styles = StyleSheet.create({
     marginBottom: 3,
   },
   table: {
+    marginTop: 5,
     flex: 1,
     width: "100%",
     alignItems: "center",
@@ -395,5 +560,50 @@ const styles = StyleSheet.create({
     textAlign: "center",
     borderColor: colors.black,
     borderWidth: 1,
+  },
+  inputContainer: {
+    marginTop: 6,
+    width: "100%",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    alignContent: "center",
+    textAlign: "center",
+  },
+  inputView: {
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    margin: 3,
+  },
+  inputText: {
+    textAlign: "center",
+    fontWeight: "500",
+    lineHeight: 22,
+    marginBottom: 3,
+  },
+  input: {
+    borderColor: colors.grey,
+    borderWidth: 1,
+    flexBasis: "33%",
+  },
+  listInput: {
+    borderColor: colors.grey,
+    borderWidth: 1,
+    flexBasis: "55%",
+  },
+  addButton: {
+    margin: 5,
+    padding: 5,
+    backgroundColor: colors.primary,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: colors.background,
+    flexBasis: "20%",
+  },
+  addButtonText: {
+    textAlign: "center",
+    color: colors.background,
   },
 });
