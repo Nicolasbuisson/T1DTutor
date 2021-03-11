@@ -8,11 +8,11 @@ import {
   Alert,
 } from "react-native";
 import firebase from "firebase";
-import dbh from "../firebase";
-import colors from "../style/colors.js";
-import Header from "../components/header";
-import Greenbutton from "../components/greenButton"
-import QuestionDescription from "../components/QuestionDescription"
+import dbh from "../../firebase";
+import colors from "../../style/colors.js";
+import Header from "../../components/header";
+import Greenbutton from "../../components/greenButton"
+import QuestionDescription from "../../components/QuestionDescription"
 
 class FixedDosesScreen extends Component {
   constructor() {
