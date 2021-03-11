@@ -48,6 +48,7 @@ class LearningModulesScreen extends Component {
     this.goToSkinAndYourDiabetesSupplies = this.goToSkinAndYourDiabetesSupplies.bind(
       this
     );
+    this.goToTimeOffThePump = this.goToTimeOffThePump.bind(this);
   }
 
   goToHome() {
@@ -130,6 +131,10 @@ class LearningModulesScreen extends Component {
     this.props.navigation.navigate("SkinAndYourDiabetesSupplies");
   }
 
+  goToTimeOffThePump() {
+    this.props.navigation.navigate("TimeOffThePump");
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -195,9 +200,9 @@ class LearningModulesScreen extends Component {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.moduleTouchable}
-            onPress={this.goToMythBusters}
+            onPress={this.goToTimeOffThePump}
           >
-            <Text style={styles.moduleText}>If your Pump Breaks</Text>
+            <Text style={styles.moduleText}>Time Off the Pump</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.moduleTouchable}
