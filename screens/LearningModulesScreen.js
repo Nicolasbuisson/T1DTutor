@@ -151,7 +151,7 @@ class LearningModulesScreen extends Component {
         <Header title="Learning Modules"></Header>
         <ScrollView
           contentContainerStyle={styles.fieldsContainer}
-          style={{ height: "55%" }}
+          style={{ height: "65%" }}
           showsVerticalScrollIndicator={false}
         >
           <TouchableOpacity

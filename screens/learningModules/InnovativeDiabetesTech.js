@@ -22,10 +22,11 @@ class InnovativeDiabetesTech extends Component {
     return (
       <View style={styles.container}>
         <Header
-          title="Innovative Diabetes Technologies"
+          title="Innovative Technologies"
           backArrow={true}
           function={this.goToLearningModules}
           small={true}
+          smallArrow={true}
         />
 
         <ScrollView
