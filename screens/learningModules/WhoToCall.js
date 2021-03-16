@@ -11,6 +11,8 @@ import Header from "../../components/header";
 import colors from "../../style/colors.js";
 import { ScrollView } from "react-native-gesture-handler";
 import * as Linking from "expo-linking";
+import firebase from "firebase";
+import dbh from "../../firebase";
 
 class WhoToCall extends Component {
   constructor() {
@@ -32,6 +34,7 @@ class WhoToCall extends Component {
       contactNumberInput: "",
       contactNames: [],
       contactNumbers: [],
+      uid: "",
     };
 
     //functions
@@ -40,6 +43,7 @@ class WhoToCall extends Component {
     this.submitCompany = this.submitCompany.bind(this);
     this.submitPersonel = this.submitPersonel.bind(this);
     this.addContact = this.addContact.bind(this);
+    this.clearContacts = this.clearContacts.bind(this);
   }
 
   goToLearningModules() {
@@ -47,42 +51,156 @@ class WhoToCall extends Component {
   }
 
   submitPharmacy() {
-    this.setState({
-      pharmacyName: this.state.pharmacyNameInput,
-      pharmacyNumber: this.state.pharmacyNumberInput,
-      pharmacyNameInput: "",
-      pharmacyNumberInput: "",
-    });
+    this.setState(
+      {
+        pharmacyName: this.state.pharmacyNameInput,
+        pharmacyNumber: this.state.pharmacyNumberInput,
+        pharmacyNameInput: "",
+        pharmacyNumberInput: "",
+      },
+      () => {
+        dbh
+          .collection("users")
+          .doc(this.state.uid)
+          .collection("userData")
+          .doc("WhoToCall")
+          .set(
+            {
+              pharmacyName: this.state.pharmacyName,
+              pharmacyNumber: this.state.pharmacyNumber,
+            },
+            { merge: true }
+          );
+      }
+    );
   }
 
   submitCompany() {
-    this.setState({
-      companyName: this.state.companyNameInput,
-      companyNumber: this.state.companyNumberInput,
-      companyNameInput: "",
-      companyNumberInput: "",
-    });
+    this.setState(
+      {
+        companyName: this.state.companyNameInput,
+        companyNumber: this.state.companyNumberInput,
+        companyNameInput: "",
+        companyNumberInput: "",
+      },
+      () => {
+        dbh
+          .collection("users")
+          .doc(this.state.uid)
+          .collection("userData")
+          .doc("WhoToCall")
+          .set(
+            {
+              companyName: this.state.companyName,
+              companyNumber: this.state.companyNumber,
+            },
+            { merge: true }
+          );
+      }
+    );
   }
 
   submitPersonel() {
-    this.setState({
-      personelName: this.state.personelNameInput,
-      personelNumber: this.state.personelNumberInput,
-      personelNameInput: "",
-      personelNumberInput: "",
-    });
+    this.setState(
+      {
+        personelName: this.state.personelNameInput,
+        personelNumber: this.state.personelNumberInput,
+        personelNameInput: "",
+        personelNumberInput: "",
+      },
+      () => {
+        dbh
+          .collection("users")
+          .doc(this.state.uid)
+          .collection("userData")
+          .doc("WhoToCall")
+          .set(
+            {
+              personelName: this.state.personelName,
+              personelNumber: this.state.personelNumber,
+            },
+            { merge: true }
+          );
+      }
+    );
   }
 
   addContact() {
-    this.setState({
-      contactNames: [...this.state.contactNames, this.state.contactNameInput],
-      contactNumbers: [
-        ...this.state.contactNumbers,
-        this.state.contactNumberInput,
-      ],
-      contactNameInput: "",
-      contactNumberInput: "",
-    });
+    this.setState(
+      {
+        contactNames: [...this.state.contactNames, this.state.contactNameInput],
+        contactNumbers: [
+          ...this.state.contactNumbers,
+          this.state.contactNumberInput,
+        ],
+        contactNameInput: "",
+        contactNumberInput: "",
+      },
+      () => {
+        dbh
+          .collection("users")
+          .doc(this.state.uid)
+          .collection("userData")
+          .doc("WhoToCall")
+          .set(
+            {
+              contactNames: this.state.contactNames,
+              contactNumbers: this.state.contactNumbers,
+            },
+            { merge: true }
+          );
+      }
+    );
+  }
+
+  clearContacts() {
+    this.setState(
+      {
+        contactNames: [],
+        contactNumbers: [],
+      },
+      () => {
+        dbh
+          .collection("users")
+          .doc(this.state.uid)
+          .collection("userData")
+          .doc("WhoToCall")
+          .set(
+            {
+              contactNames: this.state.contactNames,
+              contactNumbers: this.state.contactNumbers,
+            },
+            { merge: true }
+          );
+      }
+    );
+  }
+
+  componentDidMount() {
+    var user = firebase.auth().currentUser;
+    if (user) {
+      this.setState({ uid: user.uid, personelName: "" });
+    }
+    dbh
+      .collection("users")
+      .doc(user.uid)
+      .collection("userData")
+      .doc("WhoToCall")
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          this.setState({
+            personelName: doc.data().personelName,
+            personelNumber: doc.data().personelNumber,
+            pharmacyName: doc.data().pharmacyName,
+            pharmacyNumber: doc.data().pharmacyNumber,
+            companyName: doc.data().companyName,
+            companyNumber: doc.data().companyNumber,
+            contactNames: doc.data().contactNames,
+            contactNumbers: doc.data().contactNumbers,
+          });
+        }
+      });
   }
 
   render() {
@@ -402,6 +520,14 @@ class WhoToCall extends Component {
                 ))}
               </View>
             </View>
+            <TouchableOpacity style={styles.addButton}>
+              <Text
+                style={styles.addButtonText}
+                onPress={() => this.clearContacts()}
+              >
+                Clear
+              </Text>
+            </TouchableOpacity>
           </View>
         </ScrollView>
       </View>
@@ -423,6 +549,7 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     justifyContent: "center",
+    marginBottom: 8,
   },
   fieldsContainer: {
     width: "100%",
