@@ -7,12 +7,11 @@ import {
   TouchableOpacity,
   Alert,
 } from "react-native";
-import firebase from "firebase";
-import dbh from "../firebase";
-import colors from "../style/colors.js";
-import Header from "../components/header";
-import Greenbutton from "../components/greenButton"
-import QuestionDescription from "../components/QuestionDescription"
+import colors from "../../style/colors.js";
+import Header from "../../components/header";
+import Greenbutton from "../../components/greenButton"
+import QuestionDescription from "../../components/QuestionDescription"
+import Context from "../../Context";
 
 class Question2screen extends Component {
   constructor() {
@@ -24,21 +23,23 @@ class Question2screen extends Component {
     //functions
     this.backFunction = this.backFunction.bind(this);
     this.goToNextScreen = this.goToNextScreen.bind(this);
-    this.goToSubQuestionScreen = this.goToSubQuestionScreen.bind(this);
 
   }
+  static contextType = Context;
 
   backFunction() {
-    this.props.navigation.navigate("Question1screen");
+    this.context.setView("Question1screen");
   }
 
-  goToNextScreen() {
-    this.props.navigation.navigate("InjectionOrPumpScreen");
+  goToNextScreen(value) {
+    this.context.setUser({...this.context.user, questions: {...this.context.user?.questions, checkBloodSugar: value}});
+    if(value === "Real-time CGM") {
+      this.context.setView("Question2bisscreen");
+    } else {
+      this.context.setView("InjectionOrPumpScreen");
+    }
   }
 
-  goToSubQuestionScreen() {
-    this.props.navigation.navigate("Question2bisscreen");
-  }
 
   render() {
     return (
@@ -50,11 +51,11 @@ class Question2screen extends Component {
         ></Header>
         <QuestionDescription title="What do you use to check blood sugars?"></QuestionDescription>
         <View style={styles.fieldsContainer}>
-          <Greenbutton title="Finger-prick testing" onPress={this.goToEmailScreen}></Greenbutton>
-          <Greenbutton title="Flash CGM" onPress={this.goToEmailScreen}></Greenbutton>
-          <Greenbutton title="Real-time CGM" onPress={this.goToSubQuestionScreen}></Greenbutton>
+          <Greenbutton title="Finger-prick testing" onPress={()=>this.goToNextScreen("Finger-prick testing")}></Greenbutton>
+          <Greenbutton title="Flash CGM" onPress={()=>this.goToNextScreen("Flash CGM")}></Greenbutton>
+          <Greenbutton title="Real-time CGM" onPress={()=>this.goToNextScreen("Real-time CGM")}></Greenbutton>
         </View>
-        <View style={styles.fieldsContainer}><Greenbutton title="Next" onPress={this.goToNextScreen}></Greenbutton></View>
+        <View style={styles.fieldsContainer}></View>
 
       </View>
     );

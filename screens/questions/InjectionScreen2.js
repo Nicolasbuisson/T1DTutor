@@ -7,12 +7,11 @@ import {
   TouchableOpacity,
   Alert,
 } from "react-native";
-import firebase from "firebase";
-import dbh from "../firebase";
-import colors from "../style/colors.js";
-import Header from "../components/header";
-import Greenbutton from "../components/greenButton"
-import QuestionDescription from "../components/QuestionDescription"
+import colors from "../../style/colors.js";
+import Header from "../../components/header";
+import Greenbutton from "../../components/greenButton"
+import QuestionDescription from "../../components/QuestionDescription"
+import Context from "../../Context";
 
 class InjectionScreen2 extends Component {
   constructor() {
@@ -27,17 +26,23 @@ class InjectionScreen2 extends Component {
     this.goToFixedDosesScreen = this.goToFixedDosesScreen.bind(this);
 
   }
+  static contextType = Context;
 
   backFunction() {
-    this.props.navigation.navigate("InjectionScreen1");
-  }
-
-  goToNextScreen() {
-    this.props.navigation.navigate("DashboardScreen");
+    this.context.setView("InjectionScreen1");
   }
 
   goToFixedDosesScreen() {
-    this.props.navigation.navigate("FixedDosesScreen");
+    this.context.setView("FixedDosesScreen");
+  }
+
+  goToNextScreen(value) {
+    this.context.setUser({...this.context.user, questions: {...this.context.user?.questions, useForMeals: value}});
+    if(value === "Fixed Doses") {
+      this.context.setView("FixedDosesScreen");
+    } else {
+      this.context.completeQuestions();
+    }
   }
 
   render() {
@@ -51,11 +56,11 @@ class InjectionScreen2 extends Component {
         <QuestionDescription title="You are on Injections"></QuestionDescription>
         <QuestionDescription title="What do you use for meals?"></QuestionDescription>
         <View style={styles.fieldsContainer}>
-          <Greenbutton title="Insulin to carbs ratios" onPress={this.goToEmailScreen}></Greenbutton>
-          <Greenbutton title="Fixed Doses" onPress={this.goToFixedDosesScreen}></Greenbutton>
+          <Greenbutton title="Insulin to carbs ratios" onPress={()=>this.goToNextScreen("Insulin to carbs ratios")}></Greenbutton>
+          <Greenbutton title="Fixed Doses" onPress={()=>this.goToNextScreen("Fixed Doses")}></Greenbutton>
         </View>
 
-        <View style={styles.fieldsContainer}><Greenbutton title="Go to Dashboard!" onPress={this.goToNextScreen}></Greenbutton></View>
+        <View style={styles.fieldsContainer}></View>
 
       </View>
     );

@@ -7,12 +7,11 @@ import {
   TouchableOpacity,
   Alert,
 } from "react-native";
-import firebase from "firebase";
-import dbh from "../firebase";
-import colors from "../style/colors.js";
-import Header from "../components/header";
-import Greenbutton from "../components/greenButton"
-import QuestionDescription from "../components/QuestionDescription"
+import colors from "../../style/colors.js";
+import Header from "../../components/header";
+import Greenbutton from "../../components/greenButton"
+import QuestionDescription from "../../components/QuestionDescription"
+import Context from "../../Context";
 
 class Question2screen extends Component {
   constructor() {
@@ -26,13 +25,15 @@ class Question2screen extends Component {
     this.goToNextScreen = this.goToNextScreen.bind(this);
 
   }
+  static contextType = Context;
 
   backFunction() {
-    this.props.navigation.navigate("Question2screen");
+    this.context.setView("Question2screen");
   }
 
-  goToNextScreen() {
-    this.props.navigation.navigate("Question2screen");
+  goToNextScreen(value) {
+    this.context.setUser({...this.context.user, questions: {...this.context.user?.questions, typeOfRealTime: value}});
+    this.context.setView("InjectionOrPumpScreen");
   }
 
 
@@ -46,12 +47,11 @@ class Question2screen extends Component {
         ></Header>
         <QuestionDescription title="What type of Real-time CGM?"></QuestionDescription>
         <View style={styles.fieldsContainer}>
-          <Greenbutton title="Dexcom" onPress={this.goToEmailScreen}></Greenbutton>
-          {/* //onPress to be done */}
-          <Greenbutton title="Medtronic Guardian Con." onPress={this.goToEmailScreen}></Greenbutton>
-          <Greenbutton title="Medtronic Guardian/Enlite" onPress={this.goToEmailScreen}></Greenbutton>
+          <Greenbutton title="Dexcom" onPress={()=>this.goToNextScreen("Dexcom")}></Greenbutton>
+          <Greenbutton title="Medtronic Guardian Con." onPress={()=>this.goToNextScreen("Medtronic Guardian Con.")}></Greenbutton>
+          <Greenbutton title="Medtronic Guardian/Enlite" onPress={()=>this.goToNextScreen("Medtronic Guardian/Enlite")}></Greenbutton>
         </View>
-        <View style={styles.fieldsContainer}><Greenbutton title="Confirm" onPress={this.goToNextScreen}></Greenbutton></View>
+        <View style={styles.fieldsContainer}></View>
 
       </View>
     );

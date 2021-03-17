@@ -5,6 +5,7 @@ import Header from "../../components/header";
 import colors from "../../style/colors.js";
 import { ScrollView } from "react-native-gesture-handler";
 import * as WebBrowser from "expo-web-browser";
+import Context from "../../Context";
 
 class InnovativeDiabetesTech extends Component {
   constructor() {
@@ -13,9 +14,10 @@ class InnovativeDiabetesTech extends Component {
     //functions
     this.goToLearningModules = this.goToLearningModules.bind(this);
   }
+  static contextType = Context;
 
   goToLearningModules() {
-    this.props.navigation.navigate("LearningModulesScreen");
+    this.context.setView("LearningModulesScreen");
   }
 
   render() {

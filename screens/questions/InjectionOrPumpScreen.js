@@ -7,12 +7,11 @@ import {
   TouchableOpacity,
   Alert,
 } from "react-native";
-import firebase from "firebase";
-import dbh from "../../firebase";
 import colors from "../../style/colors.js";
 import Header from "../../components/header";
 import Greenbutton from "../../components/greenButton"
 import QuestionDescription from "../../components/QuestionDescription"
+import Context from "../../Context";
 
 class InjectionOrPumpScreen extends Component {
   constructor() {
@@ -24,27 +23,23 @@ class InjectionOrPumpScreen extends Component {
     //functions
     this.backFunction = this.backFunction.bind(this);
     this.goToNextScreen = this.goToNextScreen.bind(this);
-    this.goToInjectionScreens = this.goToInjectionScreens.bind(this);
-    this.goToPumpScreens = this.goToPumpScreens.bind(this);
 
   }
+  static contextType = Context;
 
   backFunction() {
-    this.props.navigation.navigate("Question2screen");
+    this.context.setView("Question2screen");
   }
 
-  goToNextScreen() {
-    this.props.navigation.navigate("InjectionScreen1");
-  }
 
-  goToInjectionScreens() {
-    this.props.navigation.navigate("InjectionScreen1");
+  goToNextScreen(value) {
+    this.context.setUser({...this.context.user, questions: {...this.context.user?.questions, injectionsOrPump: value}});
+    if(value === "Injections") {
+      this.context.setView("InjectionScreen1");
+    } else {
+      this.context.setView("PumpScreen1");
+    }
   }
-
-  goToPumpScreens() {
-    this.props.navigation.navigate("PumpScreen1");
-  }
-
 
   render() {
     return (
@@ -56,10 +51,10 @@ class InjectionOrPumpScreen extends Component {
         ></Header>
         <QuestionDescription title="Are you on injections or pump?"></QuestionDescription>
         <View style={styles.fieldsContainer}>
-          <Greenbutton title="Injections" onPress={this.goToInjectionScreens}></Greenbutton>
-          <Greenbutton title="Pump" onPress={this.goToPumpScreens}></Greenbutton>
+          <Greenbutton title="Injections" onPress={()=>this.goToNextScreen("Injections")}></Greenbutton>
+          <Greenbutton title="Pump" onPress={()=>this.goToNextScreen("Pump")}></Greenbutton>
         </View>
-        <View style={styles.fieldsContainer}><Greenbutton title="Next" onPress={this.goToNextScreen}></Greenbutton></View>
+        <View style={styles.fieldsContainer}></View>
 
       </View>
     );

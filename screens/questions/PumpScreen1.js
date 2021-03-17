@@ -7,12 +7,11 @@ import {
     TouchableOpacity,
     Alert,
 } from "react-native";
-import firebase from "firebase";
-import dbh from "../firebase";
-import colors from "../style/colors.js";
-import Header from "../components/header";
-import Greenbutton from "../components/greenButton"
-import QuestionDescription from "../components/QuestionDescription"
+import colors from "../../style/colors.js";
+import Header from "../../components/header";
+import Greenbutton from "../../components/greenButton"
+import QuestionDescription from "../../components/QuestionDescription"
+import Context from "../../Context";
 
 class PumpScreen1 extends Component {
     constructor() {
@@ -26,13 +25,14 @@ class PumpScreen1 extends Component {
         this.goToNextScreen = this.goToNextScreen.bind(this);
 
     }
+    static contextType = Context;
 
     backFunction() {
-        this.props.navigation.navigate("InjectionOrPumpScreen");
+        this.context.setView("InjectionOrPumpScreen");
     }
 
     goToNextScreen() {
-        this.props.navigation.navigate("DashboardScreen");
+        this.context.completeQuestions();
     }
 
 
@@ -50,8 +50,8 @@ class PumpScreen1 extends Component {
                     <Text style={styles.field}>Brand/model</Text>
                     <TextInput
                         autoCorrect={false}
-                        onChangeText={(text) => this.setState({ pump_type: text })}
-                        value={this.state.pump_type}
+                        onChangeText={(text) => this.context.setUser({...this.context.user, questions: {...this.context.user?.questions, pumpType: text}})}
+                        value={this.context.user?.questions?.pumpType}
                         style={styles.input}
                     ></TextInput>
                 </View>

@@ -10,6 +10,7 @@ import {
 import firebase from "firebase";
 import colors from "../style/colors.js";
 import Header from "../components/header";
+import Context from '../Context'
 
 class PasswordResetScreen extends Component {
   constructor() {
@@ -22,9 +23,10 @@ class PasswordResetScreen extends Component {
     this.backFunction = this.backFunction.bind(this);
     this.passwordReset = this.passwordReset.bind(this);
   }
+  static contextType = Context;
 
   backFunction() {
-    this.props.navigation.navigate("EmailLoginScreen");
+    this.context.setView("EmailLoginScreen");
   }
 
   passwordReset() {

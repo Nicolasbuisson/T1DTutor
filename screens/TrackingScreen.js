@@ -12,6 +12,7 @@ import dbh from "../firebase";
 import colors from "../style/colors.js";
 import Header from "../components/header";
 import Footer from "../components/footer";
+import Context from '../Context'
 
 class TrackingScreen extends Component {
   constructor() {
@@ -28,25 +29,26 @@ class TrackingScreen extends Component {
     this.goToReminders = this.goToReminders.bind(this);
     this.goToMore = this.goToMore.bind(this);
   }
+  static contextType = Context;
 
   goToHome() {
-    this.props.navigation.navigate("DashboardScreen");
+    this.context.setView("DashboardScreen");
   }
 
   goToReminders() {
-    this.props.navigation.navigate("RemindersScreen");
+    this.context.setView("RemindersScreen");
   }
 
   goToLearningModules() {
-    this.props.navigation.navigate("LearningModulesScreen");
+    this.context.setView("LearningModulesScreen");
   }
 
   goToMore() {
-    this.props.navigation.navigate("MoreScreen");
+    this.context.setView("MoreScreen");
   }
 
   goToTrack() {
-    this.props.navigation.navigate("TrackingScreen");
+    this.context.setView("TrackingScreen");
   }
 
   render() {

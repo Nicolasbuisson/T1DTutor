@@ -7,12 +7,11 @@ import {
     TouchableOpacity,
     Alert,
 } from "react-native";
-import firebase from "firebase";
-import dbh from "../firebase";
-import colors from "../style/colors.js";
-import Header from "../components/header";
-import Greenbutton from "../components/greenButton"
-import QuestionDescription from "../components/QuestionDescription"
+import colors from "../../style/colors.js";
+import Header from "../../components/header";
+import Greenbutton from "../../components/greenButton"
+import QuestionDescription from "../../components/QuestionDescription"
+import Context from "../../Context";
 
 class InjectionScreen1 extends Component {
     constructor() {
@@ -27,13 +26,13 @@ class InjectionScreen1 extends Component {
         this.goToNextScreen = this.goToNextScreen.bind(this);
 
     }
-
+    static contextType = Context;
     backFunction() {
-        this.props.navigation.navigate("InjectionOrPumpScreen");
+        this.context.setView("InjectionOrPumpScreen");
     }
 
     goToNextScreen() {
-        this.props.navigation.navigate("InjectionScreen2");
+        this.context.setView("InjectionScreen2");
     }
 
 
@@ -51,16 +50,16 @@ class InjectionScreen1 extends Component {
                     <Text style={styles.field}>For meals</Text>
                     <TextInput
                         autoCorrect={false}
-                        onChangeText={(text) => this.setState({ meals: text })}
-                        value={this.state.meals}
+                        onChangeText={(text) => this.context.setUser({...this.context.user, questions: {...this.context.user?.questions, meals: text}})}
+                        value={this.context.user?.questions?.meals}
                         style={styles.input}
                     ></TextInput>
                     <Text style={styles.field}>For long-acting</Text>
                     <TextInput
                         autoCorrect={false}
                         secureTextEntry={false}
-                        onChangeText={(text) => this.setState({ long_acting: text })}
-                        value={this.state.long_acting}
+                        onChangeText={(text) => this.context.setUser({...this.context.user, questions: {...this.context.user?.questions, longActing: text}})}
+                        value={this.context.user?.questions?.longActing}
                         style={styles.input}
                     ></TextInput>
                 </View>
