@@ -7,39 +7,35 @@ import {
   TouchableOpacity,
   Alert,
 } from "react-native";
-import firebase from "firebase";
-import dbh from "../firebase";
-import colors from "../style/colors.js";
-import Header from "../components/header";
-import Greenbutton from "../components/greenButton"
-import QuestionDescription from "../components/QuestionDescription"
+import colors from "../../style/colors.js";
+import Header from "../../components/header";
+import Greenbutton from "../../components/greenButton"
+import QuestionDescription from "../../components/QuestionDescription"
+import Context from "../../Context";
 
 class FixedDosesScreen extends Component {
   constructor() {
     super();
     this.state = {
-        breakfast: "",
-        lunch: "",
-        dinner: "",
-        snack: "",
+      breakfast: "",
+      lunch: "",
+      dinner: "",
+      snack: "",
     };
 
     //functions
     this.backFunction = this.backFunction.bind(this);
     this.goToNextScreen = this.goToNextScreen.bind(this);
-    
+
   }
+  static contextType = Context;
 
   backFunction() {
-    this.props.navigation.navigate("Question4screen");
+    this.context.setView("InjectionScreen2");
   }
 
   goToNextScreen() {
-    this.props.navigation.navigate("Question1screen");
-  }
-
-  goToSubQuestionScreen() {
-    this.props.navigation.navigate("Question2bisscreen");
+    this.context.completeQuestions();
   }
 
   render() {
@@ -52,41 +48,41 @@ class FixedDosesScreen extends Component {
         ></Header>
         {/* <QuestionDescription title="Please enter your fixed doses"></QuestionDescription> */}
         <View style={styles.fieldsContainer}>
-        
-        <Text style={styles.field}>Breakfast Doses</Text>
+
+          <Text style={styles.field}>Breakfast Doses</Text>
           <TextInput
             autoCorrect={false}
-            onChangeText={(text) => this.setState({ breakfast: text })}
-            value={this.state.age}
+            onChangeText={(text) => this.context.setUser({...this.context.user, questions: {...this.context.user?.questions, breakfast: text}})}
+            value={this.context.user?.questions?.breakfast}
             style={styles.input}
           ></TextInput>
           <Text style={styles.field}>Lunch Doses</Text>
           <TextInput
             autoCorrect={false}
             secureTextEntry={false}
-            onChangeText={(text) => this.setState({ lunch: text })}
-            value={this.state.diagnosisdate}
+            onChangeText={(text) => this.context.setUser({...this.context.user, questions: {...this.context.user?.questions, lunch: text}})}
+            value={this.context.user?.questions?.lunch}
             style={styles.input}
           ></TextInput>
           <Text style={styles.field}>Dinner Doses</Text>
           <TextInput
             autoCorrect={false}
             secureTextEntry={false}
-            onChangeText={(text) => this.setState({ dinner: text })}
-            value={this.state.pregnant}
+            onChangeText={(text) => this.context.setUser({...this.context.user, questions: {...this.context.user?.questions, dinner: text}})}
+            value={this.context.user?.questions?.dinner}
             style={styles.input}
           ></TextInput>
           <Text style={styles.field}>Snack Doses</Text>
           <TextInput
             autoCorrect={false}
             secureTextEntry={false}
-            onChangeText={(text) => this.setState({ snack: text })}
-            value={this.state.diagnosisdate}
+            onChangeText={(text) => this.context.setUser({...this.context.user, questions: {...this.context.user?.questions, snack: text}})}
+            value={this.context.user?.questions?.snack}
             style={styles.input}
           ></TextInput>
-          </View>
-          
-          <View style={styles.fieldsContainer}><Greenbutton title="Next" onPress={this.goToNextScreen}></Greenbutton></View>
+        </View>
+
+        <View style={styles.fieldsContainer}><Greenbutton title="Confirm" onPress={this.goToNextScreen}></Greenbutton></View>
 
       </View>
     );

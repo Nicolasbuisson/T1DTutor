@@ -11,6 +11,7 @@ import firebase from "firebase";
 import dbh from "../firebase";
 import colors from "../style/colors.js";
 import Header from "../components/header";
+import Context from '../Context';
 
 class EmailLoginScreen extends Component {
   constructor() {
@@ -26,13 +27,14 @@ class EmailLoginScreen extends Component {
     this.goToSignUp = this.goToSignUp.bind(this);
     this.passwordReset = this.passwordReset.bind(this);
   }
+  static contextType = Context;
 
   backFunction() {
-    this.props.navigation.navigate("LoginScreen");
+    this.context.setView("LoginScreen");
   }
 
   goToSignUp() {
-    this.props.navigation.navigate("EmailSignUpScreen");
+    this.context.setView("EmailSignUpScreen");
   }
 
   signIn() {
@@ -51,7 +53,7 @@ class EmailLoginScreen extends Component {
   }
 
   passwordReset() {
-    this.props.navigation.navigate("PasswordResetScreen");
+    this.context.setView("PasswordResetScreen");
   }
 
   render() {

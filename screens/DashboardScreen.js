@@ -7,6 +7,7 @@ import Header from "../components/header";
 import Footer from "../components/footer";
 import icon from "../assets/icon.png";
 import colors from "../style/colors.js";
+import Context from '../Context';
 
 class DashboardScreen extends Component {
   constructor() {
@@ -23,25 +24,26 @@ class DashboardScreen extends Component {
     this.goToReminders = this.goToReminders.bind(this);
     this.goToMore = this.goToMore.bind(this);
   }
+  static contextType = Context;
 
   goToHome() {
-    this.props.navigation.navigate("DashboardScreen");
+    this.context.setView("DashboardScreen");
   }
 
   goToReminders() {
-    this.props.navigation.navigate("RemindersScreen");
+    this.context.setView("RemindersScreen");
   }
 
   goToLearningModules() {
-    this.props.navigation.navigate("LearningModulesScreen");
+    this.context.setView("LearningModulesScreen");
   }
 
   goToMore() {
-    this.props.navigation.navigate("MoreScreen");
+    this.context.setView("MoreScreen");
   }
 
   goToTrack() {
-    this.props.navigation.navigate("TrackingScreen");
+    this.context.setView("TrackingScreen");
   }
 
   render() {
@@ -50,7 +52,7 @@ class DashboardScreen extends Component {
         <Header title="T1D App" logo />
 
         <View style={styles.fieldsContainer}>
-          <Button title="Sign out" onPress={() => firebase.auth().signOut()} />
+          <Button title="Sign out" onPress={() => firebase.auth().signOut().then(()=>{this.context.setView("LoginScreen")}).catch((e)=>console.log(e))} />
         </View>
         <Footer
           page="home"

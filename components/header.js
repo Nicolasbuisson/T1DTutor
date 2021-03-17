@@ -12,7 +12,9 @@ const Header = (props) => {
       >
         <Image source={require("../assets/backArrow.png")} />
       </TouchableOpacity>
-      <Text style={styles.headerText}>{props.title}</Text>
+      <Text style={props.small ? styles.headerTextSmall : styles.headerText}>
+        {props.title}
+      </Text>
       <Image style={props.logo ? styles.fakeLogo : styles.noDisplay} />
     </View>
   );
@@ -47,6 +49,13 @@ const styles = StyleSheet.create({
     color: colors.primary,
     fontSize: 30,
     fontWeight: "700",
+    maxWidth: "85%",
+  },
+  headerTextSmall: {
+    color: colors.primary,
+    fontSize: 20,
+    fontWeight: "700",
+    maxWidth: "85%",
   },
   noDisplay: {
     display: "none",

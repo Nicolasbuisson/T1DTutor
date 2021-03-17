@@ -1,43 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import "firebase/auth";
-import { createAppContainer, createSwitchNavigator } from "react-navigation";
-import LoadingScreen from "./screens/LoadingScreen";
-import LoginScreen from "./screens/LoginScreen";
-import DashboardScreen from "./screens/DashboardScreen";
-import EmailLoginScreen from "./screens/EmailLoginScreen";
-import EmailSignUpScreen from "./screens/EmailSignUpScreen";
-import PasswordResetScreen from "./screens/PasswordResetScreen";
-import Question1screen from "./screens/Question1Screen";
-import Question2screen from "./screens/Question2Screen";
-import Question2bisscreen from "./screens/Question2bisScreen";
-import Question3screen from "./screens/Question3Screen";
-import TrackingScreen from "./screens/TrackingScreen";
-import RemindersScreen from "./screens/RemindersScreen";
-import MoreScreen from "./screens/MoreScreen";
-import LearningModulesScreen from "./screens/LearningModulesScreen";
-import Question4screen from "./screens/Question4Screen";
-import FixedDosesScreen from "./screens/FixedDosesScreen";
+import SetView from "./SetView";
+import { UserProvider } from './Context';
+import dbh from "./firebase";
 
 export default function App() {
-  const AppSwitchNavigator = createSwitchNavigator({
-    LoadingScreen: LoadingScreen,
-    LoginScreen: LoginScreen,
-    DashboardScreen: DashboardScreen,
-    EmailLoginScreen: EmailLoginScreen,
-    EmailSignUpScreen: EmailSignUpScreen,
-    PasswordResetScreen: PasswordResetScreen,
-    Question1screen: Question1screen,
-    Question2screen: Question2screen,
-    Question2bisscreen: Question2bisscreen,
-    Question3screen: Question3screen,
-    Question4screen: Question4screen,
-    FixedDosesScreen: FixedDosesScreen,
-    TrackingScreen: TrackingScreen,
-    RemindersScreen: RemindersScreen,
-    MoreScreen: MoreScreen,
-    LearningModulesScreen: LearningModulesScreen,
-  });
+  const [user, setUser] = useState({});
 
-  const AppNavigator = createAppContainer(AppSwitchNavigator);
-  return <AppNavigator />;
+  const [view, setView] = useState("LoginScreen");
+  
+  const completeQuestions = () => {
+    dbh.collection("users").doc(user.uid).update({
+      questions: {...user.questions}
+    })
+    .then(()=>{
+      setView("DashboardScreen");
+    })
+    .catch((e)=>{
+      console.log(e);
+    })
+  }
+
+  let userIsAuth = firebase.auth().currentUser;
+
+  if (userIsAuth) {
+    if(view === "LoginScreen") {
+      setView("DashboardScreen");
+    }
+  } else {
+    // No user is signed in.
+  }
+  
+  return <UserProvider value={{user,setUser,view,setView,completeQuestions}}>
+    <SetView view={view}></SetView>
+  </UserProvider>;
 }

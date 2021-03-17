@@ -11,6 +11,7 @@ import firebase from "firebase";
 import dbh from "../firebase";
 import colors from "../style/colors.js";
 import Header from "../components/header";
+import Context from '../Context';
 
 class EmailSignUpScreen extends Component {
   constructor() {
@@ -26,9 +27,10 @@ class EmailSignUpScreen extends Component {
     this.checkPasswords = this.checkPasswords.bind(this);
     this.signUp = this.signUp.bind(this);
   }
+  static contextType = Context;
 
   backFunction() {
-    this.props.navigation.navigate("LoginScreen");
+    this.context.setView("LoginScreen");
   }
 
   checkPasswords() {
