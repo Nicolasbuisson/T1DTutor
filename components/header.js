@@ -7,10 +7,22 @@ const Header = (props) => {
   return (
     <View style={styles.headerContainer}>
       <TouchableOpacity
-        style={props.backArrow ? styles.backArrow : styles.noDisplay}
+        style={
+          props.backArrow
+            ? props.smallArrow
+              ? styles.smallBackArrow
+              : styles.backArrow
+            : styles.noDisplay
+        }
         onPress={props.function}
       >
-        <Image source={require("../assets/backArrow.png")} />
+        <Image
+          source={
+            props.smallArrow
+              ? require("../assets/smallBackArrow.png")
+              : require("../assets/backArrow.png")
+          }
+        />
       </TouchableOpacity>
       <Text style={props.small ? styles.headerTextSmall : styles.headerText}>
         {props.title}
@@ -26,6 +38,15 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 25,
     left: 10,
+    marginRight: 5,
+    padding: 5,
+  },
+  smallBackArrow: {
+    position: "absolute",
+    top: 30,
+    left: 8,
+    marginRight: 5,
+    padding: 5,
   },
   fakeLogo: {
     backgroundColor: colors.primary,
@@ -49,13 +70,15 @@ const styles = StyleSheet.create({
     color: colors.primary,
     fontSize: 30,
     fontWeight: "700",
-    maxWidth: "85%",
+    maxWidth: "83%",
+    alignSelf: "center",
   },
   headerTextSmall: {
     color: colors.primary,
     fontSize: 20,
     fontWeight: "700",
-    maxWidth: "85%",
+    maxWidth: "83%",
+    alignSelf: "center",
   },
   noDisplay: {
     display: "none",

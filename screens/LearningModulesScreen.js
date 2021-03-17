@@ -49,6 +49,9 @@ class LearningModulesScreen extends Component {
     this.goToSkinAndYourDiabetesSupplies = this.goToSkinAndYourDiabetesSupplies.bind(
       this
     );
+    this.goToTimeOffThePump = this.goToTimeOffThePump.bind(this);
+    this.goToSickDayManagement = this.goToSickDayManagement.bind(this);
+    this.goToExerciseAndYou = this.goToExerciseAndYou.bind(this);
   }
   static contextType = Context;
 
@@ -138,13 +141,25 @@ class LearningModulesScreen extends Component {
     this.context.setView("SkinAndYourDiabetesSupplies");
   }
 
+  goToTimeOffThePump() {
+    this.props.navigation.navigate("TimeOffThePump");
+  }
+
+  goToSickDayManagement() {
+    this.props.navigation.navigate("SickDayManagement");
+  }
+
+  goToExerciseAndYou() {
+    this.props.navigation.navigate("ExerciseAndYou");
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <Header title="Learning Modules"></Header>
         <ScrollView
           contentContainerStyle={styles.fieldsContainer}
-          style={{ height: "55%" }}
+          style={{ height: "65%" }}
           showsVerticalScrollIndicator={false}
         >
           <TouchableOpacity
@@ -179,7 +194,7 @@ class LearningModulesScreen extends Component {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.moduleTouchable}
-            onPress={this.goToMythBusters}
+            onPress={this.goToExerciseAndYou}
           >
             <Text style={styles.moduleText}>Exericse and You</Text>
           </TouchableOpacity>
@@ -197,15 +212,15 @@ class LearningModulesScreen extends Component {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.moduleTouchable}
-            onPress={this.goToMythBusters}
+            onPress={this.goToSickDayManagement}
           >
             <Text style={styles.moduleText}>Sick Day Management</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.moduleTouchable}
-            onPress={this.goToMythBusters}
+            onPress={this.goToTimeOffThePump}
           >
-            <Text style={styles.moduleText}>If your Pump Breaks</Text>
+            <Text style={styles.moduleText}>Time Off the Pump</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.moduleTouchable}
