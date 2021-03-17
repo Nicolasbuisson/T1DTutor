@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useContext } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import * as Google from "expo-google-app-auth";
 import firebase from "firebase";
@@ -6,16 +6,22 @@ import dbh from "../firebase";
 import colors from "../style/colors";
 import Googlebutton from "../components/googlebutton"
 import Greenbutton from "../components/greenButton"
+import Context from '../Context'
 
-class LoginScreen extends Component {
-  constructor() {
-    super();
+const LoginScreen = () => {
+  const context = useContext(Context);
 
-    //functions
-    this.goToEmailScreen = this.goToEmailScreen.bind(this);
-    this.goToQuestions = this.goToQuestions.bind(this);
+  const proceed = (status, user) => {
+    if(status === "error") return;
+    if(status === "newUser"){
+      context.setView("Question1screen");
+    } else if(status === "existingUser") {
+      context.setView("DashboardScreen");
+    }
+    context.setUser({...user});
   }
-  signInWithGoogleAsync = async () => {
+
+  const signInWithGoogleAsync = async () => {
     try {
       const result = await Google.logInAsync({
         behavior: "web",
@@ -26,7 +32,7 @@ class LoginScreen extends Component {
       });
 
       if (result.type === "success") {
-        this.onSignIn(result);
+        onSignIn(result);
         return result.accessToken;
       } else {
         return { cancelled: true };
@@ -36,26 +42,25 @@ class LoginScreen extends Component {
     }
   };
 
-  onSignIn = (googleUser) => {
-    console.log("Google Auth Response", googleUser);
+  const onSignIn = (googleUser) => {
+    // console.log("Google Auth Response", googleUser);
     // We need to register an Observer on Firebase Auth to make sure auth is initialized.
     var unsubscribe = firebase.auth().onAuthStateChanged(
       function (firebaseUser) {
         unsubscribe();
         // Check if we are already signed-in Firebase with the correct user.
-        if (!this.isUserEqual(googleUser, firebaseUser)) {
+        if (!isUserEqual(googleUser, firebaseUser)) {
           // Build Firebase credential with the Google ID token.
           var credential = firebase.auth.GoogleAuthProvider.credential(
             googleUser.idToken,
             googleUser.accessToken
           );
-
           // Sign in with credential from the Google user.
           firebase
             .auth()
             .signInWithCredential(credential)
             .then(function (result) {
-              console.log("user signed in");
+              // console.log("user signed in");
               if (result.additionalUserInfo.isNewUser) {
                 dbh.collection("users").doc(result.user.uid).set({
                   gmail: result.user.email,
@@ -65,14 +70,18 @@ class LoginScreen extends Component {
                   last_name: result.additionalUserInfo.profile.family_name,
                   created_at: Date.now(),
                 });
+                proceed("newUser", result.user);
               } else {
+                proceed("existingUser", result.user);
                 dbh.collection("users").doc(result.user.uid).update({
                   last_logged_in: Date.now(),
                 });
               }
             })
             .catch((error) => {
+              // console.log("ERROR", error);
               // Handle Errors here.
+              proceed("error");
               var errorCode = error.code;
               var errorMessage = error.message;
               // The email of the user's account used.
@@ -84,11 +93,11 @@ class LoginScreen extends Component {
         } else {
           console.log("User already signed-in Firebase.");
         }
-      }.bind(this)
+      }
     );
   };
 
-  isUserEqual = (googleUser, firebaseUser) => {
+  const isUserEqual = (googleUser, firebaseUser) => {
     if (firebaseUser) {
       var providerData = firebaseUser.providerData;
       for (var i = 0; i < providerData.length; i++) {
@@ -105,29 +114,25 @@ class LoginScreen extends Component {
     return false;
   };
 
-  goToEmailScreen() {
-    return this.props.navigation.navigate("EmailLoginScreen");
+  const goToEmailScreen = () => {
+    return context.setView("EmailLoginScreen");
   }
 
-  goToQuestions() {
-    return this.props.navigation.navigate("Question1screen");
+  const goToQuestions = () => {
+    return context.setView("Question1screen");
   }
 
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.title}>App Name</Text>
-        <View>
-          
-          <Googlebutton title="Google Login" onPress={this.signInWithGoogleAsync}></Googlebutton>
-          
-          <Greenbutton title="Email Login" onPress={this.goToEmailScreen}></Greenbutton>
+  return  (<View style={styles.container}>
+  <Text style={styles.title}>App Name</Text>
+  <View>
+    
+    <Googlebutton title="Google Login" onPress={signInWithGoogleAsync}></Googlebutton>
+    
+    <Greenbutton title="Email Login" onPress={goToEmailScreen}></Greenbutton>
 
-          <Greenbutton title="Questions" onPress={this.goToQuestions}></Greenbutton>
-        </View>
-      </View>
-    );
-  }
+    <Greenbutton title="Questions" onPress={goToQuestions}></Greenbutton>
+  </View>
+</View>)
 }
 
 export default LoginScreen;

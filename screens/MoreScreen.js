@@ -6,12 +6,14 @@ import {
   StyleSheet,
   TouchableOpacity,
   Alert,
+  Button
 } from "react-native";
 import firebase from "firebase";
 import dbh from "../firebase";
 import colors from "../style/colors.js";
 import Header from "../components/header";
 import Footer from "../components/footer";
+import Context from '../Context'
 
 class MoreScreen extends Component {
   constructor() {
@@ -28,25 +30,29 @@ class MoreScreen extends Component {
     this.goToReminders = this.goToReminders.bind(this);
     this.goToMore = this.goToMore.bind(this);
   }
+  static contextType = Context;
 
+componentDidMount() {
+  console.log(this.context?.user?.uid);
+}
   goToHome() {
-    this.props.navigation.navigate("DashboardScreen");
+    this.context.setView("DashboardScreen");
   }
 
   goToReminders() {
-    this.props.navigation.navigate("RemindersScreen");
+    this.context.setView("RemindersScreen");
   }
 
   goToLearningModules() {
-    this.props.navigation.navigate("LearningModulesScreen");
+    this.context.setView("LearningModulesScreen");
   }
 
   goToMore() {
-    this.props.navigation.navigate("MoreScreen");
+    this.context.setView("MoreScreen");
   }
 
   goToTrack() {
-    this.props.navigation.navigate("TrackingScreen");
+    this.context.setView("TrackingScreen");
   }
 
   render() {
@@ -54,6 +60,8 @@ class MoreScreen extends Component {
       <View style={styles.container}>
         <Header title="More"></Header>
         <View style={styles.fieldsContainer}></View>
+        <Button onPress={()=>this.context.setView("RemindersScreen")} title="reminders"></Button>
+        <Text>{this.context.user.name}</Text>
         <Footer
           page="more"
           homeFunction={this.goToHome}

@@ -13,6 +13,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import * as Linking from "expo-linking";
 import firebase from "firebase";
 import dbh from "../../firebase";
+import Context from "../../Context";
 
 class WhoToCall extends Component {
   constructor() {
@@ -45,9 +46,10 @@ class WhoToCall extends Component {
     this.addContact = this.addContact.bind(this);
     this.clearContacts = this.clearContacts.bind(this);
   }
+  static contextType = Context;
 
   goToLearningModules() {
-    this.props.navigation.navigate("LearningModulesScreen");
+    this.context.setView("LearningModulesScreen");
   }
 
   submitPharmacy() {

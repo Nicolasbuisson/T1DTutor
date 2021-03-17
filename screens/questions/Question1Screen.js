@@ -7,12 +7,11 @@ import {
   TouchableOpacity,
   Alert,
 } from "react-native";
-import firebase from "firebase";
-import dbh from "../firebase";
-import colors from "../style/colors.js";
-import Header from "../components/header";
-import Greenbutton from "../components/greenButton"
+import colors from "../../style/colors.js";
+import Header from "../../components/header";
+import Greenbutton from "../../components/greenButton"
 import Dropdown from 'react-dropdown';
+import Context from "../../Context";
 
 class Question1screen extends Component {
   constructor() {
@@ -28,13 +27,14 @@ class Question1screen extends Component {
     this.goToNextScreen = this.goToNextScreen.bind(this);
     
   }
+  static contextType = Context;
 
   backFunction() {
-    this.props.navigation.navigate("LoginScreen");
+    this.context.setView("LoginScreen");
   }
 
   goToNextScreen() {
-    this.props.navigation.navigate("Question2screen");
+    this.context.setView("Question2screen");
   }
 
   
@@ -50,24 +50,24 @@ class Question1screen extends Component {
           <Text style={styles.field}>Age</Text>
           <TextInput
             autoCorrect={false}
-            onChangeText={(text) => this.setState({ age: text })}
-            value={this.state.age}
+            onChangeText={(text) => this.context.setUser({...this.context.user, questions: {...this.context.user?.questions, age: text}})}
+            value={this.context.user?.questions?.age}
             style={styles.input}
           ></TextInput>
           <Text style={styles.field}>Date of diagnosis with T1D</Text>
           <TextInput
             autoCorrect={false}
             secureTextEntry={false}
-            onChangeText={(text) => this.setState({ diagnosisdate: text })}
-            value={this.state.diagnosisdate}
+            onChangeText={(text) => this.context.setUser({...this.context.user, questions: {...this.context.user?.questions, diagnosisdate: text}})}
+            value={this.context.user?.questions?.diagnosisdate}
             style={styles.input}
           ></TextInput>
           <Text style={styles.field}>Is it possible for you to get pregnant?</Text>
           <TextInput
             autoCorrect={false}
             secureTextEntry={false}
-            onChangeText={(text) => this.setState({ pregnant: text })}
-            value={this.state.pregnant}
+            onChangeText={(text) => this.context.setUser({...this.context.user, questions: {...this.context.user?.questions, pregnant: text}})}
+            value={this.context.user?.questions?.pregnant}
             style={styles.input}
           ></TextInput>
          

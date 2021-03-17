@@ -5,6 +5,7 @@ import Header from "../../components/header";
 import colors from "../../style/colors.js";
 import { ScrollView } from "react-native-gesture-handler";
 import * as WebBrowser from "expo-web-browser";
+import Context from "../../Context";
 
 class FoodAndYou extends Component {
   constructor() {
@@ -18,9 +19,10 @@ class FoodAndYou extends Component {
     //functions
     this.goToLearningModules = this.goToLearningModules.bind(this);
   }
+  static contextType = Context;
 
   goToLearningModules() {
-    this.props.navigation.navigate("LearningModulesScreen");
+    this.context.setView("LearningModulesScreen");
   }
 
   render() {
@@ -622,14 +624,14 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "inherit",
+    // backgroundColor: "inherit",
   },
   appRow: {
     width: "100%",
     flexDirection: "row",
     alignItems: "stretch",
     justifyContent: "space-between",
-    backgroundColor: "inherit",
+    // backgroundColor: "inherit",
   },
   appColumn: {
     fontWeight: "500",
@@ -664,14 +666,14 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "inherit",
+    // backgroundColor: "inherit",
   },
   q2Row: {
     width: "100%",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    backgroundColor: "inherit",
+    // backgroundColor: "inherit",
     borderColor: colors.black,
     borderBottomWidth: 1,
     borderTopWidth: 1,
@@ -681,7 +683,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "flex-start",
-    backgroundColor: "inherit",
+    // backgroundColor: "inherit",
     borderColor: colors.black,
     borderBottomWidth: 1,
     borderTopWidth: 2,
@@ -691,7 +693,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "flex-end",
-    backgroundColor: "inherit",
+    // backgroundColor: "inherit",
     borderColor: colors.black,
     borderBottomWidth: 1,
     borderTopWidth: 1,
@@ -704,7 +706,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   q2subtitle: {
-    fontsize: 10,
+    fontSize: 10,
     fontWeight: "500",
     lineHeight: 22,
     marginBottom: 3,

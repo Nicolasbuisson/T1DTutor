@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, ActivityIndicator } from "react-native";
 import firebase from "firebase";
+import Context from '../Context'
 
 class LoadingScreen extends Component {
+  static contextType = Context;
   componentDidMount() {
     this.checkIfLoggedIn();
   }
@@ -11,9 +13,9 @@ class LoadingScreen extends Component {
     firebase.auth().onAuthStateChanged(
       function (user) {
         if (user) {
-          this.props.navigation.navigate("DashboardScreen");
+          this.context.setView("DashboardScreen");
         } else {
-          this.props.navigation.navigate("LoginScreen");
+          this.context.setView("LoginScreen");
         }
       }.bind(this)
     );

@@ -6,6 +6,7 @@ import colors from "../../style/colors.js";
 import { ScrollView } from "react-native-gesture-handler";
 import * as WebBrowser from "expo-web-browser";
 import * as Linking from "expo-linking";
+import Context from "../../Context";
 
 class PeerSupportAndMentalHealth extends Component {
   constructor() {
@@ -14,9 +15,10 @@ class PeerSupportAndMentalHealth extends Component {
     //functions
     this.goToLearningModules = this.goToLearningModules.bind(this);
   }
+  static contextType = Context;
 
   goToLearningModules() {
-    this.props.navigation.navigate("LearningModulesScreen");
+    this.context.setView("LearningModulesScreen");
   }
 
   render() {

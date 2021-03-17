@@ -6,6 +6,7 @@ import colors from "../style/colors.js";
 import Header from "../components/header";
 import Footer from "../components/footer";
 import { ScrollView } from "react-native-gesture-handler";
+import Context from '../Context';
 
 class LearningModulesScreen extends Component {
   constructor() {
@@ -52,85 +53,92 @@ class LearningModulesScreen extends Component {
     this.goToSickDayManagement = this.goToSickDayManagement.bind(this);
     this.goToExerciseAndYou = this.goToExerciseAndYou.bind(this);
   }
+  static contextType = Context;
+
+  componentDidMount() {
+    const {user,setUser} = this.context;
+    setUser({ name: 'karim', loggedIn: false })
+    console.log(user);
+  }
 
   goToHome() {
-    this.props.navigation.navigate("DashboardScreen");
+    this.context.setView("DashboardScreen");
   }
 
   goToReminders() {
-    this.props.navigation.navigate("RemindersScreen");
+    this.context.setView("RemindersScreen");
   }
 
   goToLearningModules() {
-    this.props.navigation.navigate("LearningModulesScreen");
+    this.context.setView("LearningModulesScreen");
   }
 
   goToMore() {
-    this.props.navigation.navigate("MoreScreen");
+    this.context.setView("MoreScreen");
   }
 
   goToTrack() {
-    this.props.navigation.navigate("TrackingScreen");
+    this.context.setView("TrackingScreen");
   }
 
   goToMythBusters() {
-    this.props.navigation.navigate("MythBusters");
+    this.context.setView("MythBusters");
   }
 
   goToKeepingYourSugarsAtTarget() {
-    this.props.navigation.navigate("KeepingYourSugarsAtTarget");
+    this.context.setView("KeepingYourSugarsAtTarget");
   }
 
   goToLowBloodSugar() {
-    this.props.navigation.navigate("LowBloodSugar");
+    this.context.setView("LowBloodSugar");
   }
 
   goToHighBloodSugar() {
-    this.props.navigation.navigate("HighBloodSugar");
+    this.context.setView("HighBloodSugar");
   }
 
   goToPreventingComplications() {
-    this.props.navigation.navigate("PreventingComplications");
+    this.context.setView("PreventingComplications");
   }
 
   goToAlcoholAndOtherSubstances() {
-    this.props.navigation.navigate("AlcoholAndOtherSubstances");
+    this.context.setView("AlcoholAndOtherSubstances");
   }
 
   goToDrivingWithDiabetes() {
-    this.props.navigation.navigate("DrivingWithDiabetes");
+    this.context.setView("DrivingWithDiabetes");
   }
 
   goToDiabetesAndPregnancy() {
-    this.props.navigation.navigate("DiabetesAndPregnancy");
+    this.context.setView("DiabetesAndPregnancy");
   }
 
   goToPeerSupportAndMentalHealth() {
-    this.props.navigation.navigate("PeerSupportAndMentalHealth");
+    this.context.setView("PeerSupportAndMentalHealth");
   }
 
   goToInnovativeDiabetesTech() {
-    this.props.navigation.navigate("InnovativeDiabetesTech");
+    this.context.setView("InnovativeDiabetesTech");
   }
 
   goToWhoToCall() {
-    this.props.navigation.navigate("WhoToCall");
+    this.context.setView("WhoToCall");
   }
 
   goToFindingPatterns() {
-    this.props.navigation.navigate("FindingPatterns");
+    this.context.setView("FindingPatterns");
   }
 
   goToTravel() {
-    this.props.navigation.navigate("Travel");
+    this.context.setView("Travel");
   }
 
   goToFoodAndYou() {
-    this.props.navigation.navigate("FoodAndYou");
+    this.context.setView("FoodAndYou");
   }
 
   goToSkinAndYourDiabetesSupplies() {
-    this.props.navigation.navigate("SkinAndYourDiabetesSupplies");
+    this.context.setView("SkinAndYourDiabetesSupplies");
   }
 
   goToTimeOffThePump() {
