@@ -6,7 +6,7 @@ import colors from "../style/colors.js";
 import Header from "../components/header";
 import Footer from "../components/footer";
 import { ScrollView } from "react-native-gesture-handler";
-import Context from '../Context';
+import Context from "../Context";
 
 class LearningModulesScreen extends Component {
   constructor() {
@@ -52,14 +52,9 @@ class LearningModulesScreen extends Component {
     this.goToTimeOffThePump = this.goToTimeOffThePump.bind(this);
     this.goToSickDayManagement = this.goToSickDayManagement.bind(this);
     this.goToExerciseAndYou = this.goToExerciseAndYou.bind(this);
+    //this.questions = this.context.user.questions;
   }
   static contextType = Context;
-
-  componentDidMount() {
-    const {user,setUser} = this.context;
-    setUser({ name: 'karim', loggedIn: false })
-    console.log(user);
-  }
 
   goToHome() {
     this.context.setView("DashboardScreen");
@@ -216,12 +211,14 @@ class LearningModulesScreen extends Component {
           >
             <Text style={styles.moduleText}>Sick Day Management</Text>
           </TouchableOpacity>
+          {/* {this.questions.injectionsOrPump == "Pump" && ( */}
           <TouchableOpacity
             style={styles.moduleTouchable}
             onPress={this.goToTimeOffThePump}
           >
             <Text style={styles.moduleText}>Time Off the Pump</Text>
           </TouchableOpacity>
+          {/* )} */}
           <TouchableOpacity
             style={styles.moduleTouchable}
             onPress={this.goToAlcoholAndOtherSubstances}
@@ -234,12 +231,14 @@ class LearningModulesScreen extends Component {
           >
             <Text style={styles.moduleText}>Driving with Diabetes</Text>
           </TouchableOpacity>
+          {/* {this.questions.pregancy == "Yes" && ( */}
           <TouchableOpacity
             style={styles.moduleTouchable}
             onPress={this.goToDiabetesAndPregnancy}
           >
             <Text style={styles.moduleText}>Diabetes and Pregnancy</Text>
           </TouchableOpacity>
+          {/* )} */}
           <TouchableOpacity
             style={styles.moduleTouchable}
             onPress={this.goToTravel}

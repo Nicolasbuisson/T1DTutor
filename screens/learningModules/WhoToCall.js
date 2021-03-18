@@ -179,7 +179,7 @@ class WhoToCall extends Component {
   }
 
   componentDidMount() {
-    var user = firebase.auth().currentUser;
+    var user = this.context.user;
     if (user) {
       this.setState({ uid: user.uid, personelName: "" });
     }
