@@ -495,7 +495,7 @@ class WhoToCall extends Component {
                   flexBasis: "35%",
                 }}
               >
-                {this.state.contactNames.map((item) => (
+                {this.state.contactNames?.map((item) => (
                   <Text style={{ textAlign: "right", margin: 5 }}>
                     - {item} :
                   </Text>
@@ -506,7 +506,7 @@ class WhoToCall extends Component {
                   flexBasis: "65%",
                 }}
               >
-                {this.state.contactNumbers.map((item) => (
+                {this.state.contactNumbers?.map((item) => (
                   <Text
                     style={{
                       textDecorationLine: "underline",

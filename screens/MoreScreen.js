@@ -32,9 +32,6 @@ class MoreScreen extends Component {
   }
   static contextType = Context;
 
-componentDidMount() {
-  console.log(this.context?.user?.uid);
-}
   goToHome() {
     this.context.setView("DashboardScreen");
   }
