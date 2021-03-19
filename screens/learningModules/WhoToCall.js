@@ -183,6 +183,8 @@ class WhoToCall extends Component {
     if (user) {
       this.setState({ uid: user.uid, personelName: "" });
     }
+    var contacts = [];
+    var numbers = [];
     dbh
       .collection("users")
       .doc(user.uid)
@@ -191,6 +193,12 @@ class WhoToCall extends Component {
       .get()
       .then((doc) => {
         if (doc.exists) {
+          if (doc.data().contactNames) {
+            contacts = doc.data().contactNames;
+          }
+          if (doc.data().contactNumbers) {
+            numbers = doc.data().contactNumbers;
+          }
           this.setState({
             personelName: doc.data().personelName,
             personelNumber: doc.data().personelNumber,
@@ -198,8 +206,8 @@ class WhoToCall extends Component {
             pharmacyNumber: doc.data().pharmacyNumber,
             companyName: doc.data().companyName,
             companyNumber: doc.data().companyNumber,
-            contactNames: doc.data().contactNames,
-            contactNumbers: doc.data().contactNumbers,
+            contactNames: contacts,
+            contactNumbers: numbers,
           });
         }
       });
@@ -495,7 +503,7 @@ class WhoToCall extends Component {
                   flexBasis: "35%",
                 }}
               >
-                {this.state.contactNames?.map((item) => (
+                {this.state.contactNames.map((item) => (
                   <Text style={{ textAlign: "right", margin: 5 }}>
                     - {item} :
                   </Text>
@@ -506,7 +514,7 @@ class WhoToCall extends Component {
                   flexBasis: "65%",
                 }}
               >
-                {this.state.contactNumbers?.map((item) => (
+                {this.state.contactNumbers.map((item) => (
                   <Text
                     style={{
                       textDecorationLine: "underline",
