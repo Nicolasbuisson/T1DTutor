@@ -22,15 +22,20 @@ export default function App() {
     })
   }
 
-  let userIsAuth = firebase.auth().currentUser;
-
-  if (userIsAuth) {
-    if(view === "LoginScreen") {
-      setView("DashboardScreen");
+  firebase.auth().onAuthStateChanged((currentUser) => {
+    if (currentUser) {
+      if(view === "LoginScreen") {
+        setUser({...currentUser});
+        setView("DashboardScreen");
+      }
+    } else {
+      if(view === "EmailLoginScreen" || view === "EmailSignUpScreen") return;
+      if(view !== "LoginScreen") {
+        setUser({});
+        setView("LoginScreen");
+      }
     }
-  } else {
-    // No user is signed in.
-  }
+  });
   
   return <UserProvider value={{user,setUser,view,setView,completeQuestions}}>
     <SetView view={view}></SetView>
