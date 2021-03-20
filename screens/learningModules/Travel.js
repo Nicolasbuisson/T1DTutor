@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import "firebase/auth";
+import dbh from "../../firebase";
 import Header from "../../components/header";
 import colors from "../../style/colors.js";
 import { ScrollView } from "react-native-gesture-handler";
@@ -9,6 +10,11 @@ import Context from "../../Context";
 class Travel extends Component {
   constructor() {
     super();
+    this.state = {
+      showPump: false,
+      showCGM: false,
+      showInjections: false,
+    };
 
     //functions
     this.goToLearningModules = this.goToLearningModules.bind(this);
@@ -17,6 +23,26 @@ class Travel extends Component {
 
   goToLearningModules() {
     this.context.setView("LearningModulesScreen");
+  }
+
+  componentDidMount() {
+    var user = this.context.user;
+    dbh
+      .collection("users")
+      .doc(user.uid)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          if (doc.data().questions.checkBloodSugar === "Real-time CGM") {
+            this.setState({ showCGM: true });
+          }
+          if (doc.data().questions.injectionsOrPump === "Pump") {
+            this.setState({ showPump: true });
+          } else {
+            this.setState({ showInjections: true });
+          }
+        }
+      });
   }
 
   render() {
@@ -100,9 +126,13 @@ class Travel extends Component {
               {"\n"} - It is a good idea to speak with your doctor or diabetes
               educator prior to making changes to your medication schedule or
               dosage.
-              {"\n"} - When travelling east, your travel day will be shorter. If
-              you lose more than two hours, you may need to take fewer units of
-              intermediate or long-acting insulin.
+              {this.state.showInjections && (
+                <Text>
+                  {"\n"} - When travelling east, your travel day will be
+                  shorter. If you lose more than two hours, you may need to take
+                  fewer units of intermediate or long-acting insulin.
+                </Text>
+              )}
               {"\n"} - When travelling west, your travel day will be longer. If
               you gain more than two hours, you may need to take extra units of
               short-acting insulin and more food.
@@ -115,16 +145,25 @@ class Travel extends Component {
             <Text style={styles.text}>
               {"\n"} - You are not required to disclose that you have diabetes
               to screening personnel.
-              {"\n"} - You are not required to remove your insulin pump for
-              screening. Just inform the Screening Officer that you are wearing
-              one.
-              {"\n"} - Do not wear an insulin pump or CGM through the body
-              scanner or place your insulin pump through the x-ray machine as
-              they may affect the devices’ functioning. Instead, you can ask the
-              screening officer to perform a physical search instead (in a
-              private location, if you wish).
-              {"\n"} - Handheld metal detectors do not affect the functioning of
-              insulin pumps or CGMs.
+              {this.state.showPump && (
+                <Text>
+                  {"\n"} - You are not required to remove your insulin pump for
+                  screening. Just inform the Screening Officer that you are
+                  wearing one.
+                </Text>
+              )}
+              {this.state.showCGM ||
+                (this.state.showPump && (
+                  <Text>
+                    {"\n"} - Do not wear an insulin pump or CGM through the body
+                    scanner or place your insulin pump through the x-ray machine
+                    as they may affect the devices’ functioning. Instead, you
+                    can ask the screening officer to perform a physical search
+                    instead (in a private location, if you wish).
+                    {"\n"} - Handheld metal detectors do not affect the
+                    functioning of insulin pumps or CGMs.
+                  </Text>
+                ))}
             </Text>
           </View>
           <View style={styles.listItem}>
@@ -134,22 +173,30 @@ class Travel extends Component {
               {"\n"} - Travel health insurance
               {"\n"} - A list of your medications
               {"\n"} - A letter from your doctor stating:
-              {"\n    "} - That you need to carry syringes or needles for
-              insulin pens and lancets as part of your insulin treatment. Having
-              this will be helpful if your luggage is examined at airport
-              security checkpoints.
-              {"\n    "} - The supplies you need for your diabetes care. Be sure
-              to keep your syringes, needles, pens, and lancets in the same
-              boxes that they came in with the original prescription label on
-              them.
-              {"\n    "} - That you need to carry pump supplies, glucose
-              measuring supplies, insulin, and extra syringes of part of your
-              treatment. Having this will be helpful if your luggage is examined
-              at airport security checkpoints.
-              {"\n    "} - A list of the supplies you need for your diabetes
-              care (including hypoglycemia treatment). If prescribed, keep them
-              in the same boxes that they came in with the original prescription
-              label on them.
+              {this.state.showInjections && (
+                <Text>
+                  {"\n    "} - That you need to carry syringes or needles for
+                  insulin pens and lancets as part of your insulin treatment.
+                  Having this will be helpful if your luggage is examined at
+                  airport security checkpoints.
+                  {"\n    "} - The supplies you need for your diabetes care. Be
+                  sure to keep your syringes, needles, pens, and lancets in the
+                  same boxes that they came in with the original prescription
+                  label on them.
+                </Text>
+              )}
+              {this.state.showPump && (
+                <Text>
+                  {"\n    "} - That you need to carry pump supplies, glucose
+                  measuring supplies, insulin, and extra syringes of part of
+                  your treatment. Having this will be helpful if your luggage is
+                  examined at airport security checkpoints.
+                  {"\n    "} - A list of the supplies you need for your diabetes
+                  care (including hypoglycemia treatment). If prescribed, keep
+                  them in the same boxes that they came in with the original
+                  prescription label on them.
+                </Text>
+              )}
               {"\n"} - Ask your doctor, diabetes educator or health care team
               about:
               {"\n    "} - Illness management
@@ -173,12 +220,16 @@ class Travel extends Component {
               pen if used
               {"\n"} - Ketone-testing strips (urinary or blood)
               {"\n"} - Glucagon
-              {"\n"} - CGM supplies
+              {this.state.showCGM && <Text>{"\n"} - CGM supplies</Text>}
               {"\n"} - Batteries or chargers for any medical device that so
               requires
-              {"\n"} - Insulin pump supplies
-              {"\n"} - Extra insulin pump if available or backup long acting
-              insulin in case of pump malfunction
+              {this.state.showPump && (
+                <Text>
+                  {"\n"} - Insulin pump supplies
+                  {"\n"} - Extra insulin pump if available or backup long acting
+                  insulin in case of pump malfunction
+                </Text>
+              )}
             </Text>
           </View>
         </ScrollView>
