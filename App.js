@@ -12,7 +12,8 @@ export default function App() {
   
   const completeQuestions = () => {
     dbh.collection("users").doc(user.uid).update({
-      questions: {...user.questions}
+      questions: {...user.questions},
+      language: user.language
     })
     .then(()=>{
       setView("DashboardScreen");
@@ -24,6 +25,7 @@ export default function App() {
 
   firebase.auth().onAuthStateChanged((currentUser) => {
     if (currentUser) {
+      if(currentUser.lastLoginAt === currentUser.createdAt) return;
       if(view === "LoginScreen") {
         setUser({...currentUser});
         setView("DashboardScreen");
