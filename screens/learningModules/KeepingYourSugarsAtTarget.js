@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import "firebase/auth";
+import dbh from "../../firebase";
 import Header from "../../components/header";
 import colors from "../../style/colors.js";
 import { ScrollView } from "react-native-gesture-handler";
@@ -9,6 +10,9 @@ import Context from "../../Context";
 class KeepingYourSugarsAtTarget extends Component {
   constructor() {
     super();
+    this.state = {
+      showCGM: false,
+    };
 
     //functions
     this.goToLearningModules = this.goToLearningModules.bind(this);
@@ -17,6 +21,21 @@ class KeepingYourSugarsAtTarget extends Component {
 
   goToLearningModules() {
     this.context.setView("LearningModulesScreen");
+  }
+
+  componentDidMount() {
+    var user = this.context.user;
+    dbh
+      .collection("users")
+      .doc(user.uid)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          if (doc.data().questions.checkBloodSugar === "Real-time CGM") {
+            this.setState({ showCGM: true });
+          }
+        }
+      });
   }
 
   render() {
@@ -71,20 +90,22 @@ class KeepingYourSugarsAtTarget extends Component {
               Sick Day Management]
             </Text>
           </View>
-          {/* TODO  make this one only render for CGM*/}
-          <View style={styles.listItem}>
-            <Text style={styles.text}>
-              If you are on continuous glucose monitoring, through devices such
-              as Dexcom or Freestyle Libre, you can see an overview of your
-              blood sugars. When a healthcare professional looks at the
-              ambulatory glucose profile (AGP), which is the overall trend, our
-              targets are:{"\n"} - Time in target range of 4.0 - 10.0 mmol/L of
-              at least 70%{"\n"} - Glucose variability (also named "CV") of less
-              than 36%
-              {"\n"} - Having as little time spent in low or high blood sugar as
-              much as possible.
-            </Text>
-          </View>
+          {/*only for CGM*/}
+          {this.state.showCGM && (
+            <View style={styles.listItem}>
+              <Text style={styles.text}>
+                If you are on continuous glucose monitoring, through devices
+                such as Dexcom or Freestyle Libre, you can see an overview of
+                your blood sugars. When a healthcare professional looks at the
+                ambulatory glucose profile (AGP), which is the overall trend,
+                our targets are:{"\n"} - Time in target range of 4.0 - 10.0
+                mmol/L of at least 70%{"\n"} - Glucose variability (also named
+                "CV") of less than 36%
+                {"\n"} - Having as little time spent in low or high blood sugar
+                as much as possible.
+              </Text>
+            </View>
+          )}
         </ScrollView>
       </View>
     );
