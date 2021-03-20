@@ -10,6 +10,7 @@ import "firebase/auth";
 import Header from "../../components/header";
 import colors from "../../style/colors.js";
 import { ScrollView } from "react-native-gesture-handler";
+import Context from "../../Context";
 
 class SickDayManagement extends Component {
   constructor() {
@@ -35,9 +36,9 @@ class SickDayManagement extends Component {
     this.addToDiabetesPills = this.addToDiabetesPills.bind(this);
     this.addToPainMedications = this.addToPainMedications.bind(this);
   }
-
+  static contextType = Context;
   goToLearningModules() {
-    this.props.navigation.navigate("LearningModulesScreen");
+    this.context.setView("LearningModulesScreen");
   }
 
   calculateTDD(bool, value) {

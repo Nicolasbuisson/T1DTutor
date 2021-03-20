@@ -12,8 +12,8 @@ class LearningModulesScreen extends Component {
   constructor() {
     super();
     this.state = {
-      email: "",
-      password: "",
+      showPregnant: false,
+      showPump: false,
     };
 
     //functions
@@ -52,7 +52,6 @@ class LearningModulesScreen extends Component {
     this.goToTimeOffThePump = this.goToTimeOffThePump.bind(this);
     this.goToSickDayManagement = this.goToSickDayManagement.bind(this);
     this.goToExerciseAndYou = this.goToExerciseAndYou.bind(this);
-    //this.questions = this.context.user.questions;
   }
   static contextType = Context;
 
@@ -137,15 +136,33 @@ class LearningModulesScreen extends Component {
   }
 
   goToTimeOffThePump() {
-    this.props.navigation.navigate("TimeOffThePump");
+    this.context.setView("TimeOffThePump");
   }
 
   goToSickDayManagement() {
-    this.props.navigation.navigate("SickDayManagement");
+    this.context.setView("SickDayManagement");
   }
 
   goToExerciseAndYou() {
-    this.props.navigation.navigate("ExerciseAndYou");
+    this.context.setView("ExerciseAndYou");
+  }
+
+  componentDidMount() {
+    var user = this.context.user;
+    dbh
+      .collection("users")
+      .doc(user.uid)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          if (doc.data().questions.pregnant === "Yes") {
+            this.setState({ showPregnant: true });
+          }
+          if (doc.data().questions.injectionsOrPump === "Pump") {
+            this.setState({ showPump: true });
+          }
+        }
+      });
   }
 
   render() {
@@ -211,14 +228,14 @@ class LearningModulesScreen extends Component {
           >
             <Text style={styles.moduleText}>Sick Day Management</Text>
           </TouchableOpacity>
-          {/* {this.questions.injectionsOrPump == "Pump" && ( */}
-          <TouchableOpacity
-            style={styles.moduleTouchable}
-            onPress={this.goToTimeOffThePump}
-          >
-            <Text style={styles.moduleText}>Time Off the Pump</Text>
-          </TouchableOpacity>
-          {/* )} */}
+          {this.state.showPump && (
+            <TouchableOpacity
+              style={styles.moduleTouchable}
+              onPress={this.goToTimeOffThePump}
+            >
+              <Text style={styles.moduleText}>Time Off the Pump</Text>
+            </TouchableOpacity>
+          )}
           <TouchableOpacity
             style={styles.moduleTouchable}
             onPress={this.goToAlcoholAndOtherSubstances}
@@ -231,14 +248,14 @@ class LearningModulesScreen extends Component {
           >
             <Text style={styles.moduleText}>Driving with Diabetes</Text>
           </TouchableOpacity>
-          {/* {this.questions.pregancy == "Yes" && ( */}
-          <TouchableOpacity
-            style={styles.moduleTouchable}
-            onPress={this.goToDiabetesAndPregnancy}
-          >
-            <Text style={styles.moduleText}>Diabetes and Pregnancy</Text>
-          </TouchableOpacity>
-          {/* )} */}
+          {this.state.showPregnant && (
+            <TouchableOpacity
+              style={styles.moduleTouchable}
+              onPress={this.goToDiabetesAndPregnancy}
+            >
+              <Text style={styles.moduleText}>Diabetes and Pregnancy</Text>
+            </TouchableOpacity>
+          )}
           <TouchableOpacity
             style={styles.moduleTouchable}
             onPress={this.goToTravel}

@@ -1,15 +1,10 @@
 import React, { Component } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, StyleSheet, TextInput } from "react-native";
 import "firebase/auth";
 import Header from "../../components/header";
 import colors from "../../style/colors.js";
 import { ScrollView } from "react-native-gesture-handler";
+import Context from "../../Context";
 
 class ExerciseAndYou extends Component {
   constructor() {
@@ -25,9 +20,9 @@ class ExerciseAndYou extends Component {
     this.calculateCarbs = this.calculateCarbs.bind(this);
     this.onInputChangeWeight = this.onInputChangeWeight.bind(this);
   }
-
+  static contextType = Context;
   goToLearningModules() {
-    this.props.navigation.navigate("LearningModulesScreen");
+    this.context.setView("LearningModulesScreen");
   }
 
   calculateCarbs(value) {
