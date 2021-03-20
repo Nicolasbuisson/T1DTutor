@@ -32,7 +32,7 @@ class Question1screen extends Component {
   static contextType = Context;
 
   backFunction() {
-    this.context.setView("LoginScreen");
+    this.context.setView("LanguageQuestionScreen");
   }
 
   goToNextScreen() {

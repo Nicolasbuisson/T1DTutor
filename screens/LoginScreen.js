@@ -14,7 +14,7 @@ const LoginScreen = () => {
   const proceed = (status, user) => {
     if(status === "error") return;
     if(status === "newUser"){
-      context.setView("Question1screen");
+      context.setView("LanguageQuestionScreen");
     } else if(status === "existingUser") {
       context.setView("DashboardScreen");
     }
@@ -119,7 +119,7 @@ const LoginScreen = () => {
   }
 
   const goToQuestions = () => {
-    return context.setView("Question1screen");
+    return context.setView("LanguageQuestionScreen");
   }
 
   return  (<View style={styles.container}>
