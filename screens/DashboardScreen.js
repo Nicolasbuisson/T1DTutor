@@ -7,7 +7,7 @@ import Header from "../components/header";
 import Footer from "../components/footer";
 import icon from "../assets/icon.png";
 import colors from "../style/colors.js";
-import Context from '../Context';
+import Context from "../Context";
 
 class DashboardScreen extends Component {
   constructor() {
@@ -49,10 +49,21 @@ class DashboardScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Header title="T1D App" logo />
+        <Header title="T1D Tutor" logo />
 
         <View style={styles.fieldsContainer}>
-          <Button title="Sign out" onPress={() => firebase.auth().signOut().then(()=>{this.context.setView("LoginScreen")}).catch((e)=>console.log(e))} />
+          <Button
+            title="Sign out"
+            onPress={() =>
+              firebase
+                .auth()
+                .signOut()
+                .then(() => {
+                  this.context.setView("LoginScreen");
+                })
+                .catch((e) => console.log(e))
+            }
+          />
         </View>
         <Footer
           page="home"
