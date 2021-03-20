@@ -38,6 +38,11 @@ class FixedDosesScreen extends Component {
     this.context.completeQuestions();
   }
 
+  handleInputChange = (field, text) => {
+      if(isNaN(Number(text))) return;
+      this.context.setUser({...this.context.user, questions: {...this.context.user?.questions, [field]: text}})
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -52,7 +57,7 @@ class FixedDosesScreen extends Component {
           <Text style={styles.field}>Breakfast Doses</Text>
           <TextInput
             autoCorrect={false}
-            onChangeText={(text) => this.context.setUser({...this.context.user, questions: {...this.context.user?.questions, breakfast: text}})}
+            onChangeText={(text) => this.handleInputChange("breakfast", text)}
             value={this.context.user?.questions?.breakfast}
             style={styles.input}
           ></TextInput>
@@ -60,7 +65,7 @@ class FixedDosesScreen extends Component {
           <TextInput
             autoCorrect={false}
             secureTextEntry={false}
-            onChangeText={(text) => this.context.setUser({...this.context.user, questions: {...this.context.user?.questions, lunch: text}})}
+            onChangeText={(text) => this.handleInputChange("lunch", text)}
             value={this.context.user?.questions?.lunch}
             style={styles.input}
           ></TextInput>
@@ -68,7 +73,7 @@ class FixedDosesScreen extends Component {
           <TextInput
             autoCorrect={false}
             secureTextEntry={false}
-            onChangeText={(text) => this.context.setUser({...this.context.user, questions: {...this.context.user?.questions, dinner: text}})}
+            onChangeText={(text) => this.handleInputChange("dinner", text)}
             value={this.context.user?.questions?.dinner}
             style={styles.input}
           ></TextInput>
@@ -76,7 +81,7 @@ class FixedDosesScreen extends Component {
           <TextInput
             autoCorrect={false}
             secureTextEntry={false}
-            onChangeText={(text) => this.context.setUser({...this.context.user, questions: {...this.context.user?.questions, snack: text}})}
+            onChangeText={(text) => this.handleInputChange("snack", text)}
             value={this.context.user?.questions?.snack}
             style={styles.input}
           ></TextInput>
