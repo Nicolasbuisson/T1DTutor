@@ -12,13 +12,16 @@ import Header from "../../components/header";
 import Greenbutton from "../../components/greenButton"
 import QuestionDescription from "../../components/QuestionDescription"
 import Context from "../../Context";
+import {Picker} from '@react-native-picker/picker';
 
 class InjectionScreen1 extends Component {
     constructor() {
         super();
         this.state = {
-            meals: "",
-            long_acting: "",
+            showMeals: false,
+            showLongActing: false,
+            mealsOptions: ["Lispro (Humalog)", "Aspart (Novorapid)", "Glulisine (Apidra)", "Ultra-rapid aspart (Fiasp)"],
+            longActingOptions: ["Humulin N", "Novolin ge NPH", "Detemir (Levemir)", "Glargine (Lantus)", "Glargine biosimilar (Basaglar)", "Glargine U-300 (Toujeo)", "Degludec (Tresiba)"]
         };
 
         //functions
@@ -35,6 +38,30 @@ class InjectionScreen1 extends Component {
         this.context.setView("InjectionScreen2");
     }
 
+    toggleSelect = (val) => {
+        if(val === "meals") {
+          let toggle = !this.state.showMeals;
+          if(!this.context.user?.questions?.meals) {
+            this.context.setUser({...this.context.user, questions: {...this.context.user?.questions, meals: "Lispro (Humalog)"}})
+          }
+          if(toggle) {
+            this.setState({showMeals: toggle, showLongActing: false})
+          } else {
+            this.setState({showMeals: toggle})
+          }
+        } else if(val === "longActing") {
+          let toggle = !this.state.showLongActing;
+          if(!this.context.user?.questions?.longActing) {
+            this.context.setUser({...this.context.user, questions: {...this.context.user?.questions, longActing: "Humulin N"}})
+          }
+          if(toggle) {
+            this.setState({showLongActing: toggle, showMeals: false})
+          } else {
+            this.setState({showLongActing: toggle})
+          }
+        } 
+      }
+
 
     render() {
         return (
@@ -45,26 +72,59 @@ class InjectionScreen1 extends Component {
                     function={this.backFunction}
                 ></Header>
                 <QuestionDescription title="You are on Injections"></QuestionDescription>
-                <QuestionDescription title="What type of insulin do you use?"></QuestionDescription>
+                <Text style={styles.subtitle}>What type of insulin do you use?</Text>
                 <View style={styles.fieldsContainer}>
+                <View style={styles.space}>
                     <Text style={styles.field}>For meals</Text>
-                    <TextInput
-                        autoCorrect={false}
-                        onChangeText={(text) => this.context.setUser({...this.context.user, questions: {...this.context.user?.questions, meals: text}})}
-                        value={this.context.user?.questions?.meals}
-                        style={styles.input}
-                    ></TextInput>
+                    {!this.state.showMeals &&
+                    <Text>{this.context.user?.questions?.meals}</Text>
+                    }
+                    {!this.state.showMeals &&
+                    <Greenbutton title="Select" onPress={()=>this.toggleSelect("meals")}></Greenbutton>
+                    }
+                    {this.state.showMeals &&
+                        <Picker
+                            selectedValue={this.context.user?.questions?.meals || "Lispro (Humalog)"}
+                            style={{width: 350, height: 120, backgroundColor: colors.background}}
+                            itemStyle={{height: 120}}
+                            onValueChange={(itemValue, itemIndex) => this.context.setUser({...this.context.user, questions: {...this.context.user?.questions, meals: itemValue}})
+                            }>
+                                {this.state.mealsOptions.map((option)=>{
+                                    return <Picker.Item label={option} value={option} key={option}/>
+                                })}
+                        </Picker>
+                    }
+                    {this.state.showMeals &&
+                    <Greenbutton title="Okay" onPress={()=>this.toggleSelect("meals")}></Greenbutton>
+                    }
+                </View>
+                <View style={styles.space}>
                     <Text style={styles.field}>For long-acting</Text>
-                    <TextInput
-                        autoCorrect={false}
-                        secureTextEntry={false}
-                        onChangeText={(text) => this.context.setUser({...this.context.user, questions: {...this.context.user?.questions, longActing: text}})}
-                        value={this.context.user?.questions?.longActing}
-                        style={styles.input}
-                    ></TextInput>
+                    {!this.state.showLongActing &&
+                    <Text>{this.context.user?.questions?.longActing}</Text>
+                    }
+                    {!this.state.showLongActing &&
+                    <Greenbutton title="Select" onPress={()=>this.toggleSelect("longActing")}></Greenbutton>
+                    }
+                    {this.state.showLongActing &&
+                        <Picker
+                            selectedValue={this.context.user?.questions?.longActing || "Humulin N"}
+                            style={{width: 350, height: 120, backgroundColor: colors.background, fontSize: 10}}
+                            itemStyle={{height: 120}}
+                            onValueChange={(itemValue, itemIndex) => this.context.setUser({...this.context.user, questions: {...this.context.user?.questions, longActing: itemValue}})
+                            }>
+                                {this.state.longActingOptions.map((option)=>{
+                                    return <Picker.Item label={option} value={option} key={option}/>
+                                })}
+                        </Picker>
+                    }
+                    {this.state.showLongActing &&
+                    <Greenbutton title="Okay" onPress={()=>this.toggleSelect("longActing")}></Greenbutton>
+                    }
+                </View>
                 </View>
 
-                <View style={styles.fieldsContainer}><Greenbutton title="Next" onPress={this.goToNextScreen}></Greenbutton></View>
+                <View style={styles.footer}><Greenbutton title="Next" onPress={this.goToNextScreen}></Greenbutton></View>
 
             </View>
         );
@@ -82,8 +142,8 @@ const styles = StyleSheet.create({
     },
 
     fieldsContainer: {
-        flex: 3,
-        alignItems: "flex-start",
+        flex: 4,
+        alignItems: "center",
         justifyContent: "center",
     },
     field: {
@@ -91,13 +151,18 @@ const styles = StyleSheet.create({
         color: colors.primary,
     },
 
-    input: {
-        height: 25,
-        width: 300,
-        borderColor: colors.grey,
-        borderWidth: 3,
-        marginTop: 5,
-        marginBottom: 25,
+    subtitle: {
+        marginTop: 20,
+        fontSize: 18,
     },
+
+    space: {
+        alignItems: "center",
+        justifyContent: "center",
+        marginBottom: 40
+    },
+    footer: {
+        marginBottom: 80
+    }
 });
 
