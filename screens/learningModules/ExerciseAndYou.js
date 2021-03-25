@@ -809,7 +809,7 @@ class ExerciseAndYou extends Component {
         return (
           <View style={styles.container}>
             <Header
-              title="L'Exercice et Vous"
+              title="L'Exercice et Toi"
               backArrow={true}
               function={this.goToLearningModules}
               small={true}

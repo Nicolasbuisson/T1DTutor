@@ -14,6 +14,7 @@ class LearningModulesScreen extends Component {
     this.state = {
       showPregnant: false,
       showPump: false,
+      english: true,
     };
 
     //functions
@@ -161,148 +162,307 @@ class LearningModulesScreen extends Component {
           if (doc.data().questions.injectionsOrPump === "Pump") {
             this.setState({ showPump: true });
           }
+          if (doc.data().language === "French") {
+            this.setState({ english: false });
+          }
         }
       });
   }
 
   render() {
-    return (
-      <View style={styles.container}>
-        <Header title="Learning Modules"></Header>
-        <ScrollView
-          contentContainerStyle={styles.fieldsContainer}
-          style={{ height: "65%" }}
-          showsVerticalScrollIndicator={false}
-        >
-          <TouchableOpacity
-            style={styles.moduleTouchable}
-            onPress={this.goToMythBusters}
+    if (this.state.english) {
+      return (
+        <View style={styles.container}>
+          <Header title="Learning Modules"></Header>
+          <ScrollView
+            contentContainerStyle={styles.fieldsContainer}
+            style={{ height: "65%" }}
+            showsVerticalScrollIndicator={false}
           >
-            <Text style={styles.moduleText}>Type I Diabetes Myth Busters</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.moduleTouchable}
-            onPress={this.goToKeepingYourSugarsAtTarget}
-          >
-            <Text style={styles.moduleText}>Keeping your Sugars at Target</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.moduleTouchable}
-            onPress={this.goToLowBloodSugar}
-          >
-            <Text style={styles.moduleText}>Low Blood Sugar</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.moduleTouchable}
-            onPress={this.goToHighBloodSugar}
-          >
-            <Text style={styles.moduleText}>High Blood Sugar</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.moduleTouchable}
-            onPress={this.goToFoodAndYou}
-          >
-            <Text style={styles.moduleText}>Food and You</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.moduleTouchable}
-            onPress={this.goToExerciseAndYou}
-          >
-            <Text style={styles.moduleText}>Exericse and You</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.moduleTouchable}
-            onPress={this.goToFindingPatterns}
-          >
-            <Text style={styles.moduleText}>Finding Patterns</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.moduleTouchable}
-            onPress={this.goToPreventingComplications}
-          >
-            <Text style={styles.moduleText}>Preventing Complications</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.moduleTouchable}
-            onPress={this.goToSickDayManagement}
-          >
-            <Text style={styles.moduleText}>Sick Day Management</Text>
-          </TouchableOpacity>
-          {this.state.showPump && (
             <TouchableOpacity
               style={styles.moduleTouchable}
-              onPress={this.goToTimeOffThePump}
+              onPress={this.goToMythBusters}
             >
-              <Text style={styles.moduleText}>Time Off the Pump</Text>
+              <Text style={styles.moduleText}>
+                Type I Diabetes Myth Busters
+              </Text>
             </TouchableOpacity>
-          )}
-          <TouchableOpacity
-            style={styles.moduleTouchable}
-            onPress={this.goToAlcoholAndOtherSubstances}
-          >
-            <Text style={styles.moduleText}>Alcohol and other Substances</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.moduleTouchable}
-            onPress={this.goToDrivingWithDiabetes}
-          >
-            <Text style={styles.moduleText}>Driving with Diabetes</Text>
-          </TouchableOpacity>
-          {this.state.showPregnant && (
             <TouchableOpacity
               style={styles.moduleTouchable}
-              onPress={this.goToDiabetesAndPregnancy}
+              onPress={this.goToKeepingYourSugarsAtTarget}
             >
-              <Text style={styles.moduleText}>Diabetes and Pregnancy</Text>
+              <Text style={styles.moduleText}>
+                Keeping your Sugars at Target
+              </Text>
             </TouchableOpacity>
-          )}
-          <TouchableOpacity
-            style={styles.moduleTouchable}
-            onPress={this.goToTravel}
+            <TouchableOpacity
+              style={styles.moduleTouchable}
+              onPress={this.goToLowBloodSugar}
+            >
+              <Text style={styles.moduleText}>Low Blood Sugar</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.moduleTouchable}
+              onPress={this.goToHighBloodSugar}
+            >
+              <Text style={styles.moduleText}>High Blood Sugar</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.moduleTouchable}
+              onPress={this.goToFoodAndYou}
+            >
+              <Text style={styles.moduleText}>Food and You</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.moduleTouchable}
+              onPress={this.goToExerciseAndYou}
+            >
+              <Text style={styles.moduleText}>Exericse and You</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.moduleTouchable}
+              onPress={this.goToFindingPatterns}
+            >
+              <Text style={styles.moduleText}>Finding Patterns</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.moduleTouchable}
+              onPress={this.goToPreventingComplications}
+            >
+              <Text style={styles.moduleText}>Preventing Complications</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.moduleTouchable}
+              onPress={this.goToSickDayManagement}
+            >
+              <Text style={styles.moduleText}>Sick Day Management</Text>
+            </TouchableOpacity>
+            {this.state.showPump && (
+              <TouchableOpacity
+                style={styles.moduleTouchable}
+                onPress={this.goToTimeOffThePump}
+              >
+                <Text style={styles.moduleText}>Time Off the Pump</Text>
+              </TouchableOpacity>
+            )}
+            <TouchableOpacity
+              style={styles.moduleTouchable}
+              onPress={this.goToAlcoholAndOtherSubstances}
+            >
+              <Text style={styles.moduleText}>
+                Alcohol and other Substances
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.moduleTouchable}
+              onPress={this.goToDrivingWithDiabetes}
+            >
+              <Text style={styles.moduleText}>Driving with Diabetes</Text>
+            </TouchableOpacity>
+            {this.state.showPregnant && (
+              <TouchableOpacity
+                style={styles.moduleTouchable}
+                onPress={this.goToDiabetesAndPregnancy}
+              >
+                <Text style={styles.moduleText}>Diabetes and Pregnancy</Text>
+              </TouchableOpacity>
+            )}
+            <TouchableOpacity
+              style={styles.moduleTouchable}
+              onPress={this.goToTravel}
+            >
+              <Text style={styles.moduleText}>Travel</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.moduleTouchable}
+              onPress={this.goToSkinAndYourDiabetesSupplies}
+            >
+              <Text style={styles.moduleText}>
+                Skin and your Diabetes Supplies
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.moduleTouchable}
+              onPress={this.goToPeerSupportAndMentalHealth}
+            >
+              <Text style={styles.moduleText}>
+                Peer Support and Mental Health
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.moduleTouchable}
+              onPress={this.goToInnovativeDiabetesTech}
+            >
+              <Text style={styles.moduleText}>
+                Innovative Diabetes Technologies
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.moduleTouchable}
+              onPress={this.goToWhoToCall}
+            >
+              <Text style={styles.moduleText}>Who to Call</Text>
+            </TouchableOpacity>
+          </ScrollView>
+          <Footer
+            page="learn"
+            homeFunction={this.goToHome}
+            trackFunction={this.goToTrack}
+            learnFunction={this.goToLearningModules}
+            moreFunction={this.goToMore}
+            reminderFunction={this.goToReminders}
+          ></Footer>
+        </View>
+      );
+    } else {
+      return (
+        <View style={styles.container}>
+          <Header title="Modules Educatives"></Header>
+          <ScrollView
+            contentContainerStyle={styles.fieldsContainer}
+            style={{ height: "65%" }}
+            showsVerticalScrollIndicator={false}
           >
-            <Text style={styles.moduleText}>Travel</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.moduleTouchable}
-            onPress={this.goToSkinAndYourDiabetesSupplies}
-          >
-            <Text style={styles.moduleText}>
-              Skin and your Diabetes Supplies
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.moduleTouchable}
-            onPress={this.goToPeerSupportAndMentalHealth}
-          >
-            <Text style={styles.moduleText}>
-              Peer Support and Mental Health
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.moduleTouchable}
-            onPress={this.goToInnovativeDiabetesTech}
-          >
-            <Text style={styles.moduleText}>
-              Innovative Diabetes Technologies
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.moduleTouchable}
-            onPress={this.goToWhoToCall}
-          >
-            <Text style={styles.moduleText}>Who to Call</Text>
-          </TouchableOpacity>
-        </ScrollView>
-        <Footer
-          page="learn"
-          homeFunction={this.goToHome}
-          trackFunction={this.goToTrack}
-          learnFunction={this.goToLearningModules}
-          moreFunction={this.goToMore}
-          reminderFunction={this.goToReminders}
-        ></Footer>
-      </View>
-    );
+            <TouchableOpacity
+              style={styles.moduleTouchable}
+              onPress={this.goToMythBusters}
+            >
+              <Text style={styles.moduleText}>
+                Le Diabète: Combattre les Mythes
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.moduleTouchable}
+              onPress={this.goToKeepingYourSugarsAtTarget}
+            >
+              <Text style={styles.moduleText}>
+                Gardez vos Sucres à la Cible
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.moduleTouchable}
+              onPress={this.goToLowBloodSugar}
+            >
+              <Text style={styles.moduleText}>Les Sucres Bas</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.moduleTouchable}
+              onPress={this.goToHighBloodSugar}
+            >
+              <Text style={styles.moduleText}>Les Sucres Hauts</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.moduleTouchable}
+              onPress={this.goToFoodAndYou}
+            >
+              <Text style={styles.moduleText}>La Nourriture et Toi </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.moduleTouchable}
+              onPress={this.goToExerciseAndYou}
+            >
+              <Text style={styles.moduleText}>Exercice et Toi</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.moduleTouchable}
+              onPress={this.goToFindingPatterns}
+            >
+              <Text style={styles.moduleText}>Trouver des Modèles</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.moduleTouchable}
+              onPress={this.goToPreventingComplications}
+            >
+              <Text style={styles.moduleText}>
+                La Prévention de Complications
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.moduleTouchable}
+              onPress={this.goToSickDayManagement}
+            >
+              <Text style={styles.moduleText}>
+                La Gestion des Jours de Maladie
+              </Text>
+            </TouchableOpacity>
+            {this.state.showPump && (
+              <TouchableOpacity
+                style={styles.moduleTouchable}
+                onPress={this.goToTimeOffThePump}
+              >
+                <Text style={styles.moduleText}>
+                  Temps Libre de la Pompe à Insuline
+                </Text>
+              </TouchableOpacity>
+            )}
+            <TouchableOpacity
+              style={styles.moduleTouchable}
+              onPress={this.goToAlcoholAndOtherSubstances}
+            >
+              <Text style={styles.moduleText}>Alcool et autres substances</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.moduleTouchable}
+              onPress={this.goToDrivingWithDiabetes}
+            >
+              <Text style={styles.moduleText}>Conduire avec le diabète</Text>
+            </TouchableOpacity>
+            {this.state.showPregnant && (
+              <TouchableOpacity
+                style={styles.moduleTouchable}
+                onPress={this.goToDiabetesAndPregnancy}
+              >
+                <Text style={styles.moduleText}>
+                  Le Diabète et la Grossesse
+                </Text>
+              </TouchableOpacity>
+            )}
+            <TouchableOpacity
+              style={styles.moduleTouchable}
+              onPress={this.goToTravel}
+            >
+              <Text style={styles.moduleText}>Le Voyage</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.moduleTouchable}
+              onPress={this.goToSkinAndYourDiabetesSupplies}
+            >
+              <Text style={styles.moduleText}>La Peau et le Diabète</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.moduleTouchable}
+              onPress={this.goToPeerSupportAndMentalHealth}
+            >
+              <Text style={styles.moduleText}>
+                Soutien entre Pairs et Santé Mentale
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.moduleTouchable}
+              onPress={this.goToInnovativeDiabetesTech}
+            >
+              <Text style={styles.moduleText}>
+                Nouvelles Technologies du Diabète
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.moduleTouchable}
+              onPress={this.goToWhoToCall}
+            >
+              <Text style={styles.moduleText}>Qui Appeler</Text>
+            </TouchableOpacity>
+          </ScrollView>
+          <Footer
+            page="learn"
+            homeFunction={this.goToHome}
+            trackFunction={this.goToTrack}
+            learnFunction={this.goToLearningModules}
+            moreFunction={this.goToMore}
+            reminderFunction={this.goToReminders}
+          ></Footer>
+        </View>
+      );
+    }
   }
 }
 

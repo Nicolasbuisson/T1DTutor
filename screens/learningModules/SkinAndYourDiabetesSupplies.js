@@ -413,7 +413,7 @@ class SkinAndYourDiabetesSupplies extends Component {
       return (
         <View style={styles.container}>
           <Header
-            title="La Peau et vos Fournitures pour le Diabète"
+            title="La Peau et le Diabète"
             backArrow={true}
             function={this.goToLearningModules}
             small={true}

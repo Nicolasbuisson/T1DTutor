@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import "firebase/auth";
+import dbh from "../../firebase";
 import Header from "../../components/header";
 import colors from "../../style/colors.js";
 import { ScrollView } from "react-native-gesture-handler";

@@ -289,7 +289,7 @@ class PeerSupportAndMentalHealth extends Component {
       return (
         <View style={styles.container}>
           <Header
-            title="Soutien par les Pairs et la Santé Mentale"
+            title="Soutien entre Pairs et Santé Mentale"
             backArrow={true}
             function={this.goToLearningModules}
             small={true}

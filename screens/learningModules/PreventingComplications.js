@@ -111,7 +111,7 @@ class PreventingComplications extends Component {
       return (
         <View style={styles.container}>
           <Header
-            title="La Prévention des Complications"
+            title="La Prévention de Complications"
             backArrow={true}
             function={this.goToLearningModules}
             small={true}

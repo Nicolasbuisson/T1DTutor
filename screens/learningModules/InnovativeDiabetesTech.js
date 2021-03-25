@@ -208,7 +208,7 @@ class InnovativeDiabetesTech extends Component {
       return (
         <View style={styles.container}>
           <Header
-            title="Les Nouvelles Technologies du Diabète"
+            title="Nouvelles Technologies du Diabète"
             backArrow={true}
             function={this.goToLearningModules}
             small={true}
