@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import "firebase/auth";
+import dbh from "../../firebase";
 import Header from "../../components/header";
 import colors from "../../style/colors.js";
 import { ScrollView } from "react-native-gesture-handler";
@@ -25,6 +26,8 @@ class SickDayManagement extends Component {
       diabetesPillsInput: "",
       painMedications: [],
       painMedicationsInput: "",
+      uid: "",
+      english: true,
     };
 
     //functions
@@ -35,6 +38,9 @@ class SickDayManagement extends Component {
     this.addToBloodPressurePills = this.addToBloodPressurePills.bind(this);
     this.addToDiabetesPills = this.addToDiabetesPills.bind(this);
     this.addToPainMedications = this.addToPainMedications.bind(this);
+    this.clearBloodPressurePills = this.clearBloodPressurePills.bind(this);
+    this.clearDiabetesPills = this.clearDiabetesPills.bind(this);
+    this.clearPainMedications = this.clearPainMedications.bind(this);
   }
   static contextType = Context;
   goToLearningModules() {
@@ -69,12 +75,27 @@ class SickDayManagement extends Component {
       this.state.bloodPressurePills.length < 5 &&
       this.state.bloodPressurePillsInput
     ) {
-      this.setState({
-        bloodPressurePills: [
-          ...this.state.bloodPressurePills,
-          this.state.bloodPressurePillsInput,
-        ],
-      });
+      this.setState(
+        {
+          bloodPressurePills: [
+            ...this.state.bloodPressurePills,
+            this.state.bloodPressurePillsInput,
+          ],
+        },
+        () => {
+          dbh
+            .collection("users")
+            .doc(this.state.uid)
+            .collection("userData")
+            .doc("SickDay")
+            .set(
+              {
+                bloodPressurePills: this.state.bloodPressurePills,
+              },
+              { merge: true }
+            );
+        }
+      );
     }
     //clear input afterwards
     this.setState({ bloodPressurePillsInput: "" });
@@ -82,12 +103,27 @@ class SickDayManagement extends Component {
 
   addToDiabetesPills() {
     if (this.state.diabetesPills.length < 3 && this.state.diabetesPillsInput) {
-      this.setState({
-        diabetesPills: [
-          ...this.state.diabetesPills,
-          this.state.diabetesPillsInput,
-        ],
-      });
+      this.setState(
+        {
+          diabetesPills: [
+            ...this.state.diabetesPills,
+            this.state.diabetesPillsInput,
+          ],
+        },
+        () => {
+          dbh
+            .collection("users")
+            .doc(this.state.uid)
+            .collection("userData")
+            .doc("SickDay")
+            .set(
+              {
+                diabetesPills: this.state.diabetesPills,
+              },
+              { merge: true }
+            );
+        }
+      );
     }
     //clear input afterwards
     this.setState({ diabetesPillsInput: "" });
@@ -98,15 +134,125 @@ class SickDayManagement extends Component {
       this.state.painMedications.length < 3 &&
       this.state.painMedicationsInput
     ) {
-      this.setState({
-        painMedications: [
-          ...this.state.painMedications,
-          this.state.painMedicationsInput,
-        ],
-      });
+      this.setState(
+        {
+          painMedications: [
+            ...this.state.painMedications,
+            this.state.painMedicationsInput,
+          ],
+        },
+        () => {
+          dbh
+            .collection("users")
+            .doc(this.state.uid)
+            .collection("userData")
+            .doc("SickDay")
+            .set(
+              {
+                painMedications: this.state.painMedications,
+              },
+              { merge: true }
+            );
+        }
+      );
     }
     //clear input afterwards
     this.setState({ painMedicationsInput: "" });
+  }
+
+  clearBloodPressurePills() {
+    this.setState({ bloodPressurePills: [] }, () => {
+      dbh
+        .collection("users")
+        .doc(this.state.uid)
+        .collection("userData")
+        .doc("SickDay")
+        .set(
+          {
+            bloodPressurePills: this.state.bloodPressurePills,
+          },
+          { merge: true }
+        );
+    });
+  }
+
+  clearDiabetesPills() {
+    this.setState({ diabetesPills: [] }, () => {
+      dbh
+        .collection("users")
+        .doc(this.state.uid)
+        .collection("userData")
+        .doc("SickDay")
+        .set(
+          {
+            diabetesPills: this.state.diabetesPills,
+          },
+          { merge: true }
+        );
+    });
+  }
+
+  clearPainMedications() {
+    this.setState({ painMedications: [] }, () => {
+      dbh
+        .collection("users")
+        .doc(this.state.uid)
+        .collection("userData")
+        .doc("SickDay")
+        .set(
+          {
+            painMedications: this.state.painMedications,
+          },
+          { merge: true }
+        );
+    });
+  }
+
+  componentDidMount() {
+    var user = this.context.user;
+    if (user) {
+      this.setState({ uid: user.uid });
+    }
+    var bloodPressurePills = [];
+    var diabetesPills = [];
+    var painMedications = [];
+    dbh
+      .collection("users")
+      .doc(user.uid)
+      .collection("userData")
+      .doc("SickDay")
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          if (doc.data().bloodPressurePills) {
+            bloodPressurePills = doc.data().bloodPressurePills;
+          }
+          if (doc.data().diabetesPills) {
+            diabetesPills = doc.data().diabetesPills;
+          }
+          if (doc.data().painMedications) {
+            painMedications = doc.data().painMedications;
+          }
+          this.setState({
+            bloodPressurePills: bloodPressurePills,
+            diabetesPills: diabetesPills,
+            painMedications: painMedications,
+          });
+        }
+      });
+    dbh
+      .collection("users")
+      .doc(user.uid)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          if (doc.data().language === "French") {
+            this.setState({
+              english: false,
+            });
+          }
+        }
+      });
   }
 
   render() {
@@ -404,6 +550,14 @@ class SickDayManagement extends Component {
                   </Text>
                 </TouchableOpacity>
               </View>
+              <TouchableOpacity style={styles.addButton}>
+                <Text
+                  style={styles.addButtonText}
+                  onPress={() => this.clearBloodPressurePills()}
+                >
+                  Clear
+                </Text>
+              </TouchableOpacity>
               <Text style={styles.text}>Diabetes pills: (Max 3)</Text>
               <View>
                 {this.state.diabetesPills.map((item) => (
@@ -427,7 +581,14 @@ class SickDayManagement extends Component {
                   </Text>
                 </TouchableOpacity>
               </View>
-
+              <TouchableOpacity style={styles.addButton}>
+                <Text
+                  style={styles.addButtonText}
+                  onPress={() => this.clearDiabetesPills()}
+                >
+                  Clear
+                </Text>
+              </TouchableOpacity>
               <Text style={styles.text}>
                 Anti-inflammatory pain medications: (Max 3)
               </Text>
@@ -453,6 +614,14 @@ class SickDayManagement extends Component {
                   </Text>
                 </TouchableOpacity>
               </View>
+              <TouchableOpacity style={styles.addButton}>
+                <Text
+                  style={styles.addButtonText}
+                  onPress={() => this.clearPainMedications()}
+                >
+                  Clear
+                </Text>
+              </TouchableOpacity>
             </View>
           </View>
           <View style={styles.listItem}>
