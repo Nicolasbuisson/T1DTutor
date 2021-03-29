@@ -34,7 +34,7 @@ export default function App() {
     });
   }, []);
   
-  const completeQuestions = () => {
+  const completeQuestions = (user) => {
     dbh.collection("users").doc(user.uid).update({
       questions: {...user.questions},
       language: user.language,
