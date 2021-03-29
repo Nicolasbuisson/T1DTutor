@@ -8,7 +8,6 @@ import {
   Alert,
 } from "react-native";
 import firebase from "firebase";
-import dbh from "../firebase";
 import colors from "../style/colors.js";
 import Header from "../components/header";
 import Context from '../Context';

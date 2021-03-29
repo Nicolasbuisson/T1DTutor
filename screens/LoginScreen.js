@@ -2,11 +2,11 @@ import React, { Component, useContext } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import * as Google from "expo-google-app-auth";
 import firebase from "firebase";
-import dbh from "../firebase";
 import colors from "../style/colors";
 import Googlebutton from "../components/googlebutton"
 import Greenbutton from "../components/greenButton"
-import Context from '../Context'
+import Context from '../Context';
+import {createUser, updateUser} from "../database";
 
 const LoginScreen = () => {
   const context = useContext(Context);
@@ -62,7 +62,7 @@ const LoginScreen = () => {
             .then(function (result) {
               // console.log("user signed in");
               if (result.additionalUserInfo.isNewUser) {
-                dbh.collection("users").doc(result.user.uid).set({
+                createUser(result.user.uid, {
                   gmail: result.user.email,
                   profile_pic: result.additionalUserInfo.profile.picture,
                   locale: result.additionalUserInfo.profile.locale,
@@ -71,12 +71,14 @@ const LoginScreen = () => {
                   created_at: Date.now(),
                   isNewUser: true,
                   uid: result.user.uid
+                }, ()=>{
+                  proceed("newUser", result.user);
                 });
-                proceed("newUser", result.user);
               } else {
-                proceed("existingUser", result.user);
-                dbh.collection("users").doc(result.user.uid).update({
+                updateUser(result.user.uid, {
                   last_logged_in: Date.now(),
+                }, ()=>{
+                  proceed("existingUser", result.user);
                 });
               }
             })

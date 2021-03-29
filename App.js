@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import "firebase/auth";
 import SetView from "./SetView";
 import { UserProvider } from './Context';
-import dbh from "./firebase";
 import firebase from "firebase";
+import {getUser, updateUser} from "./database";
 
 export default function App() {
   const [user, setUser] = useState({});
@@ -11,23 +11,24 @@ export default function App() {
   const [view, setView] = useState("LoginScreen");
 
   useEffect(()=>{
+    userAuth();
+  }, []);
+  
+  const userAuth = () => {
     firebase.auth().onAuthStateChanged((currentUser) => {
       if (currentUser && ((user.uid && currentUser?.uid !== user.uid) || !user.uid)) {
-          dbh.collection("users").doc(currentUser.uid).get().then((doc)=>{
-            let data = doc.data();
-            if(data) {
-              setUser({...data});
-              if(view === "LoginScreen" && !data?.isNewUser) {
-                setView("DashboardScreen");
-              } else if(data?.isNewUser) {
-                setView("LanguageQuestionScreen");
-              }
-            } else {
+        getUser(currentUser.uid, (data)=>{
+          if(data) {
+            setUser({...data});
+            if(view === "LoginScreen" && !data?.isNewUser) {
+              setView("DashboardScreen");
+            } else if(data?.isNewUser) {
               setView("LanguageQuestionScreen");
             }
-          }).catch((error) => {
-            console.log("Error getting document:", error);
-          });
+          } else {
+            setView("LanguageQuestionScreen");
+          }
+        })
       } else {
         if(view === "EmailLoginScreen" || view === "EmailSignUpScreen") return;
         if(view !== "LoginScreen") {
@@ -36,20 +37,18 @@ export default function App() {
         }
       }
     });
-  }, []);
-  
+  }
+
   const completeQuestions = (user) => {
-    dbh.collection("users").doc(user.uid).update({
+    updateUser(user.uid, {
       questions: {...user.questions},
       language: user.language,
       isNewUser: false
-    })
-    .then(()=>{
+    },
+    ()=>{
       setView("DashboardScreen");
-    })
-    .catch((e)=>{
-      console.log(e);
-    })
+    }
+    )
   }
 
   
