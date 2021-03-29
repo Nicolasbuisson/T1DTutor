@@ -15,6 +15,7 @@ const LoginScreen = () => {
     if(status === "error") return;
     if(status === "newUser"){
       context.setView("LanguageQuestionScreen");
+      context.setUser({...user});
     } else if(status === "existingUser") {
       context.setView("DashboardScreen");
     }

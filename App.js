@@ -15,10 +15,14 @@ export default function App() {
       if (currentUser && ((user.uid && currentUser?.uid !== user.uid) || !user.uid)) {
           dbh.collection("users").doc(currentUser.uid).get().then((doc)=>{
             let data = doc.data();
-            setUser({...data});
-            if(view === "LoginScreen" && !data.isNewUser) {
-              setView("DashboardScreen");
-            } else if(data.isNewUser) {
+            if(data) {
+              setUser({...data});
+              if(view === "LoginScreen" && !data?.isNewUser) {
+                setView("DashboardScreen");
+              } else if(data?.isNewUser) {
+                setView("LanguageQuestionScreen");
+              }
+            } else {
               setView("LanguageQuestionScreen");
             }
           }).catch((error) => {
