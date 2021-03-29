@@ -20,6 +20,7 @@ class InjectionScreen1 extends Component {
         this.state = {
             showMeals: false,
             showLongActing: false,
+            disabled: true,
             mealsOptions: ["Lispro (Humalog)", "Aspart (Novorapid)", "Glulisine (Apidra)", "Ultra-rapid aspart (Fiasp)"],
             longActingOptions: ["Humulin N", "Novolin ge NPH", "Detemir (Levemir)", "Glargine (Lantus)", "Glargine biosimilar (Basaglar)", "Glargine U-300 (Toujeo)", "Degludec (Tresiba)"]
         };
@@ -30,6 +31,22 @@ class InjectionScreen1 extends Component {
 
     }
     static contextType = Context;
+
+    componentDidMount() {
+        this.isDisabled();
+      }
+    
+      componentDidUpdate() {
+        this.isDisabled();
+      }
+    
+      isDisabled = () => {
+        const {meals,longActing} = this.context.user.questions;
+        if(meals && longActing && this.state.disabled) {
+          this.setState({disabled: false});
+        }
+      }
+
     backFunction() {
         this.context.setView("InjectionOrPumpScreen");
     }
@@ -124,7 +141,7 @@ class InjectionScreen1 extends Component {
                 </View>
                 </View>
 
-                <View style={styles.footer}><Greenbutton title="Next" onPress={this.goToNextScreen}></Greenbutton></View>
+                <View style={styles.footer}><Greenbutton title="Next" onPress={this.goToNextScreen} disabled={this.state.disabled}></Greenbutton></View>
 
             </View>
         );

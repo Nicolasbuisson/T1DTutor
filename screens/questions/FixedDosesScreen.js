@@ -21,6 +21,7 @@ class FixedDosesScreen extends Component {
       lunch: "",
       dinner: "",
       snack: "",
+      disabled: true,
     };
 
     //functions
@@ -29,6 +30,21 @@ class FixedDosesScreen extends Component {
 
   }
   static contextType = Context;
+
+  componentDidMount() {
+    this.isDisabled();
+  }
+
+  componentDidUpdate() {
+    this.isDisabled();
+  }
+
+  isDisabled = () => {
+    const {breakfast,lunch,dinner,snack} = this.context.user.questions;
+    if(breakfast && lunch && dinner && snack && this.state.disabled) {
+      this.setState({disabled: false});
+    }
+  }
 
   backFunction() {
     this.context.setView("InjectionScreen2");
@@ -87,7 +103,7 @@ class FixedDosesScreen extends Component {
           ></TextInput>
         </View>
 
-        <View style={styles.fieldsContainer}><Greenbutton title="Confirm" onPress={this.goToNextScreen}></Greenbutton></View>
+        <View style={styles.fieldsContainer}><Greenbutton title="Confirm" onPress={this.goToNextScreen} disabled={this.state.disabled}></Greenbutton></View>
 
       </View>
     );

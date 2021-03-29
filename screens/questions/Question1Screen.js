@@ -21,7 +21,8 @@ class Question1screen extends Component {
     this.state = {
       showDOB: false,
       showDiagnosis: false,
-      showPregnant: false
+      showPregnant: false,
+      disabled: true
     };
 
     //functions
@@ -30,6 +31,21 @@ class Question1screen extends Component {
     
   }
   static contextType = Context;
+
+  componentDidMount() {
+    this.isDisabled();
+  }
+
+  componentDidUpdate() {
+    this.isDisabled();
+  }
+
+  isDisabled = () => {
+    const {DOB, diagnosisdate, pregnant} = this.context.user.questions;
+    if(DOB && diagnosisdate && pregnant && this.state.disabled) {
+      this.setState({disabled: false});
+    }
+  }
 
   backFunction() {
     this.context.setView("LanguageQuestionScreen");
@@ -156,7 +172,7 @@ class Question1screen extends Component {
           }
           </View>
 
-          <Greenbutton title="Next" onPress={this.goToNextScreen}></Greenbutton>
+          <Greenbutton title="Next" onPress={this.goToNextScreen} disabled={this.state.disabled}></Greenbutton>
         </View>
       </View>
     );

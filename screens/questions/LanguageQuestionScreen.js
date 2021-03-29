@@ -17,7 +17,7 @@ import Context from "../../Context";
 export default function LanguageQuestionScreen(props) {
     const context = useContext(Context);
     const goToNextScreen = (value) => {
-      context.setUser({...context.user, language: value});
+      context.setUser({...context.user, language: value, questions: {}});
       context.setView("Question1screen");
     }
     return   (

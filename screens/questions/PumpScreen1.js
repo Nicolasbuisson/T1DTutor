@@ -19,6 +19,7 @@ class PumpScreen1 extends Component {
         super();
         this.state = {
             showBrand: "",
+            disabled: true,
             brandOptions: ["Medtronic: MiniMed 670G","Medtronic: MiniMed 630G", "Medtronic: Paragidm", "Medtronic: Other", "OmniPod", "Tandem t:slim With Control-IQ", "Tandem t:slim Without Control-IQ", "YPSO"]
         };
 
@@ -28,6 +29,21 @@ class PumpScreen1 extends Component {
 
     }
     static contextType = Context;
+
+    componentDidMount() {
+        this.isDisabled();
+      }
+    
+      componentDidUpdate() {
+        this.isDisabled();
+      }
+    
+      isDisabled = () => {
+        const {pumpType} = this.context.user.questions;
+        if(pumpType && this.state.disabled) {
+          this.setState({disabled: false});
+        }
+      }
 
     backFunction() {
         this.context.setView("InjectionOrPumpScreen");
@@ -84,7 +100,7 @@ class PumpScreen1 extends Component {
                     </View>
                 </View>
 
-                <View style={styles.footer}><Greenbutton title="Go to Dashboard!" onPress={this.goToNextScreen}></Greenbutton></View>
+                <View style={styles.footer}><Greenbutton title="Go to Dashboard!" onPress={this.goToNextScreen} disabled={this.state.disabled}></Greenbutton></View>
 
             </View>
         );
