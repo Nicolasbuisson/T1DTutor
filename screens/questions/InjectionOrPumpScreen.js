@@ -27,8 +27,25 @@ class InjectionOrPumpScreen extends Component {
   }
   static contextType = Context;
 
+  componentDidMount() {
+    let updateUser = {...this.context.user};
+    delete updateUser.questions?.meals;
+    delete updateUser.questions?.longActing;
+    delete updateUser.questions?.useForMeals;
+    delete updateUser.questions?.pumpType;
+    delete updateUser.questions?.breakfast;
+    delete updateUser.questions?.lunch;
+    delete updateUser.questions?.dinner;
+    delete updateUser.questions?.snack;
+    this.context.setUser({...updateUser});
+}
+
   backFunction() {
-    this.context.setView("Question2screen");
+    if(this.context.user.questions?.typeOfRealTime) {
+      this.context.setView("Question2bisscreen");
+    } else {
+      this.context.setView("Question2screen");
+    }
   }
 
 

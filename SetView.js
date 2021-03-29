@@ -32,6 +32,7 @@ import FoodAndYou from "./screens/learningModules/FoodAndYou";
 import SkinAndYourDiabetesSupplies from "./screens/learningModules/SkinAndYourDiabetesSupplies";
 import InjectionScreen1 from "./screens/questions/InjectionScreen1";
 import PumpScreen1 from "./screens/questions/PumpScreen1";
+import LanguageQuestionScreen from "./screens/questions/LanguageQuestionScreen";
 import ExerciseAndYou from "./screens/learningModules/ExerciseAndYou";
 import SickDayManagement from "./screens/learningModules/SickDayManagement";
 import TimeOffThePump from "./screens/learningModules/TimeOffThePump";

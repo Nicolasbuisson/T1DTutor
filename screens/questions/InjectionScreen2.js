@@ -28,6 +28,16 @@ class InjectionScreen2 extends Component {
   }
   static contextType = Context;
 
+  componentDidMount() {
+    let updateUser = {...this.context.user};
+    delete updateUser.questions?.useForMeals;
+    delete updateUser.questions?.breakfast;
+    delete updateUser.questions?.lunch;
+    delete updateUser.questions?.dinner;
+    delete updateUser.questions?.snack;
+    this.context.setUser({...updateUser});
+}
+
   backFunction() {
     this.context.setView("InjectionScreen1");
   }
@@ -41,7 +51,7 @@ class InjectionScreen2 extends Component {
     if(value === "Fixed Doses") {
       this.context.setView("FixedDosesScreen");
     } else {
-      this.context.completeQuestions();
+      this.context.completeQuestions({...this.context.user, questions: {...this.context.user?.questions, useForMeals: value}});
     }
   }
 

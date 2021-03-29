@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import firebase from "firebase";
-import dbh from "../firebase";
 import colors from "../style/colors.js";
 import Header from "../components/header";
 import Footer from "../components/footer";

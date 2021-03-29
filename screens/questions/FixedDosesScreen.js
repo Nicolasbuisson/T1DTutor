@@ -21,6 +21,7 @@ class FixedDosesScreen extends Component {
       lunch: "",
       dinner: "",
       snack: "",
+      disabled: true,
     };
 
     //functions
@@ -30,12 +31,32 @@ class FixedDosesScreen extends Component {
   }
   static contextType = Context;
 
+  componentDidMount() {
+    this.isDisabled();
+  }
+
+  componentDidUpdate() {
+    this.isDisabled();
+  }
+
+  isDisabled = () => {
+    const {breakfast,lunch,dinner,snack} = this.context.user.questions;
+    if(breakfast && lunch && dinner && snack && this.state.disabled) {
+      this.setState({disabled: false});
+    }
+  }
+
   backFunction() {
     this.context.setView("InjectionScreen2");
   }
 
   goToNextScreen() {
-    this.context.completeQuestions();
+    this.context.completeQuestions({...this.context.user});
+  }
+
+  handleInputChange = (field, text) => {
+      if(isNaN(Number(text))) return;
+      this.context.setUser({...this.context.user, questions: {...this.context.user?.questions, [field]: text}})
   }
 
   render() {
@@ -52,7 +73,7 @@ class FixedDosesScreen extends Component {
           <Text style={styles.field}>Breakfast Doses</Text>
           <TextInput
             autoCorrect={false}
-            onChangeText={(text) => this.context.setUser({...this.context.user, questions: {...this.context.user?.questions, breakfast: text}})}
+            onChangeText={(text) => this.handleInputChange("breakfast", text)}
             value={this.context.user?.questions?.breakfast}
             style={styles.input}
           ></TextInput>
@@ -60,7 +81,7 @@ class FixedDosesScreen extends Component {
           <TextInput
             autoCorrect={false}
             secureTextEntry={false}
-            onChangeText={(text) => this.context.setUser({...this.context.user, questions: {...this.context.user?.questions, lunch: text}})}
+            onChangeText={(text) => this.handleInputChange("lunch", text)}
             value={this.context.user?.questions?.lunch}
             style={styles.input}
           ></TextInput>
@@ -68,7 +89,7 @@ class FixedDosesScreen extends Component {
           <TextInput
             autoCorrect={false}
             secureTextEntry={false}
-            onChangeText={(text) => this.context.setUser({...this.context.user, questions: {...this.context.user?.questions, dinner: text}})}
+            onChangeText={(text) => this.handleInputChange("dinner", text)}
             value={this.context.user?.questions?.dinner}
             style={styles.input}
           ></TextInput>
@@ -76,13 +97,13 @@ class FixedDosesScreen extends Component {
           <TextInput
             autoCorrect={false}
             secureTextEntry={false}
-            onChangeText={(text) => this.context.setUser({...this.context.user, questions: {...this.context.user?.questions, snack: text}})}
+            onChangeText={(text) => this.handleInputChange("snack", text)}
             value={this.context.user?.questions?.snack}
             style={styles.input}
           ></TextInput>
         </View>
 
-        <View style={styles.fieldsContainer}><Greenbutton title="Confirm" onPress={this.goToNextScreen}></Greenbutton></View>
+        <View style={styles.fieldsContainer}><Greenbutton title="Confirm" onPress={this.goToNextScreen} disabled={this.state.disabled}></Greenbutton></View>
 
       </View>
     );

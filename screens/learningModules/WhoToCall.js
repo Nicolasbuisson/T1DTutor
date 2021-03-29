@@ -103,28 +103,18 @@ class WhoToCall extends Component {
   }
 
   submitPersonel() {
-    this.setState(
-      {
-        personelName: this.state.personelNameInput,
-        personelNumber: this.state.personelNumberInput,
-        personelNameInput: "",
-        personelNumberInput: "",
-      },
-      () => {
-        dbh
-          .collection("users")
-          .doc(this.state.uid)
-          .collection("userData")
-          .doc("WhoToCall")
-          .set(
-            {
-              personelName: this.state.personelName,
-              personelNumber: this.state.personelNumber,
-            },
-            { merge: true }
-          );
-      }
-    );
+    this.context.updateUserAndState({
+      personel: {
+      name: this.state.personelNameInput,
+      number: this.state.personelNumberInput
+    }
+    },
+    ()=>{
+    this.setState({ 
+    personelNameInput: "",
+    personelNumberInput: ""})
+    }
+    )
   }
 
   addContact() {
@@ -272,6 +262,45 @@ class WhoToCall extends Component {
                   514-934-1934, extension 44760.
                 </Text>
               </Text>
+            </Text>
+          </View>
+          <View style={styles.listItem}>
+            <Text style={styles.text}>
+              Call one of the diabetes nurse educators if you need any other
+              help with your diabetes care. They answer the phone from Monday to
+              Friday between 8 am to 4 pm. Call the McGill University Health
+              Centre at{" "}
+              <Text
+                style={{ textDecorationLine: "underline" }}
+                onPress={() => {
+                  Linking.openURL("tel:+15149341934");
+                }}
+              >
+                514-934-1934
+              </Text>{" "}
+              and use the extension numbers below.
+              {"\n"} - Maria D'Errico: 38006
+              {"\n"} - Panhavat Huor: 38004
+              {"\n"} - {this.context.user?.personel?.name}
+              {": "}
+              <Text
+                style={{ textDecorationLine: "underline" }}
+                onPress={() => {
+                  Linking.openURL("tel:" + this.context.user?.personel?.number);
+                }}
+              >
+                {this.context.user?.personel?.number}
+              </Text>
+            </Text>
+            <View style={styles.inputView}>
+              <Text style={styles.inputText}>Enter the personel's name: </Text>
+              <TextInput
+                style={styles.input}
+                onChangeText={(text) =>
+                  this.setState({ personelNameInput: text })
+                }
+                value={this.state.personelNameInput}
+              ></TextInput>
             </View>
             <View style={styles.listItem}>
               <Text style={styles.text}>
