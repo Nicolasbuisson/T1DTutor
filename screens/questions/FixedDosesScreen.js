@@ -35,7 +35,7 @@ class FixedDosesScreen extends Component {
   }
 
   goToNextScreen() {
-    this.context.completeQuestions();
+    this.context.completeQuestions({...this.context.user});
   }
 
   handleInputChange = (field, text) => {

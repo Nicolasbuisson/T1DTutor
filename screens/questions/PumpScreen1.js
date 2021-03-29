@@ -34,7 +34,7 @@ class PumpScreen1 extends Component {
     }
 
     goToNextScreen() {
-        this.context.completeQuestions();
+        this.context.completeQuestions({...this.context.user});
     }
 
     toggleSelect = () => {
