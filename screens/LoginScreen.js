@@ -18,7 +18,6 @@ const LoginScreen = () => {
     } else if(status === "existingUser") {
       context.setView("DashboardScreen");
     }
-    context.setUser({...user});
   }
 
   const signInWithGoogleAsync = async () => {
@@ -69,6 +68,8 @@ const LoginScreen = () => {
                   first_name: result.additionalUserInfo.profile.given_name,
                   last_name: result.additionalUserInfo.profile.family_name,
                   created_at: Date.now(),
+                  isNewUser: true,
+                  uid: result.user.uid
                 });
                 proceed("newUser", result.user);
               } else {
