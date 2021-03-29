@@ -103,28 +103,18 @@ class WhoToCall extends Component {
   }
 
   submitPersonel() {
-    this.setState(
-      {
-        personelName: this.state.personelNameInput,
-        personelNumber: this.state.personelNumberInput,
-        personelNameInput: "",
-        personelNumberInput: "",
-      },
-      () => {
-        dbh
-          .collection("users")
-          .doc(this.state.uid)
-          .collection("userData")
-          .doc("WhoToCall")
-          .set(
-            {
-              personelName: this.state.personelName,
-              personelNumber: this.state.personelNumber,
-            },
-            { merge: true }
-          );
-      }
-    );
+    this.context.updateUserAndState({
+      personel: {
+      name: this.state.personelNameInput,
+      number: this.state.personelNumberInput
+    }
+    },
+    ()=>{
+    this.setState({ 
+    personelNameInput: "",
+    personelNumberInput: ""})
+    }
+    )
   }
 
   addContact() {
@@ -276,15 +266,15 @@ class WhoToCall extends Component {
               and use the extension numbers below.
               {"\n"} - Maria D'Errico: 38006
               {"\n"} - Panhavat Huor: 38004
-              {"\n"} - {this.state.personelName}
+              {"\n"} - {this.context.user?.personel?.name}
               {": "}
               <Text
                 style={{ textDecorationLine: "underline" }}
                 onPress={() => {
-                  Linking.openURL("tel:" + this.state.personelNumber);
+                  Linking.openURL("tel:" + this.context.user?.personel?.number);
                 }}
               >
-                {this.state.personelNumber}
+                {this.context.user?.personel?.number}
               </Text>
             </Text>
             <View style={styles.inputView}>
