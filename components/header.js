@@ -27,7 +27,12 @@ const Header = (props) => {
       <Text style={props.small ? styles.headerTextSmall : styles.headerText}>
         {props.title}
       </Text>
-      <Image style={props.logo ? styles.fakeLogo : styles.noDisplay} />
+      {props.logo && (
+        <Image
+          source={require("../assets/logoCircle.png")}
+          style={styles.logo}
+        />
+      )}
     </View>
   );
 };
@@ -48,10 +53,9 @@ const styles = StyleSheet.create({
     marginRight: 5,
     padding: 5,
   },
-  fakeLogo: {
-    backgroundColor: colors.primary,
-    height: 30,
-    width: 30,
+  logo: {
+    height: 40,
+    width: 40,
     marginLeft: 5,
   },
   headerContainer: {
@@ -72,6 +76,8 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     maxWidth: "83%",
     alignSelf: "center",
+    marginLeft: 5,
+    marginRight: 2,
   },
   headerTextSmall: {
     color: colors.primary,
@@ -79,6 +85,8 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     maxWidth: "83%",
     alignSelf: "center",
+    marginLeft: 5,
+    marginRight: 2,
   },
   noDisplay: {
     display: "none",
