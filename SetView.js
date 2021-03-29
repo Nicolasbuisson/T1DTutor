@@ -32,6 +32,7 @@ import FoodAndYou from "./screens/learningModules/FoodAndYou";
 import SkinAndYourDiabetesSupplies from "./screens/learningModules/SkinAndYourDiabetesSupplies";
 import InjectionScreen1 from "./screens/questions/InjectionScreen1";
 import PumpScreen1 from "./screens/questions/PumpScreen1";
+import LanguageQuestionScreen from "./screens/questions/LanguageQuestionScreen";
 
 export default function SetView(props) {
     let view = props.view;
@@ -70,6 +71,7 @@ export default function SetView(props) {
         {view==="Travel" && <Travel></Travel>}
         {view==="FoodAndYou" && <FoodAndYou></FoodAndYou>}
         {view==="SkinAndYourDiabetesSupplies" && <SkinAndYourDiabetesSupplies></SkinAndYourDiabetesSupplies>}
+        {view==="LanguageQuestionScreen" && <LanguageQuestionScreen></LanguageQuestionScreen>}
         </React.Fragment>
     )
 }

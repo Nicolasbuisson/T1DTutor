@@ -12,14 +12,17 @@ import Header from "../../components/header";
 import Greenbutton from "../../components/greenButton"
 import Dropdown from 'react-dropdown';
 import Context from "../../Context";
+import DateTimePicker from '@react-native-community/datetimepicker';
+import {Picker} from '@react-native-picker/picker';
 
 class Question1screen extends Component {
   constructor() {
     super();
     this.state = {
-      age: "",
-      diagnosisdate: "",
-      pregnant: "",
+      showDOB: false,
+      showDiagnosis: false,
+      showPregnant: false,
+      disabled: true
     };
 
     //functions
@@ -29,14 +32,70 @@ class Question1screen extends Component {
   }
   static contextType = Context;
 
+  componentDidMount() {
+    this.isDisabled();
+  }
+
+  componentDidUpdate() {
+    this.isDisabled();
+  }
+
+  isDisabled = () => {
+    const {DOB, diagnosisdate, pregnant} = this.context.user.questions;
+    if(DOB && diagnosisdate && pregnant && this.state.disabled) {
+      this.setState({disabled: false});
+    }
+  }
+
   backFunction() {
-    this.context.setView("LoginScreen");
+    this.context.setView("LanguageQuestionScreen");
   }
 
   goToNextScreen() {
     this.context.setView("Question2screen");
   }
 
+  toggleDate = (val) => {
+    if(val === "DOB") {
+      let toggle = !this.state.showDOB;
+      if(!this.context.user?.questions?.DOB) {
+        this.context.setUser({...this.context.user, questions: {...this.context.user?.questions, DOB: new Date()}})
+      }
+      if(toggle) {
+        this.setState({showDOB: toggle, showPregnant: false, showDiagnosis: false})
+      } else {
+        this.setState({showDOB: toggle})
+      }
+    } else if(val === "diagnosis") {
+      let toggle = !this.state.showDiagnosis;
+      if(!this.context.user?.questions?.diagnosisdate) {
+        this.context.setUser({...this.context.user, questions: {...this.context.user?.questions, diagnosisdate: new Date()}})
+      }
+      if(toggle) {
+        this.setState({showDiagnosis: toggle, showDOB: false, showPregnant: false})
+      } else {
+        this.setState({showDiagnosis: toggle})
+      }
+    } else if(val === "pregnant") {
+      let toggle = !this.state.showPregnant;
+      if(!this.context.user?.questions?.pregnant) {
+        this.context.setUser({...this.context.user, questions: {...this.context.user?.questions, pregnant: "No"}})
+      }
+      if(toggle) {
+        this.setState({showPregnant: toggle, showDOB: false, showDiagnosis: false})
+      } else {
+        this.setState({showPregnant: toggle})
+      }
+    }
+  }
+
+  setDate = (field, date) => {
+    if(field === "DOB") {
+      this.context.setUser({...this.context.user, questions: {...this.context.user?.questions, DOB: date}})
+    } else if(field === "diagnosis") {
+      this.context.setUser({...this.context.user, questions: {...this.context.user?.questions, diagnosisdate: date}})
+    }
+  }
   
   render() {
     return (
@@ -47,39 +106,73 @@ class Question1screen extends Component {
           function={this.backFunction}
         ></Header>
         <View style={styles.fieldsContainer}>
-          <Text style={styles.field}>Age</Text>
-          <TextInput
-            autoCorrect={false}
-            onChangeText={(text) => this.context.setUser({...this.context.user, questions: {...this.context.user?.questions, age: text}})}
-            value={this.context.user?.questions?.age}
-            style={styles.input}
-          ></TextInput>
+          <View style={styles.space}>
+          <Text style={styles.field}>Date of birth</Text>
+          {!this.state.showDOB &&
+          <Text>{this.context.user?.questions?.DOB?.toLocaleDateString()}</Text>
+          }
+          {!this.state.showDOB &&
+          <Greenbutton title="Select Date" onPress={()=>this.toggleDate("DOB")}></Greenbutton>
+          }
+          {this.state.showDOB &&
+              <DateTimePicker 
+                value={this.context.user?.questions?.DOB || new Date()}
+                mode={"date"}
+                style={{width: 300, backgroundColor: "white"}}
+                is24Hour={true}
+                display="default"
+                onChange={(e,val)=>this.setDate("DOB",val)} />
+          }
+          {this.state.showDOB &&
+          <Greenbutton title="Okay" onPress={()=>this.toggleDate("DOB")}></Greenbutton>
+          }
+          </View>
+          <View style={styles.space}>
           <Text style={styles.field}>Date of diagnosis with T1D</Text>
-          <TextInput
-            autoCorrect={false}
-            secureTextEntry={false}
-            onChangeText={(text) => this.context.setUser({...this.context.user, questions: {...this.context.user?.questions, diagnosisdate: text}})}
-            value={this.context.user?.questions?.diagnosisdate}
-            style={styles.input}
-          ></TextInput>
+          {!this.state.showDiagnosis &&
+          <Text>{this.context.user?.questions?.diagnosisdate?.toLocaleDateString()}</Text>
+          }
+          {!this.state.showDiagnosis &&
+          <Greenbutton title="Select Date" onPress={()=>this.toggleDate("diagnosis")}></Greenbutton>
+          }
+          {this.state.showDiagnosis &&
+              <DateTimePicker 
+                value={this.context.user?.questions?.diagnosisdate || new Date()}
+                mode={"date"}
+                style={{width: 300, backgroundColor: "white"}}
+                is24Hour={true}
+                display="default"
+                onChange={(e,val)=>this.setDate("diagnosis",val)} />
+          }
+          {this.state.showDiagnosis &&
+          <Greenbutton title="Okay" onPress={()=>this.toggleDate("diagnosis")}></Greenbutton>
+          }
+          </View>
+          <View style={styles.space}>
           <Text style={styles.field}>Is it possible for you to get pregnant?</Text>
-          <TextInput
-            autoCorrect={false}
-            secureTextEntry={false}
-            onChangeText={(text) => this.context.setUser({...this.context.user, questions: {...this.context.user?.questions, pregnant: text}})}
-            value={this.context.user?.questions?.pregnant}
-            style={styles.input}
-          ></TextInput>
-         
-          {/* <Dropdown options={options} onChange={this._onSelect} value={defaultOption} placeholder="Select an option" />; */}
-          
-          {/* <TextInput list="yes_no" type="text" style={styles.input}>
-            <datalist id="yes_no">
-              <option value="Yes"/>
-              <option value="No"/>
-            </datalist>
-          </TextInput> */}
-          <Greenbutton title="Next" onPress={this.goToNextScreen}></Greenbutton>
+          {!this.state.showPregnant &&
+          <Text>{this.context.user?.questions?.pregnant}</Text>
+          }
+          {!this.state.showPregnant &&
+          <Greenbutton title="Select" onPress={()=>this.toggleDate("pregnant")}></Greenbutton>
+          }
+          {this.state.showPregnant &&
+              <Picker
+                selectedValue={this.context.user?.questions?.pregnant || "No"}
+                style={{width: 300, height: 170, backgroundColor: "white"}}
+                onValueChange={(itemValue, itemIndex) =>
+                  this.context.setUser({...this.context.user, questions: {...this.context.user?.questions, pregnant: itemValue}})
+                }>
+                <Picker.Item label="No" value="No" />
+                <Picker.Item label="Yes" value="Yes" />
+              </Picker>
+          }
+          {this.state.showPregnant &&
+          <Greenbutton title="Okay" onPress={()=>this.toggleDate("pregnant")}></Greenbutton>
+          }
+          </View>
+
+          <Greenbutton title="Next" onPress={this.goToNextScreen} disabled={this.state.disabled}></Greenbutton>
         </View>
       </View>
     );
@@ -88,11 +181,6 @@ class Question1screen extends Component {
 
 export default Question1screen;
 
-const options = [
-  'Yes', 'No'
-];
-
-const defaultOption = options[0];
 
 const styles = StyleSheet.create({
   container: {
@@ -121,5 +209,11 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginBottom: 25,
   },
+
+  space: {
+    marginBottom: 40,
+    alignItems: "center",
+    justifyContent: "center",
+  }
 });
 

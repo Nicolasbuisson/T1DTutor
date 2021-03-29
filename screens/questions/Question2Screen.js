@@ -27,6 +27,13 @@ class Question2screen extends Component {
   }
   static contextType = Context;
 
+  componentDidMount() {
+    let updateUser = {...this.context.user};
+    delete updateUser.questions?.checkBloodSugar;
+    delete updateUser.questions?.typeOfRealTime;
+    this.context.setUser({...updateUser});
+}
+
   backFunction() {
     this.context.setView("Question1screen");
   }

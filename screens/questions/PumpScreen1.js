@@ -12,12 +12,15 @@ import Header from "../../components/header";
 import Greenbutton from "../../components/greenButton"
 import QuestionDescription from "../../components/QuestionDescription"
 import Context from "../../Context";
+import {Picker} from '@react-native-picker/picker';
 
 class PumpScreen1 extends Component {
     constructor() {
         super();
         this.state = {
-            pump_type: "",
+            showBrand: "",
+            disabled: true,
+            brandOptions: ["Medtronic: MiniMed 670G","Medtronic: MiniMed 630G", "Medtronic: Paragidm", "Medtronic: Other", "OmniPod", "Tandem t:slim With Control-IQ", "Tandem t:slim Without Control-IQ", "YPSO"]
         };
 
         //functions
@@ -27,13 +30,36 @@ class PumpScreen1 extends Component {
     }
     static contextType = Context;
 
+    componentDidMount() {
+        this.isDisabled();
+      }
+    
+      componentDidUpdate() {
+        this.isDisabled();
+      }
+    
+      isDisabled = () => {
+        const {pumpType} = this.context.user.questions;
+        if(pumpType && this.state.disabled) {
+          this.setState({disabled: false});
+        }
+      }
+
     backFunction() {
         this.context.setView("InjectionOrPumpScreen");
     }
 
     goToNextScreen() {
-        this.context.completeQuestions();
+        this.context.completeQuestions({...this.context.user});
     }
+
+    toggleSelect = () => {
+          let toggle = !this.state.showBrand;
+          if(!this.context.user?.questions?.pumpType) {
+            this.context.setUser({...this.context.user, questions: {...this.context.user?.questions, pumpType: "Medtronic: MiniMed 670G"}})
+          }
+            this.setState({showBrand: toggle})
+      }
 
 
     render() {
@@ -47,16 +73,34 @@ class PumpScreen1 extends Component {
                 <QuestionDescription title="You are on Pump"></QuestionDescription>
                 <QuestionDescription title="What type of Pump do you use?"></QuestionDescription>
                 <View style={styles.fieldsContainer}>
-                    <Text style={styles.field}>Brand/model</Text>
-                    <TextInput
-                        autoCorrect={false}
-                        onChangeText={(text) => this.context.setUser({...this.context.user, questions: {...this.context.user?.questions, pumpType: text}})}
-                        value={this.context.user?.questions?.pumpType}
-                        style={styles.input}
-                    ></TextInput>
+                    <View style={styles.space}>
+                        <Text style={styles.field}>Brand/model</Text>
+                        {!this.state.showBrand &&
+                        <Text>{this.context.user?.questions?.pumpType}</Text>
+                        }
+                        {!this.state.showBrand &&
+                        <Greenbutton title="Select" onPress={()=>this.toggleSelect()}></Greenbutton>
+                        }
+                        <Text>
+                        {this.state.showBrand &&
+                            <Picker
+                                selectedValue={this.context.user?.questions?.pumpType || "Medtronic: MiniMed 670G"}
+                                style={{width: 350, height: 120, backgroundColor: colors.background, fontSize: 10}}
+                                itemStyle={{height: 120}}
+                                onValueChange={(itemValue, itemIndex) => this.context.setUser({...this.context.user, questions: {...this.context.user?.questions, pumpType: itemValue}})
+                                }>
+                                    {this.state.brandOptions.map((option)=>{
+                                        return <Picker.Item label={option} value={option} key={option}/>
+                                    })}
+                            </Picker>
+                        }</Text><Text>
+                        {this.state.showBrand &&
+                        <Greenbutton title="Okay" onPress={()=>this.toggleSelect()}></Greenbutton>
+                        }</Text>
+                    </View>
                 </View>
 
-                <View style={styles.fieldsContainer}><Greenbutton title="Go to Dashboard!" onPress={this.goToNextScreen}></Greenbutton></View>
+                <View style={styles.footer}><Greenbutton title="Go to Dashboard!" onPress={this.goToNextScreen} disabled={this.state.disabled}></Greenbutton></View>
 
             </View>
         );
@@ -75,14 +119,18 @@ const styles = StyleSheet.create({
 
     fieldsContainer: {
         flex: 3,
-        alignItems: "flex-start",
+        alignItems: "center",
         justifyContent: "center",
     },
     field: {
         fontSize: 20,
         color: colors.primary,
     },
-
+    space: {
+        alignItems: "center",
+        justifyContent: "center",
+        marginBottom: 40
+    },
     input: {
         height: 25,
         width: 300,
@@ -91,5 +139,8 @@ const styles = StyleSheet.create({
         marginTop: 5,
         marginBottom: 25,
     },
+    footer: {
+        marginBottom: 80,
+    }
 });
 
