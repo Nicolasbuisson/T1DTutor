@@ -51,8 +51,14 @@ export default function App() {
     )
   }
 
+  const updateUserAndState = (options, callback) => {
+    if(!user.uid) return;
+    setUser({...user, ...options});
+    updateUser(user.uid, options, callback);
+  }
+
   
-  return <UserProvider value={{user,setUser,view,setView,completeQuestions}}>
+  return <UserProvider value={{user,setUser,view,setView,completeQuestions,updateUserAndState}}>
     <SetView view={view}></SetView>
   </UserProvider>;
 }
