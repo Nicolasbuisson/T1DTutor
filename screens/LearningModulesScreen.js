@@ -147,24 +147,15 @@ class LearningModulesScreen extends Component {
   }
 
   componentDidMount() {
-    var user = this.context.user;
-    dbh
-      .collection("users")
-      .doc(user.uid)
-      .get()
-      .then((doc) => {
-        if (doc.exists) {
-          if (doc.data().questions.pregnant === "Yes") {
-            this.setState({ showPregnant: true });
-          }
-          if (doc.data().questions.injectionsOrPump === "Pump") {
-            this.setState({ showPump: true });
-          }
-          if (doc.data().language === "French") {
-            this.setState({ english: false });
-          }
-        }
-      });
+    if (this.context.user?.questions?.pregnant === "Yes") {
+      this.setState({ showPregnant: true });
+    }
+    if (this.context.user?.questions?.injectionsOrPump === "Pump") {
+      this.setState({ showPump: true });
+    }
+    if (this.context.user?.language === "French") {
+      this.setState({ english: false });
+    }
   }
 
   render() {
