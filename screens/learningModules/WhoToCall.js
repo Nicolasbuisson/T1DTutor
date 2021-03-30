@@ -103,18 +103,20 @@ class WhoToCall extends Component {
   }
 
   submitPersonel() {
-    this.context.updateUserAndState({
-      personel: {
-      name: this.state.personelNameInput,
-      number: this.state.personelNumberInput
-    }
-    },
-    ()=>{
-    this.setState({ 
-    personelNameInput: "",
-    personelNumberInput: ""})
-    }
-    )
+    this.context.updateUserAndState(
+      {
+        personel: {
+          name: this.state.personelNameInput,
+          number: this.state.personelNumberInput,
+        },
+      },
+      () => {
+        this.setState({
+          personelNameInput: "",
+          personelNumberInput: "",
+        });
+      }
+    );
   }
 
   addContact() {
@@ -262,45 +264,6 @@ class WhoToCall extends Component {
                   514-934-1934, extension 44760.
                 </Text>
               </Text>
-            </Text>
-          </View>
-          <View style={styles.listItem}>
-            <Text style={styles.text}>
-              Call one of the diabetes nurse educators if you need any other
-              help with your diabetes care. They answer the phone from Monday to
-              Friday between 8 am to 4 pm. Call the McGill University Health
-              Centre at{" "}
-              <Text
-                style={{ textDecorationLine: "underline" }}
-                onPress={() => {
-                  Linking.openURL("tel:+15149341934");
-                }}
-              >
-                514-934-1934
-              </Text>{" "}
-              and use the extension numbers below.
-              {"\n"} - Maria D'Errico: 38006
-              {"\n"} - Panhavat Huor: 38004
-              {"\n"} - {this.context.user?.personel?.name}
-              {": "}
-              <Text
-                style={{ textDecorationLine: "underline" }}
-                onPress={() => {
-                  Linking.openURL("tel:" + this.context.user?.personel?.number);
-                }}
-              >
-                {this.context.user?.personel?.number}
-              </Text>
-            </Text>
-            <View style={styles.inputView}>
-              <Text style={styles.inputText}>Enter the personel's name: </Text>
-              <TextInput
-                style={styles.input}
-                onChangeText={(text) =>
-                  this.setState({ personelNameInput: text })
-                }
-                value={this.state.personelNameInput}
-              ></TextInput>
             </View>
             <View style={styles.listItem}>
               <Text style={styles.text}>
@@ -319,15 +282,17 @@ class WhoToCall extends Component {
                 and use the extension numbers below.
                 {"\n"} - Maria D'Errico: 38006
                 {"\n"} - Panhavat Huor: 38004
-                {"\n"} - {this.state.personelName}
+                {"\n"} - {this.context.user?.personel?.name}
                 {": "}
                 <Text
                   style={{ textDecorationLine: "underline" }}
                   onPress={() => {
-                    Linking.openURL("tel:" + this.state.personelNumber);
+                    Linking.openURL(
+                      "tel:" + this.context.user?.personel?.number
+                    );
                   }}
                 >
-                  {this.state.personelNumber}
+                  {this.context.user?.personel?.number}
                 </Text>
               </Text>
               <View style={styles.inputView}>
@@ -342,253 +307,300 @@ class WhoToCall extends Component {
                   value={this.state.personelNameInput}
                 ></TextInput>
               </View>
-              <View style={styles.inputView}>
-                <Text style={styles.inputText}>
-                  Enter the personel's number:{" "}
+              <View style={styles.listItem}>
+                <Text style={styles.text}>
+                  Call one of the diabetes nurse educators if you need any other
+                  help with your diabetes care. They answer the phone from
+                  Monday to Friday between 8 am to 4 pm. Call the McGill
+                  University Health Centre at{" "}
+                  <Text
+                    style={{ textDecorationLine: "underline" }}
+                    onPress={() => {
+                      Linking.openURL("tel:+15149341934");
+                    }}
+                  >
+                    514-934-1934
+                  </Text>{" "}
+                  and use the extension numbers below.
+                  {"\n"} - Maria D'Errico: 38006
+                  {"\n"} - Panhavat Huor: 38004
+                  {"\n"} - {this.state.personelName}
+                  {": "}
+                  <Text
+                    style={{ textDecorationLine: "underline" }}
+                    onPress={() => {
+                      Linking.openURL("tel:" + this.state.personelNumber);
+                    }}
+                  >
+                    {this.state.personelNumber}
+                  </Text>
                 </Text>
-                <TextInput
-                  style={styles.input}
-                  onChangeText={(text) =>
-                    this.setState({ personelNumberInput: text })
-                  }
-                  keyboardType="numeric"
-                  value={this.state.personelNumberInput}
-                ></TextInput>
-              </View>
-              <TouchableOpacity style={styles.addButton}>
-                <Text
-                  style={styles.addButtonText}
-                  onPress={() => this.submitPersonel()}
-                >
-                  Submit
-                </Text>
-              </TouchableOpacity>
-            </View>
-            <View style={styles.listItem}>
-              <Text style={styles.text}>
-                For any technical or delivery support for your diabetes
-                technology, you should call the support hotline of the company.
-                {"\n"} - OmniPod:{" "}
-                <Text
-                  style={{ textDecorationLine: "underline" }}
-                  onPress={() => {
-                    Linking.openURL("tel:+18005913455");
-                  }}
-                >
-                  1-800-591-3455
-                </Text>
-                {"\n"} - Medtronic:{" "}
-                <Text
-                  style={{ textDecorationLine: "underline" }}
-                  onPress={() => {
-                    Linking.openURL("tel:+18002844416");
-                  }}
-                >
-                  1-800-284-4416
-                </Text>
-                {"\n"} - Tandem Diabetes:{" "}
-                <Text
-                  style={{ textDecorationLine: "underline" }}
-                  onPress={() => {
-                    Linking.openURL("tel:+18778016901");
-                  }}
-                >
-                  1-877-801-6901
-                </Text>
-                {"\n"} - Abbott/Freestyle Libre:{" "}
-                <Text
-                  style={{ textDecorationLine: "underline" }}
-                  onPress={() => {
-                    Linking.openURL("tel:+18882058296");
-                  }}
-                >
-                  1-888-205-8296
-                </Text>
-                {"\n"} - Dexcom:{" "}
-                <Text
-                  style={{ textDecorationLine: "underline" }}
-                  onPress={() => {
-                    Linking.openURL("tel:+18448321810");
-                  }}
-                >
-                  1-844-832-1810
-                </Text>
-                {"\n"} - {this.state.companyName}
-                {": "}
-                <Text
-                  style={{ textDecorationLine: "underline" }}
-                  onPress={() => {
-                    Linking.openURL("tel:" + this.state.companyNumber);
-                  }}
-                >
-                  {this.state.companyNumber}
-                </Text>
-              </Text>
-              <View style={styles.inputView}>
-                <Text style={styles.inputText}>Enter the company's name: </Text>
-                <TextInput
-                  style={styles.input}
-                  onChangeText={(text) =>
-                    this.setState({ companyNameInput: text })
-                  }
-                  value={this.state.companyNameInput}
-                ></TextInput>
-              </View>
-              <View style={styles.inputView}>
-                <Text style={styles.inputText}>
-                  Enter the company's number:{" "}
-                </Text>
-                <TextInput
-                  style={styles.input}
-                  onChangeText={(text) =>
-                    this.setState({ companyNumberInput: text })
-                  }
-                  keyboardType="numeric"
-                  value={this.state.companyNumberInput}
-                ></TextInput>
-              </View>
-              <TouchableOpacity style={styles.addButton}>
-                <Text
-                  style={styles.addButtonText}
-                  onPress={() => this.submitCompany()}
-                >
-                  Submit
-                </Text>
-              </TouchableOpacity>
-            </View>
-            <View style={styles.listItem}>
-              <Text style={styles.text}>
-                For your prescription renewals and refills, call your pharmacy.
-                {"\n"} - Pharmacy name: {this.state.pharmacyName}
-                {"\n"} - Pharmacy number:{" "}
-                <Text
-                  style={{ textDecorationLine: "underline" }}
-                  onPress={() => {
-                    Linking.openURL("tel:" + this.state.pharmacyNumber);
-                  }}
-                >
-                  {this.state.pharmacyNumber}
-                </Text>
-              </Text>
-              <View style={styles.inputView}>
-                <Text style={styles.inputText}>
-                  Enter the pharmacy's name:{" "}
-                </Text>
-                <TextInput
-                  style={styles.input}
-                  onChangeText={(text) =>
-                    this.setState({ pharmacyNameInput: text })
-                  }
-                  value={this.state.pharmacyNameInput}
-                ></TextInput>
-              </View>
-              <View style={styles.inputView}>
-                <Text style={styles.inputText}>
-                  Enter the pharmacy's number:{" "}
-                </Text>
-                <TextInput
-                  style={styles.input}
-                  onChangeText={(text) =>
-                    this.setState({ pharmacyNumberInput: text })
-                  }
-                  keyboardType="numeric"
-                  value={this.state.pharmacyNumberInput}
-                ></TextInput>
-              </View>
-              <TouchableOpacity style={styles.addButton}>
-                <Text
-                  style={styles.addButtonText}
-                  onPress={() => this.submitPharmacy()}
-                >
-                  Submit
-                </Text>
-              </TouchableOpacity>
-            </View>
-            <View style={styles.listItem}>
-              <Text style={styles.text}>
-                In the event of something urgent that cannot wait for office
-                hours that is related to your diabetes, and you are unsure
-                whether or not to go to the emergency department, you can call
-                the McGill University Health Centre and ask switchboard for the
-                endocrinologist on call. This is for urgent cases only. Make
-                sure you have your hospital card ready when you call.
-              </Text>
-            </View>
-            <View style={styles.listItem}>
-              <Text style={styles.title}>Contacts</Text>
-              <View style={styles.inputView}>
-                <Text style={styles.inputText}>Enter the contact's name: </Text>
-                <TextInput
-                  style={styles.input}
-                  onChangeText={(text) =>
-                    this.setState({ contactNameInput: text })
-                  }
-                  value={this.state.contactNameInput}
-                ></TextInput>
-              </View>
-              <View style={styles.inputView}>
-                <Text style={styles.inputText}>
-                  Enter the contact's number:{" "}
-                </Text>
-                <TextInput
-                  style={styles.input}
-                  onChangeText={(text) =>
-                    this.setState({ contactNumberInput: text })
-                  }
-                  keyboardType="numeric"
-                  value={this.state.contactNumberInput}
-                ></TextInput>
-              </View>
-              <TouchableOpacity style={styles.addButton}>
-                <Text
-                  style={styles.addButtonText}
-                  onPress={() => this.addContact()}
-                >
-                  Add
-                </Text>
-              </TouchableOpacity>
-              <Text style={styles.text}>Other important contacts:{"\n"}</Text>
-              <View style={styles.contactsView}>
-                <View
-                  style={{
-                    flexBasis: "35%",
-                  }}
-                >
-                  {this.state.contactNames.map((item) => (
-                    <Text style={{ textAlign: "right", margin: 5 }}>
-                      - {item} :
-                    </Text>
-                  ))}
+                <View style={styles.inputView}>
+                  <Text style={styles.inputText}>
+                    Enter the personel's name:{" "}
+                  </Text>
+                  <TextInput
+                    style={styles.input}
+                    onChangeText={(text) =>
+                      this.setState({ personelNameInput: text })
+                    }
+                    value={this.state.personelNameInput}
+                  ></TextInput>
                 </View>
-                <View
-                  style={{
-                    flexBasis: "65%",
-                  }}
-                >
-                  {this.state.contactNumbers.map((item) => (
-                    <Text
-                      style={{
-                        textDecorationLine: "underline",
-                        textAlign: "left",
-                        margin: 5,
-                      }}
-                      onPress={() => {
-                        Linking.openURL("tel:" + item);
-                      }}
-                    >
-                      {item}
-                    </Text>
-                  ))}
+                <View style={styles.inputView}>
+                  <Text style={styles.inputText}>
+                    Enter the personel's number:{" "}
+                  </Text>
+                  <TextInput
+                    style={styles.input}
+                    onChangeText={(text) =>
+                      this.setState({ personelNumberInput: text })
+                    }
+                    keyboardType="numeric"
+                    value={this.state.personelNumberInput}
+                  ></TextInput>
                 </View>
+                <TouchableOpacity style={styles.addButton}>
+                  <Text
+                    style={styles.addButtonText}
+                    onPress={() => this.submitPersonel()}
+                  >
+                    Submit
+                  </Text>
+                </TouchableOpacity>
               </View>
-              <TouchableOpacity style={styles.addButton}>
-                <Text
-                  style={styles.addButtonText}
-                  onPress={() => this.clearContacts()}
-                >
-                  Clear
+              <View style={styles.listItem}>
+                <Text style={styles.text}>
+                  For any technical or delivery support for your diabetes
+                  technology, you should call the support hotline of the
+                  company.
+                  {"\n"} - OmniPod:{" "}
+                  <Text
+                    style={{ textDecorationLine: "underline" }}
+                    onPress={() => {
+                      Linking.openURL("tel:+18005913455");
+                    }}
+                  >
+                    1-800-591-3455
+                  </Text>
+                  {"\n"} - Medtronic:{" "}
+                  <Text
+                    style={{ textDecorationLine: "underline" }}
+                    onPress={() => {
+                      Linking.openURL("tel:+18002844416");
+                    }}
+                  >
+                    1-800-284-4416
+                  </Text>
+                  {"\n"} - Tandem Diabetes:{" "}
+                  <Text
+                    style={{ textDecorationLine: "underline" }}
+                    onPress={() => {
+                      Linking.openURL("tel:+18778016901");
+                    }}
+                  >
+                    1-877-801-6901
+                  </Text>
+                  {"\n"} - Abbott/Freestyle Libre:{" "}
+                  <Text
+                    style={{ textDecorationLine: "underline" }}
+                    onPress={() => {
+                      Linking.openURL("tel:+18882058296");
+                    }}
+                  >
+                    1-888-205-8296
+                  </Text>
+                  {"\n"} - Dexcom:{" "}
+                  <Text
+                    style={{ textDecorationLine: "underline" }}
+                    onPress={() => {
+                      Linking.openURL("tel:+18448321810");
+                    }}
+                  >
+                    1-844-832-1810
+                  </Text>
+                  {"\n"} - {this.state.companyName}
+                  {": "}
+                  <Text
+                    style={{ textDecorationLine: "underline" }}
+                    onPress={() => {
+                      Linking.openURL("tel:" + this.state.companyNumber);
+                    }}
+                  >
+                    {this.state.companyNumber}
+                  </Text>
                 </Text>
-              </TouchableOpacity>
+                <View style={styles.inputView}>
+                  <Text style={styles.inputText}>
+                    Enter the company's name:{" "}
+                  </Text>
+                  <TextInput
+                    style={styles.input}
+                    onChangeText={(text) =>
+                      this.setState({ companyNameInput: text })
+                    }
+                    value={this.state.companyNameInput}
+                  ></TextInput>
+                </View>
+                <View style={styles.inputView}>
+                  <Text style={styles.inputText}>
+                    Enter the company's number:{" "}
+                  </Text>
+                  <TextInput
+                    style={styles.input}
+                    onChangeText={(text) =>
+                      this.setState({ companyNumberInput: text })
+                    }
+                    keyboardType="numeric"
+                    value={this.state.companyNumberInput}
+                  ></TextInput>
+                </View>
+                <TouchableOpacity style={styles.addButton}>
+                  <Text
+                    style={styles.addButtonText}
+                    onPress={() => this.submitCompany()}
+                  >
+                    Submit
+                  </Text>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.listItem}>
+                <Text style={styles.text}>
+                  For your prescription renewals and refills, call your
+                  pharmacy.
+                  {"\n"} - Pharmacy name: {this.state.pharmacyName}
+                  {"\n"} - Pharmacy number:{" "}
+                  <Text
+                    style={{ textDecorationLine: "underline" }}
+                    onPress={() => {
+                      Linking.openURL("tel:" + this.state.pharmacyNumber);
+                    }}
+                  >
+                    {this.state.pharmacyNumber}
+                  </Text>
+                </Text>
+                <View style={styles.inputView}>
+                  <Text style={styles.inputText}>
+                    Enter the pharmacy's name:{" "}
+                  </Text>
+                  <TextInput
+                    style={styles.input}
+                    onChangeText={(text) =>
+                      this.setState({ pharmacyNameInput: text })
+                    }
+                    value={this.state.pharmacyNameInput}
+                  ></TextInput>
+                </View>
+                <View style={styles.inputView}>
+                  <Text style={styles.inputText}>
+                    Enter the pharmacy's number:{" "}
+                  </Text>
+                  <TextInput
+                    style={styles.input}
+                    onChangeText={(text) =>
+                      this.setState({ pharmacyNumberInput: text })
+                    }
+                    keyboardType="numeric"
+                    value={this.state.pharmacyNumberInput}
+                  ></TextInput>
+                </View>
+                <TouchableOpacity style={styles.addButton}>
+                  <Text
+                    style={styles.addButtonText}
+                    onPress={() => this.submitPharmacy()}
+                  >
+                    Submit
+                  </Text>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.listItem}>
+                <Text style={styles.text}>
+                  In the event of something urgent that cannot wait for office
+                  hours that is related to your diabetes, and you are unsure
+                  whether or not to go to the emergency department, you can call
+                  the McGill University Health Centre and ask switchboard for
+                  the endocrinologist on call. This is for urgent cases only.
+                  Make sure you have your hospital card ready when you call.
+                </Text>
+              </View>
+              <View style={styles.listItem}>
+                <Text style={styles.title}>Contacts</Text>
+                <View style={styles.inputView}>
+                  <Text style={styles.inputText}>
+                    Enter the contact's name:{" "}
+                  </Text>
+                  <TextInput
+                    style={styles.input}
+                    onChangeText={(text) =>
+                      this.setState({ contactNameInput: text })
+                    }
+                    value={this.state.contactNameInput}
+                  ></TextInput>
+                </View>
+                <View style={styles.inputView}>
+                  <Text style={styles.inputText}>
+                    Enter the contact's number:{" "}
+                  </Text>
+                  <TextInput
+                    style={styles.input}
+                    onChangeText={(text) =>
+                      this.setState({ contactNumberInput: text })
+                    }
+                    keyboardType="numeric"
+                    value={this.state.contactNumberInput}
+                  ></TextInput>
+                </View>
+                <TouchableOpacity style={styles.addButton}>
+                  <Text
+                    style={styles.addButtonText}
+                    onPress={() => this.addContact()}
+                  >
+                    Add
+                  </Text>
+                </TouchableOpacity>
+                <Text style={styles.text}>Other important contacts:{"\n"}</Text>
+                <View style={styles.contactsView}>
+                  <View
+                    style={{
+                      flexBasis: "35%",
+                    }}
+                  >
+                    {this.state.contactNames.map((item) => (
+                      <Text style={{ textAlign: "right", margin: 5 }}>
+                        - {item} :
+                      </Text>
+                    ))}
+                  </View>
+                  <View
+                    style={{
+                      flexBasis: "65%",
+                    }}
+                  >
+                    {this.state.contactNumbers.map((item) => (
+                      <Text
+                        style={{
+                          textDecorationLine: "underline",
+                          textAlign: "left",
+                          margin: 5,
+                        }}
+                        onPress={() => {
+                          Linking.openURL("tel:" + item);
+                        }}
+                      >
+                        {item}
+                      </Text>
+                    ))}
+                  </View>
+                </View>
+                <TouchableOpacity style={styles.addButton}>
+                  <Text
+                    style={styles.addButtonText}
+                    onPress={() => this.clearContacts()}
+                  >
+                    Clear
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </ScrollView>
         </View>
