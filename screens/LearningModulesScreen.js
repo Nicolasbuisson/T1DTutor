@@ -350,7 +350,7 @@ class LearningModulesScreen extends Component {
               style={styles.moduleTouchable}
               onPress={this.goToExerciseAndYou}
             >
-              <Text style={styles.moduleText}>Exercice et Toi</Text>
+              <Text style={styles.moduleText}>L'Exercice et Toi</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.moduleTouchable}
@@ -388,7 +388,9 @@ class LearningModulesScreen extends Component {
               style={styles.moduleTouchable}
               onPress={this.goToAlcoholAndOtherSubstances}
             >
-              <Text style={styles.moduleText}>Alcool et autres substances</Text>
+              <Text style={styles.moduleText}>
+                L'Alcool et autres substances
+              </Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.moduleTouchable}
@@ -410,7 +412,7 @@ class LearningModulesScreen extends Component {
               style={styles.moduleTouchable}
               onPress={this.goToTravel}
             >
-              <Text style={styles.moduleText}>Le Voyage</Text>
+              <Text style={styles.moduleText}>Voyager</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.moduleTouchable}
