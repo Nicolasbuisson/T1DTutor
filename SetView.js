@@ -41,6 +41,9 @@ export default function SetView(props) {
   let view = props.view;
   return (
     <React.Fragment>
+      {view === "LanguageQuestionScreen" && (
+        <LanguageQuestionScreen></LanguageQuestionScreen>
+      )}
       {view === "LoadingScreen" && <LoadingScreen></LoadingScreen>}
       {view === "LoginScreen" && <LoginScreen></LoginScreen>}
       {view === "DashboardScreen" && <DashboardScreen></DashboardScreen>}
