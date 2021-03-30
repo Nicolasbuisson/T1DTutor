@@ -5,7 +5,6 @@ import Header from "../../components/header";
 import colors from "../../style/colors.js";
 import { ScrollView } from "react-native-gesture-handler";
 import Context from "../../Context";
-import dbh from "../../firebase";
 
 class MythBusters extends Component {
   constructor() {
@@ -23,18 +22,9 @@ class MythBusters extends Component {
   }
 
   componentDidMount() {
-    var user = this.context.user;
-    dbh
-      .collection("users")
-      .doc(user.uid)
-      .get()
-      .then((doc) => {
-        if (doc.exists) {
-          if (doc.data().language === "French") {
-            this.setState({ english: false });
-          }
-        }
-      });
+    if (this.context.user?.language === "French") {
+      this.setState({ english: false });
+    }
   }
 
   render() {

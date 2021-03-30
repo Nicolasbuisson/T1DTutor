@@ -147,24 +147,15 @@ class LearningModulesScreen extends Component {
   }
 
   componentDidMount() {
-    var user = this.context.user;
-    dbh
-      .collection("users")
-      .doc(user.uid)
-      .get()
-      .then((doc) => {
-        if (doc.exists) {
-          if (doc.data().questions.pregnant === "Yes") {
-            this.setState({ showPregnant: true });
-          }
-          if (doc.data().questions.injectionsOrPump === "Pump") {
-            this.setState({ showPump: true });
-          }
-          if (doc.data().language === "French") {
-            this.setState({ english: false });
-          }
-        }
-      });
+    if (this.context.user?.questions?.pregnant === "Yes") {
+      this.setState({ showPregnant: true });
+    }
+    if (this.context.user?.questions?.injectionsOrPump === "Pump") {
+      this.setState({ showPump: true });
+    }
+    if (this.context.user?.language === "French") {
+      this.setState({ english: false });
+    }
   }
 
   render() {
@@ -359,7 +350,7 @@ class LearningModulesScreen extends Component {
               style={styles.moduleTouchable}
               onPress={this.goToExerciseAndYou}
             >
-              <Text style={styles.moduleText}>Exercice et Toi</Text>
+              <Text style={styles.moduleText}>L'Exercice et Toi</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.moduleTouchable}
@@ -397,7 +388,9 @@ class LearningModulesScreen extends Component {
               style={styles.moduleTouchable}
               onPress={this.goToAlcoholAndOtherSubstances}
             >
-              <Text style={styles.moduleText}>Alcool et autres substances</Text>
+              <Text style={styles.moduleText}>
+                L'Alcool et autres substances
+              </Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.moduleTouchable}
@@ -419,7 +412,7 @@ class LearningModulesScreen extends Component {
               style={styles.moduleTouchable}
               onPress={this.goToTravel}
             >
-              <Text style={styles.moduleText}>Le Voyage</Text>
+              <Text style={styles.moduleText}>Voyager</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.moduleTouchable}

@@ -1,11 +1,9 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
-//import firebase from "firebase";
+import { View, Text, StyleSheet, Button, Image } from "react-native";
 import * as firebase from "firebase";
 import "firebase/auth";
 import Header from "../components/header";
 import Footer from "../components/footer";
-import icon from "../assets/icon.png";
 import colors from "../style/colors.js";
 import Context from "../Context";
 
@@ -13,8 +11,7 @@ class DashboardScreen extends Component {
   constructor() {
     super();
     this.state = {
-      email: "",
-      password: "",
+      userName: "",
     };
 
     //functions
@@ -23,6 +20,7 @@ class DashboardScreen extends Component {
     this.goToTrack = this.goToTrack.bind(this);
     this.goToReminders = this.goToReminders.bind(this);
     this.goToMore = this.goToMore.bind(this);
+    this.Capitalize = this.Capitalize.bind(this);
   }
   static contextType = Context;
 
@@ -46,12 +44,30 @@ class DashboardScreen extends Component {
     this.context.setView("TrackingScreen");
   }
 
+  Capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+
+  componentDidMount() {
+    this.setState({
+      userName: this.context.user?.first_name
+        ? this.context.user?.first_name
+        : "",
+    });
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <Header title="T1D Tutor" logo />
-
+        <Header title="T1D Tutor" />
         <View style={styles.fieldsContainer}>
+          <Image
+            source={require("../assets/logoCircle.png")}
+            style={styles.logo}
+          />
+          <Text style={styles.title}>
+            Welcome {this.Capitalize(this.state.userName)}
+          </Text>
           <Button
             title="Sign out"
             onPress={() =>
@@ -89,7 +105,19 @@ const styles = StyleSheet.create({
   },
   fieldsContainer: {
     flex: 8,
-    alignItems: "flex-start",
+    alignItems: "center",
     justifyContent: "center",
+  },
+  logo: {
+    height: 64,
+    width: 64,
+    margin: 15,
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: "700",
+    margin: 15,
+    color: colors.primary,
+    textDecorationStyle: "",
   },
 });

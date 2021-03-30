@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
 } from "react-native";
 import "firebase/auth";
-import dbh from "../../firebase";
 import Header from "../../components/header";
 import colors from "../../style/colors.js";
 import { ScrollView } from "react-native-gesture-handler";
@@ -26,7 +25,6 @@ class SickDayManagement extends Component {
       diabetesPillsInput: "",
       painMedications: [],
       painMedicationsInput: "",
-      uid: "",
       english: true,
     };
 
@@ -75,7 +73,13 @@ class SickDayManagement extends Component {
       this.state.bloodPressurePills.length < 5 &&
       this.state.bloodPressurePillsInput
     ) {
-      this.setState(
+      this.setState({
+        bloodPressurePills: [
+          ...this.state.bloodPressurePills,
+          this.state.bloodPressurePillsInput,
+        ],
+      });
+      this.context.updateUserAndState(
         {
           bloodPressurePills: [
             ...this.state.bloodPressurePills,
@@ -83,27 +87,21 @@ class SickDayManagement extends Component {
           ],
         },
         () => {
-          dbh
-            .collection("users")
-            .doc(this.state.uid)
-            .collection("userData")
-            .doc("SickDay")
-            .set(
-              {
-                bloodPressurePills: this.state.bloodPressurePills,
-              },
-              { merge: true }
-            );
+          this.setState({ bloodPressurePillsInput: "" });
         }
       );
     }
-    //clear input afterwards
-    this.setState({ bloodPressurePillsInput: "" });
   }
 
   addToDiabetesPills() {
     if (this.state.diabetesPills.length < 3 && this.state.diabetesPillsInput) {
-      this.setState(
+      this.setState({
+        diabetesPills: [
+          ...this.state.diabetesPills,
+          this.state.diabetesPillsInput,
+        ],
+      });
+      this.context.updateUserAndState(
         {
           diabetesPills: [
             ...this.state.diabetesPills,
@@ -111,22 +109,10 @@ class SickDayManagement extends Component {
           ],
         },
         () => {
-          dbh
-            .collection("users")
-            .doc(this.state.uid)
-            .collection("userData")
-            .doc("SickDay")
-            .set(
-              {
-                diabetesPills: this.state.diabetesPills,
-              },
-              { merge: true }
-            );
+          this.setState({ diabetesPillsInput: "" });
         }
       );
     }
-    //clear input afterwards
-    this.setState({ diabetesPillsInput: "" });
   }
 
   addToPainMedications() {
@@ -134,7 +120,14 @@ class SickDayManagement extends Component {
       this.state.painMedications.length < 3 &&
       this.state.painMedicationsInput
     ) {
-      this.setState(
+      this.setState({
+        painMedications: [
+          ...this.state.painMedications,
+          this.state.painMedicationsInput,
+        ],
+      });
+
+      this.context.updateUserAndState(
         {
           painMedications: [
             ...this.state.painMedications,
@@ -142,117 +135,61 @@ class SickDayManagement extends Component {
           ],
         },
         () => {
-          dbh
-            .collection("users")
-            .doc(this.state.uid)
-            .collection("userData")
-            .doc("SickDay")
-            .set(
-              {
-                painMedications: this.state.painMedications,
-              },
-              { merge: true }
-            );
+          this.setState({ painMedicationsInput: "" });
         }
       );
     }
-    //clear input afterwards
-    this.setState({ painMedicationsInput: "" });
   }
 
   clearBloodPressurePills() {
-    this.setState({ bloodPressurePills: [] }, () => {
-      dbh
-        .collection("users")
-        .doc(this.state.uid)
-        .collection("userData")
-        .doc("SickDay")
-        .set(
-          {
-            bloodPressurePills: this.state.bloodPressurePills,
-          },
-          { merge: true }
-        );
-    });
+    this.context.updateUserAndState(
+      {
+        bloodPressurePills: [],
+      },
+      () =>
+        this.setState({
+          bloodPressurePills: [],
+        })
+    );
   }
 
   clearDiabetesPills() {
-    this.setState({ diabetesPills: [] }, () => {
-      dbh
-        .collection("users")
-        .doc(this.state.uid)
-        .collection("userData")
-        .doc("SickDay")
-        .set(
-          {
-            diabetesPills: this.state.diabetesPills,
-          },
-          { merge: true }
-        );
-    });
+    this.context.updateUserAndState(
+      {
+        diabetesPills: [],
+      },
+      () =>
+        this.setState({
+          diabetesPills: [],
+        })
+    );
   }
 
   clearPainMedications() {
-    this.setState({ painMedications: [] }, () => {
-      dbh
-        .collection("users")
-        .doc(this.state.uid)
-        .collection("userData")
-        .doc("SickDay")
-        .set(
-          {
-            painMedications: this.state.painMedications,
-          },
-          { merge: true }
-        );
-    });
+    this.context.updateUserAndState(
+      {
+        painMedications: [],
+      },
+      () =>
+        this.setState({
+          painMedications: [],
+        })
+    );
   }
 
   componentDidMount() {
-    var user = this.context.user;
-    if (user) {
-      this.setState({ uid: user.uid });
-    }
-    var bloodPressurePills = [];
-    var diabetesPills = [];
-    var painMedications = [];
-    dbh
-      .collection("users")
-      .doc(user.uid)
-      .collection("userData")
-      .doc("SickDay")
-      .get()
-      .then((doc) => {
-        if (doc.exists) {
-          if (doc.data().bloodPressurePills) {
-            bloodPressurePills = doc.data().bloodPressurePills;
-          }
-          if (doc.data().diabetesPills) {
-            diabetesPills = doc.data().diabetesPills;
-          }
-          if (doc.data().painMedications) {
-            painMedications = doc.data().painMedications;
-          }
-          this.setState({
-            bloodPressurePills: bloodPressurePills,
-            diabetesPills: diabetesPills,
-            painMedications: painMedications,
-          });
-        }
-      });
-    dbh
-      .collection("users")
-      .doc(user.uid)
-      .get()
-      .then((doc) => {
-        if (doc.exists) {
-          if (doc.data().language === "French") {
-            this.setState({
-              english: false,
-            });
-          }
-        }
-      });
+    this.setState({
+      english: this.context.user?.language === "French" ? false : true,
+      bloodPressurePills: this.context.user?.bloodPressurePills
+        ? this.context.user?.bloodPressurePills
+        : [],
+      diabetesPills: this.context.user?.diabetesPills
+        ? this.context.user?.diabetesPills
+        : [],
+      painMedications: this.context.user?.painMedications
+        ? this.context.user?.painMedications
+        : [],
+    });
   }
 
   render() {
@@ -533,7 +470,7 @@ class SickDayManagement extends Component {
               <View style={styles.inputContainer}>
                 <Text style={styles.text}>Blood pressure pills: (Max 5)</Text>
                 <View>
-                  {this.state.bloodPressurePills.map((item) => (
+                  {this.context.user?.bloodPressurePills?.map((item) => (
                     <Text>- {item}</Text>
                   ))}
                 </View>
@@ -564,7 +501,7 @@ class SickDayManagement extends Component {
                 </TouchableOpacity>
                 <Text style={styles.text}>Diabetes pills: (Max 3)</Text>
                 <View>
-                  {this.state.diabetesPills.map((item) => (
+                  {this.context.user?.diabetesPills?.map((item) => (
                     <Text>- {item}</Text>
                   ))}
                 </View>
@@ -597,7 +534,7 @@ class SickDayManagement extends Component {
                   Anti-inflammatory pain medications: (Max 3)
                 </Text>
                 <View>
-                  {this.state.painMedications.map((item) => (
+                  {this.context.user?.painMedications?.map((item) => (
                     <Text>- {item}</Text>
                   ))}
                 </View>
@@ -954,7 +891,7 @@ class SickDayManagement extends Component {
                   Médicaments pour la tension artérielle : (Max 5)
                 </Text>
                 <View>
-                  {this.state.bloodPressurePills.map((item) => (
+                  {this.context.user?.bloodPressurePills?.map((item) => (
                     <Text>- {item}</Text>
                   ))}
                 </View>
@@ -987,7 +924,7 @@ class SickDayManagement extends Component {
                   Médicaments pour le diabète : (Max 3)
                 </Text>
                 <View>
-                  {this.state.diabetesPills.map((item) => (
+                  {this.context.user?.diabetesPills?.map((item) => (
                     <Text>- {item}</Text>
                   ))}
                 </View>
@@ -1020,7 +957,7 @@ class SickDayManagement extends Component {
                   Médicamenttst pour la douleur et l’inflammation : (Max 3)
                 </Text>
                 <View>
-                  {this.state.painMedications.map((item) => (
+                  {this.context.user?.painMedications?.map((item) => (
                     <Text>- {item}</Text>
                   ))}
                 </View>
