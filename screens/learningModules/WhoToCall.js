@@ -130,7 +130,9 @@ class WhoToCall extends Component {
           numbers: [],
         },
       },
-      () => null
+      () => {
+        this.setState({ contactNames: [], contactNumbers: [] });
+      }
     );
   }
 
