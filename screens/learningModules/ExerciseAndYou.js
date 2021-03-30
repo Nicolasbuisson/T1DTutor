@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, TextInput } from "react-native";
-import dbh from "../../firebase";
 import Header from "../../components/header";
 import colors from "../../style/colors.js";
 import { ScrollView } from "react-native-gesture-handler";
@@ -40,21 +39,12 @@ class ExerciseAndYou extends Component {
   }
 
   componentDidMount() {
-    var user = this.context.user;
-    dbh
-      .collection("users")
-      .doc(user.uid)
-      .get()
-      .then((doc) => {
-        if (doc.exists) {
-          if (doc.data().questions.injectionsOrPump === "Pump") {
-            this.setState({ showInjections: false });
-          }
-          if (doc.data().language === "French") {
-            this.setState({ english: false });
-          }
-        }
-      });
+    if (this.context.user?.questions?.injectionsOrPump === "Pump") {
+      this.setState({ showInjections: false });
+    }
+    if (this.context.user?.language === "French") {
+      this.setState({ english: false });
+    }
   }
 
   render() {

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import "firebase/auth";
-import dbh from "../../firebase";
 import Header from "../../components/header";
 import colors from "../../style/colors.js";
 import { ScrollView } from "react-native-gesture-handler";
@@ -24,18 +23,9 @@ class HighBloodSugar extends Component {
   }
 
   componentDidMount() {
-    var user = this.context.user;
-    dbh
-      .collection("users")
-      .doc(user.uid)
-      .get()
-      .then((doc) => {
-        if (doc.exists) {
-          if (doc.data().language === "French") {
-            this.setState({ english: false });
-          }
-        }
-      });
+    if (this.context.user?.language === "French") {
+      this.setState({ english: false });
+    }
   }
 
   render() {

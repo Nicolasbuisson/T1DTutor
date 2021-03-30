@@ -78,6 +78,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginLeft: 5,
     marginRight: 2,
+    textAlign: "center",
   },
   headerTextSmall: {
     color: colors.primary,
@@ -87,6 +88,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginLeft: 5,
     marginRight: 2,
+    textAlign: "center",
   },
   noDisplay: {
     display: "none",
