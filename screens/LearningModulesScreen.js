@@ -10,7 +10,6 @@ class LearningModulesScreen extends Component {
   constructor() {
     super();
     this.state = {
-      showPregnant: false,
       showPump: false,
       english: true,
     };
@@ -147,9 +146,6 @@ class LearningModulesScreen extends Component {
   }
 
   componentDidMount() {
-    if (this.context.user?.questions?.pregnant === "Yes") {
-      this.setState({ showPregnant: true });
-    }
     if (this.context.user?.questions?.injectionsOrPump === "Pump") {
       this.setState({ showPump: true });
     }
@@ -248,14 +244,12 @@ class LearningModulesScreen extends Component {
             >
               <Text style={styles.moduleText}>Driving with Diabetes</Text>
             </TouchableOpacity>
-            {this.state.showPregnant && (
-              <TouchableOpacity
-                style={styles.moduleTouchable}
-                onPress={this.goToDiabetesAndPregnancy}
-              >
-                <Text style={styles.moduleText}>Diabetes and Pregnancy</Text>
-              </TouchableOpacity>
-            )}
+            <TouchableOpacity
+              style={styles.moduleTouchable}
+              onPress={this.goToDiabetesAndPregnancy}
+            >
+              <Text style={styles.moduleText}>Diabetes and Pregnancy</Text>
+            </TouchableOpacity>
             <TouchableOpacity
               style={styles.moduleTouchable}
               onPress={this.goToTravel}
@@ -398,16 +392,12 @@ class LearningModulesScreen extends Component {
             >
               <Text style={styles.moduleText}>Conduire avec le diabète</Text>
             </TouchableOpacity>
-            {this.state.showPregnant && (
-              <TouchableOpacity
-                style={styles.moduleTouchable}
-                onPress={this.goToDiabetesAndPregnancy}
-              >
-                <Text style={styles.moduleText}>
-                  Le Diabète et la Grossesse
-                </Text>
-              </TouchableOpacity>
-            )}
+            <TouchableOpacity
+              style={styles.moduleTouchable}
+              onPress={this.goToDiabetesAndPregnancy}
+            >
+              <Text style={styles.moduleText}>Le Diabète et la Grossesse</Text>
+            </TouchableOpacity>
             <TouchableOpacity
               style={styles.moduleTouchable}
               onPress={this.goToTravel}
