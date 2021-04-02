@@ -300,7 +300,7 @@ class LearningModulesScreen extends Component {
     } else {
       return (
         <View style={styles.container}>
-          <Header title="Modules Educatives"></Header>
+          <Header title="Modules Educatifs"></Header>
           <ScrollView
             contentContainerStyle={styles.fieldsContainer}
             style={{ height: "65%" }}
