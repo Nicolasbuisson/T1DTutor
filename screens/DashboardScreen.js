@@ -12,6 +12,7 @@ class DashboardScreen extends Component {
     super();
     this.state = {
       userName: "",
+      english: true,
     };
 
     //functions
@@ -53,6 +54,7 @@ class DashboardScreen extends Component {
       userName: this.context.user?.first_name
         ? this.context.user?.first_name
         : "",
+      english: this.context.user?.language === "French" ? false : true,
     });
   }
 
@@ -65,9 +67,16 @@ class DashboardScreen extends Component {
             source={require("../assets/logoCircle.png")}
             style={styles.logo}
           />
-          <Text style={styles.title}>
-            Welcome {this.Capitalize(this.state.userName)}
-          </Text>
+          {this.state.english && (
+            <Text style={styles.title}>
+              Welcome {this.Capitalize(this.state.userName)}
+            </Text>
+          )}
+          {!this.state.english && (
+            <Text style={styles.title}>
+              Bienvenue {this.Capitalize(this.state.userName)}
+            </Text>
+          )}
           <Button
             title="Sign out"
             onPress={() =>
