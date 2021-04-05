@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 import colors from "../style/colors.js";
 import Header from "../components/header";
 import Footer from "../components/footer";
@@ -146,7 +147,19 @@ class RemindersScreen extends Component {
     return (
       <View style={styles.container}>
         <Header title="Reminders"></Header>
-        <View style={styles.fieldsContainer}>
+
+        <ScrollView
+          contentContainerStyle={styles.fieldsContainer}
+          style={{ height: "65%" }}
+          showsVerticalScrollIndicator={false}
+        >
+          <View style={styles.listItem}>
+            <Text style={styles.text}>
+              Here are some reminders you can set to have notifications for
+              day-to-day items and important dates.{"\n"}With diabetes, there's
+              a lot of things to remember. This tool is here to help!
+            </Text>
+          </View>
           <TouchableOpacity
             style={styles.touchable}
             onPress={this.schedulePushNotification}
@@ -159,7 +172,7 @@ class RemindersScreen extends Component {
           >
             <Text>cancel all notifications</Text>
           </TouchableOpacity>
-        </View>
+        </ScrollView>
         <Footer
           page="reminder"
           homeFunction={this.goToHome}
@@ -183,9 +196,25 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
   },
   fieldsContainer: {
-    flex: 8,
-    alignItems: "flex-start",
+    width: "100%",
+    alignItems: "center",
     justifyContent: "center",
+    borderColor: colors.grey,
+    borderwidth: 3,
+  },
+  listItem: {
+    padding: 5,
+    margin: 5,
+    minWidth: "92%",
+    maxWidth: "92%",
+    backgroundColor: colors.secondary,
+    borderWidth: 2,
+    borderColor: colors.grey,
+  },
+  text: {
+    fontWeight: "500",
+    lineHeight: 22,
+    marginBottom: 3,
   },
   touchable: {
     marginBottom: 10,
