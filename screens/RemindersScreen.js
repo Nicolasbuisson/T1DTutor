@@ -44,6 +44,7 @@ class RemindersScreen extends Component {
     );
     this.schedulePushNotification = this.schedulePushNotification.bind(this);
     this.cancelAllNotifications = this.cancelAllNotifications.bind(this);
+    this.goToPrescriptionReminder = this.goToPrescriptionReminder.bind(this);
   }
   static contextType = Context;
 
@@ -65,6 +66,10 @@ class RemindersScreen extends Component {
 
   goToTrack() {
     this.context.setView("TrackingScreen");
+  }
+
+  goToPrescriptionReminder() {
+    this.context.setView("PrescriptionReminder");
   }
 
   registerForPushNotificationsAsync = async () => {
@@ -147,19 +152,18 @@ class RemindersScreen extends Component {
     return (
       <View style={styles.container}>
         <Header title="Reminders"></Header>
-
+        <View style={styles.topParagraph}>
+          <Text style={styles.text}>
+            Here are some reminders you can set to have notifications for
+            day-to-day items and important dates.{"\n"}With diabetes, there's a
+            lot of things to remember. This tool is here to help!
+          </Text>
+        </View>
         <ScrollView
           contentContainerStyle={styles.fieldsContainer}
-          style={{ height: "65%" }}
+          style={{ height: "50%", marginBottom: 5 }}
           showsVerticalScrollIndicator={false}
         >
-          <View style={styles.listItem}>
-            <Text style={styles.text}>
-              Here are some reminders you can set to have notifications for
-              day-to-day items and important dates.{"\n"}With diabetes, there's
-              a lot of things to remember. This tool is here to help!
-            </Text>
-          </View>
           <TouchableOpacity
             style={styles.touchable}
             onPress={this.schedulePushNotification}
@@ -171,6 +175,12 @@ class RemindersScreen extends Component {
             onPress={this.cancelAllNotifications}
           >
             <Text>cancel all notifications</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.touchable}
+            onPress={this.goToPrescriptionReminder}
+          >
+            <Text>Prescription</Text>
           </TouchableOpacity>
         </ScrollView>
         <Footer
@@ -202,11 +212,11 @@ const styles = StyleSheet.create({
     borderColor: colors.grey,
     borderwidth: 3,
   },
-  listItem: {
+  topParagraph: {
     padding: 5,
     margin: 5,
-    minWidth: "92%",
-    maxWidth: "92%",
+    minWidth: "90%",
+    maxWidth: "90%",
     backgroundColor: colors.secondary,
     borderWidth: 2,
     borderColor: colors.grey,
@@ -220,6 +230,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginTop: 10,
     height: 40,
+    minWidth: "50%",
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: colors.secondary,
