@@ -161,7 +161,7 @@ class RemindersScreen extends Component {
         </View>
         <ScrollView
           contentContainerStyle={styles.fieldsContainer}
-          style={{ height: "50%", marginBottom: 5 }}
+          style={{ height: "46%" }}
           showsVerticalScrollIndicator={false}
         >
           <TouchableOpacity
