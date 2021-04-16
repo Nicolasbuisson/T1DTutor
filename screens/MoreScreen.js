@@ -57,14 +57,7 @@ class MoreScreen extends Component {
         <View style={styles.fieldsContainer}></View>
         <Button onPress={()=>this.context.setView("RemindersScreen")} title="reminders"></Button>
         <Text>{this.context.user.name}</Text>
-        <Footer
-          page="more"
-          homeFunction={this.goToHome}
-          trackFunction={this.goToTrack}
-          learnFunction={this.goToLearningModules}
-          moreFunction={this.goToMore}
-          reminderFunction={this.goToReminders}
-        ></Footer>
+        <Footer></Footer>
       </View>
     );
   }

@@ -185,26 +185,6 @@ class RemindersScreen extends Component {
           style={{ height: "46%" }}
           showsVerticalScrollIndicator={false}
         >
-          {/* <TouchableOpacity
-            style={styles.touchable}
-            onPress={this.schedulePushNotification}
-          >
-            <Text>test push notification</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.touchable}
-            onPress={this.cancelAllNotifications}
-          >
-            <Text>cancel all notifications</Text>
-          </TouchableOpacity>
-          {this.state.existingReminders.map((reminder)=>{
-            return  (<TouchableOpacity
-            style={styles.touchable}
-            onPress={()=>this.goToReminderTemplate(reminder)}
-          >
-            <Text>{reminder}</Text>
-          </TouchableOpacity>)
-          })} */}
           {this.renderNotifications()}
         </ScrollView>
         <TouchableOpacity
@@ -213,14 +193,7 @@ class RemindersScreen extends Component {
           >
             <Text style={styles.addNewText}>Add new reminder</Text>
           </TouchableOpacity>
-        <Footer
-          page="reminder"
-          homeFunction={this.goToHome}
-          trackFunction={this.goToTrack}
-          learnFunction={this.goToLearningModules}
-          moreFunction={this.goToMore}
-          reminderFunction={this.goToReminders}
-        ></Footer>
+          <Footer></Footer>
       </View>
     );
   }

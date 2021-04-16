@@ -287,14 +287,7 @@ class LearningModulesScreen extends Component {
               <Text style={styles.moduleText}>Who to Call</Text>
             </TouchableOpacity>
           </ScrollView>
-          <Footer
-            page="learn"
-            homeFunction={this.goToHome}
-            trackFunction={this.goToTrack}
-            learnFunction={this.goToLearningModules}
-            moreFunction={this.goToMore}
-            reminderFunction={this.goToReminders}
-          ></Footer>
+          <Footer></Footer>
         </View>
       );
     } else {
@@ -433,14 +426,7 @@ class LearningModulesScreen extends Component {
               <Text style={styles.moduleText}>Qui Appeler</Text>
             </TouchableOpacity>
           </ScrollView>
-          <Footer
-            page="learn"
-            homeFunction={this.goToHome}
-            trackFunction={this.goToTrack}
-            learnFunction={this.goToLearningModules}
-            moreFunction={this.goToMore}
-            reminderFunction={this.goToReminders}
-          ></Footer>
+          <Footer></Footer>
         </View>
       );
     }

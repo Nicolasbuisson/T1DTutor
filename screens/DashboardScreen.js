@@ -90,14 +90,7 @@ class DashboardScreen extends Component {
             }
           />
         </View>
-        <Footer
-          page="home"
-          homeFunction={this.goToHome}
-          trackFunction={this.goToTrack}
-          learnFunction={this.goToLearningModules}
-          moreFunction={this.goToMore}
-          reminderFunction={this.goToReminders}
-        ></Footer>
+        <Footer></Footer>
       </View>
     );
   }

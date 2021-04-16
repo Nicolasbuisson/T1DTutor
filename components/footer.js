@@ -1,47 +1,44 @@
-import React from "react";
+import React, {useContext} from "react";
 import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
 import colors from "../style/colors";
+import Context from "../Context";
 
 const Footer = (props) => {
+  const context = useContext(Context);
+  const redirect = (view) => {
+    context.setView(view);
+  }
   return (
     <View style={styles.footerContainer}>
       <TouchableOpacity
         style={
-          props.page == "home" ? styles.borderTopShow : styles.iconContainer
+          context.view === "DashboardScreen" ? styles.borderTopShow : styles.iconContainer
         }
-        onPress={props.homeFunction}
+        onPress={()=>redirect("DashboardScreen")}
       >
         <Image source={require("../assets/iconmonstr-home-7-32.png")} />
       </TouchableOpacity>
       <TouchableOpacity
         style={
-          props.page == "track" ? styles.borderTopShow : styles.iconContainer
+          context.view === "LearningModulesScreen" ? styles.borderTopShow : styles.iconContainer
         }
-        onPress={props.trackFunction}
-      >
-        <Image source={require("../assets/iconmonstr-chart-21-32.png")} />
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={
-          props.page == "learn" ? styles.borderTopShow : styles.iconContainer
-        }
-        onPress={props.learnFunction}
+        onPress={()=>redirect("LearningModulesScreen")}
       >
         <Image source={require("../assets/iconmonstr-book-19-32.png")} />
       </TouchableOpacity>
       <TouchableOpacity
         style={
-          props.page == "reminder" ? styles.borderTopShow : styles.iconContainer
+          context.view === "RemindersScreen" ? styles.borderTopShow : styles.iconContainer
         }
-        onPress={props.reminderFunction}
+        onPress={()=>redirect("RemindersScreen")}
       >
         <Image source={require("../assets/iconmonstr-bell-2-32.png")} />
       </TouchableOpacity>
       <TouchableOpacity
         style={
-          props.page == "more" ? styles.borderTopShow : styles.iconContainer
+          context.view === "MoreScreen" ? styles.borderTopShow : styles.iconContainer
         }
-        onPress={props.moreFunction}
+        onPress={()=>redirect("MoreScreen")}
       >
         <Image source={require("../assets/iconmonstr-menu-1-32.png")} />
       </TouchableOpacity>
@@ -57,7 +54,7 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
     flexDirection: "row",
     backgroundColor: colors.background,
-    justifyContent: "center",
+    justifyContent: "space-between",
     alignItems: "center",
     borderTopColor: colors.grey,
     borderTopWidth: 3,

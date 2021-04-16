@@ -54,14 +54,7 @@ class TrackingScreen extends Component {
       <View style={styles.container}>
         <Header title="Tracking"></Header>
         <View style={styles.fieldsContainer}></View>
-        <Footer
-          page="track"
-          homeFunction={this.goToHome}
-          trackFunction={this.goToTrack}
-          learnFunction={this.goToLearningModules}
-          moreFunction={this.goToMore}
-          reminderFunction={this.goToReminders}
-        ></Footer>
+        <Footer></Footer>
       </View>
     );
   }
