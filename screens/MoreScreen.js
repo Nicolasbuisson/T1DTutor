@@ -12,6 +12,9 @@ import colors from "../style/colors.js";
 import Header from "../components/header";
 import Footer from "../components/footer";
 import Context from '../Context'
+import Greenbutton from "../components/greenButton"
+import * as Linking from 'expo-linking';
+import firebase from "firebase";
 
 class MoreScreen extends Component {
   constructor() {
@@ -19,48 +22,39 @@ class MoreScreen extends Component {
     this.state = {
       email: "",
       password: "",
+      language: "",
+      languageInput: "",
+      uid: "",
     };
 
-    //functions
-    this.goToHome = this.goToHome.bind(this);
-    this.goToLearningModules = this.goToLearningModules.bind(this);
-    this.goToTrack = this.goToTrack.bind(this);
-    this.goToReminders = this.goToReminders.bind(this);
-    this.goToMore = this.goToMore.bind(this);
   }
   static contextType = Context;
 
-  goToHome() {
-    this.context.setView("DashboardScreen");
-  }
 
-  goToReminders() {
-    this.context.setView("RemindersScreen");
-  }
-
-  goToLearningModules() {
-    this.context.setView("LearningModulesScreen");
-  }
-
-  goToMore() {
-    this.context.setView("MoreScreen");
-  }
-
-  goToTrack() {
-    this.context.setView("TrackingScreen");
+  changeLanguage = () => {
+    let language = this.context.user.language === "English" ? "French" : "English";
+    this.context.updateUserAndState({language});
   }
 
   render() {
     return (
       <View style={styles.container}>
         <Header title="More"></Header>
-        <View style={styles.fieldsContainer}></View>
-        <Button onPress={()=>this.context.setView("RemindersScreen")} title="reminders"></Button>
-        <Text>{this.context.user.name}</Text>
+        <View style={styles.fieldsContainer}>
+          <Greenbutton title={this.context.user.language === "English" ? "Change Language" : "Changer la langue"} onPress={this.changeLanguage} /> 
+          <Greenbutton title={this.context.user.language === "English" ? "Contact us" : "Contactez nous"} onPress={this._handlePress} />      
+          <Greenbutton title={this.context.user.language === "English" ? "Sign out" : "Se déconnecter"} onPress={() => firebase.auth().signOut().then(()=>{this.context.setView("LoginScreen")}).catch((e)=>console.log(e))} />
+        </View>
         <Footer></Footer>
       </View>
     );
   }
+
+  _handlePress = () => {
+    Linking.openURL('mailto:melissa-rosina.pasqua@mail.mcgill.ca');
+    this.props.onPress && this.props.onPress();
+  };
+
 }
 
 export default MoreScreen;
@@ -76,5 +70,18 @@ const styles = StyleSheet.create({
     flex: 8,
     alignItems: "flex-start",
     justifyContent: "center",
+  },
+  input: {
+    borderColor: colors.grey,
+    borderWidth: 1,
+    // flexBasis: "35%",
+    width: 200,
+  },
+  inputView: {
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    margin: 3,
   },
 });
