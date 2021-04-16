@@ -11,7 +11,6 @@ class DashboardScreen extends Component {
   constructor() {
     super();
     this.state = {
-      userName: "",
       english: true,
     };
 
@@ -51,9 +50,6 @@ class DashboardScreen extends Component {
 
   componentDidMount() {
     this.setState({
-      userName: this.context.user?.first_name
-        ? this.context.user?.first_name
-        : "",
       english: this.context.user?.language === "French" ? false : true,
     });
   }
@@ -69,12 +65,12 @@ class DashboardScreen extends Component {
           />
           {this.state.english && (
             <Text style={styles.title}>
-              Welcome {this.Capitalize(this.state.userName)}
+              Welcome
             </Text>
           )}
           {!this.state.english && (
             <Text style={styles.title}>
-              Bienvenue {this.Capitalize(this.state.userName)}
+              Bienvenue
             </Text>
           )}
           <Button

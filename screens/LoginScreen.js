@@ -66,8 +66,6 @@ const LoginScreen = () => {
                   gmail: result.user.email,
                   profile_pic: result.additionalUserInfo.profile.picture,
                   locale: result.additionalUserInfo.profile.locale,
-                  first_name: result.additionalUserInfo.profile.given_name,
-                  last_name: result.additionalUserInfo.profile.family_name,
                   created_at: Date.now(),
                   isNewUser: true,
                   uid: result.user.uid
