@@ -21,7 +21,6 @@ class Question1screen extends Component {
     this.state = {
       showDOB: false,
       showDiagnosis: false,
-      showPregnant: false,
       disabled: true
     };
 
@@ -41,8 +40,8 @@ class Question1screen extends Component {
   }
 
   isDisabled = () => {
-    const {DOB, diagnosisdate, pregnant} = this.context.user.questions;
-    if(DOB && diagnosisdate && pregnant && this.state.disabled) {
+    const {DOB, diagnosisdate} = this.context.user.questions;
+    if(DOB && diagnosisdate && this.state.disabled) {
       this.setState({disabled: false});
     }
   }
@@ -62,7 +61,7 @@ class Question1screen extends Component {
         this.context.setUser({...this.context.user, questions: {...this.context.user?.questions, DOB: new Date()}})
       }
       if(toggle) {
-        this.setState({showDOB: toggle, showPregnant: false, showDiagnosis: false})
+        this.setState({showDOB: toggle, showDiagnosis: false})
       } else {
         this.setState({showDOB: toggle})
       }
@@ -72,19 +71,9 @@ class Question1screen extends Component {
         this.context.setUser({...this.context.user, questions: {...this.context.user?.questions, diagnosisdate: new Date()}})
       }
       if(toggle) {
-        this.setState({showDiagnosis: toggle, showDOB: false, showPregnant: false})
+        this.setState({showDiagnosis: toggle, showDOB: false})
       } else {
         this.setState({showDiagnosis: toggle})
-      }
-    } else if(val === "pregnant") {
-      let toggle = !this.state.showPregnant;
-      if(!this.context.user?.questions?.pregnant) {
-        this.context.setUser({...this.context.user, questions: {...this.context.user?.questions, pregnant: "No"}})
-      }
-      if(toggle) {
-        this.setState({showPregnant: toggle, showDOB: false, showDiagnosis: false})
-      } else {
-        this.setState({showPregnant: toggle})
       }
     }
   }
@@ -146,29 +135,6 @@ class Question1screen extends Component {
           }
           {this.state.showDiagnosis &&
           <Greenbutton title="Okay" onPress={()=>this.toggleDate("diagnosis")}></Greenbutton>
-          }
-          </View>
-          <View style={styles.space}>
-          <Text style={styles.field}>Is it possible for you to get pregnant?</Text>
-          {!this.state.showPregnant &&
-          <Text>{this.context.user?.questions?.pregnant}</Text>
-          }
-          {!this.state.showPregnant &&
-          <Greenbutton title="Select" onPress={()=>this.toggleDate("pregnant")}></Greenbutton>
-          }
-          {this.state.showPregnant &&
-              <Picker
-                selectedValue={this.context.user?.questions?.pregnant || "No"}
-                style={{width: 300, height: 170, backgroundColor: "white"}}
-                onValueChange={(itemValue, itemIndex) =>
-                  this.context.setUser({...this.context.user, questions: {...this.context.user?.questions, pregnant: itemValue}})
-                }>
-                <Picker.Item label="No" value="No" />
-                <Picker.Item label="Yes" value="Yes" />
-              </Picker>
-          }
-          {this.state.showPregnant &&
-          <Greenbutton title="Okay" onPress={()=>this.toggleDate("pregnant")}></Greenbutton>
           }
           </View>
 
