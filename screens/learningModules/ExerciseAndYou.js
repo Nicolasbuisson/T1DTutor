@@ -199,7 +199,7 @@ class ExerciseAndYou extends Component {
                 </View>
                 <View style={styles.listItem}>
                   <Text style={styles.title}>
-                    If blood sugar is high prior to exericse?
+                    If blood sugar is high prior to exercise?
                   </Text>
                   <View style={styles.table}>
                     <View style={styles.row}>
@@ -688,7 +688,7 @@ class ExerciseAndYou extends Component {
               </View>
               <View style={styles.listItem}>
                 <Text style={styles.title}>
-                  If blood sugar is high prior to exericse?
+                  If blood sugar is high prior to exercise?
                 </Text>
                 <View style={styles.table}>
                   <View style={styles.row}>

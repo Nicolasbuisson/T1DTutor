@@ -202,7 +202,7 @@ class LearningModulesScreen extends Component {
               style={styles.moduleTouchable}
               onPress={this.goToExerciseAndYou}
             >
-              <Text style={styles.moduleText}>Exericse and You</Text>
+              <Text style={styles.moduleText}>Exercise and You</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.moduleTouchable}
