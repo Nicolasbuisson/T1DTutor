@@ -73,6 +73,11 @@ class Question2screen extends Component {
           </View>}
           <Text>Or</Text>
           {this.state.existingReminders.map((reminder)=>{
+            if (reminder === "Insulin injection" && this.context.user.questions.injectionsOrPump !== "Injections") return;
+            if (reminder === "Submit form for insulin pump access program" && this.context.user.questions.injectionsOrPump !== "Pump") return;
+            if (reminder === "Change infusion site" && this.context.user.questions.injectionsOrPump !== "Pump") return;
+            if (reminder === "Change pump's insulin reservoir" && this.context.user.questions.injectionsOrPump !== "Pump") return;
+            if (reminder === "Submit form for RAMQ coverage of freestyle libre" && this.context.user.questions.checkBloodSugar !== "Flash CGM") return;
             return  (<TouchableOpacity
             style={styles.touchable}
             onPress={()=>this.goToReminderTemplate(reminder)}
@@ -103,14 +108,12 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     justifyContent: "center",
-    borderColor: colors.grey,
-    borderWidth: 3,
   },
   touchable: {
     marginBottom: 10,
     marginTop: 10,
     height: 40,
-    minWidth: "50%",
+    minWidth: "90%",
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: colors.secondary,

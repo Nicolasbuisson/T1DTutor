@@ -212,8 +212,6 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     justifyContent: "center",
-    borderColor: colors.grey,
-    borderWidth: 3,
   },
   topParagraph: {
     padding: 5,
@@ -233,7 +231,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginTop: 10,
     height: 40,
-    minWidth: "50%",
+    minWidth: "90%",
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: colors.secondary,
