@@ -125,14 +125,12 @@ const LoginScreen = () => {
   }
 
   return  (<View style={styles.container}>
-  <Text style={styles.title}>App Name</Text>
+  <Text style={styles.title}>T1D Tutor</Text>
   <View>
     
     <Googlebutton title="Google Login" onPress={signInWithGoogleAsync}></Googlebutton>
     
     <Greenbutton title="Email Login" onPress={goToEmailScreen}></Greenbutton>
-
-    <Greenbutton title="Questions" onPress={goToQuestions}></Greenbutton>
   </View>
 </View>)
 }
