@@ -28,6 +28,8 @@ class RemindersScreen extends Component {
     this.state = {
       expoPushToken: "",
       notification: false,
+      existingReminders: ["Prescription reminder", "Exercise reminder", "Insuling reminder"],
+      notificationsList: []
     };
     //refs
     this.notificationListener = null;
@@ -44,7 +46,6 @@ class RemindersScreen extends Component {
     );
     this.schedulePushNotification = this.schedulePushNotification.bind(this);
     this.cancelAllNotifications = this.cancelAllNotifications.bind(this);
-    this.goToPrescriptionReminder = this.goToPrescriptionReminder.bind(this);
   }
   static contextType = Context;
 
@@ -68,8 +69,9 @@ class RemindersScreen extends Component {
     this.context.setView("TrackingScreen");
   }
 
-  goToPrescriptionReminder() {
-    this.context.setView("PrescriptionReminder");
+  goToReminderTemplate = (reminder) => {
+    this.context.setReminder({body: reminder});
+    this.context.setView("ReminderTemplate");
   }
 
   registerForPushNotificationsAsync = async () => {
@@ -109,13 +111,14 @@ class RemindersScreen extends Component {
       content: {
         title: "You've got mail! 📬",
         body: "Here is the notification body",
-        data: { data: "goes here" },
+        data: { data: "goes here", date: "today" },
       },
       trigger: {
-        seconds: 3,
+        // seconds: 3,
         //to make it repeat follow this template
-        //seconds: 60 * 1,
-        //repeats: true,
+        hour: 14,
+        minute: 58,
+        repeats: true,
       },
     });
   };
@@ -124,7 +127,7 @@ class RemindersScreen extends Component {
     Notifications.cancelAllScheduledNotificationsAsync();
   };
 
-  componentDidMount() {
+  componentDidMount = async () => {
     this.registerForPushNotificationsAsync().then((token) => {
       console.log(token);
       this.setState({ expoPushToken: token });
@@ -142,10 +145,28 @@ class RemindersScreen extends Component {
       }
     );
 
+    const notificationsList = await Notifications.getAllScheduledNotificationsAsync();
+    this.setState({notificationsList});
     return () => {
       Notifications.removeNotificationSubscription(this.notificationListener);
       Notifications.removeNotificationSubscription(this.responseListener);
     };
+  }
+
+  handlePress = (notification) => {
+    this.context.setReminder(notification);
+    this.context.setView("ReminderTemplate");
+  }
+
+  renderNotifications = () => {
+
+    return this.state.notificationsList.map(notification => {
+      let date = notification.content.data.frequency === "Daily" ? <Text>Daily, {notification.content.data.timeLabel}</Text> : <Text>{notification.content.data.date}, {notification.content.data.timeLabel}</Text>;
+      return <TouchableOpacity style={styles.touchable} onPress={()=>this.handlePress(notification)}>
+        <Text>{notification.content.body}</Text>
+        {date}
+      </TouchableOpacity>
+    });
   }
 
   render() {
@@ -164,7 +185,7 @@ class RemindersScreen extends Component {
           style={{ height: "46%" }}
           showsVerticalScrollIndicator={false}
         >
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={styles.touchable}
             onPress={this.schedulePushNotification}
           >
@@ -176,13 +197,22 @@ class RemindersScreen extends Component {
           >
             <Text>cancel all notifications</Text>
           </TouchableOpacity>
-          <TouchableOpacity
+          {this.state.existingReminders.map((reminder)=>{
+            return  (<TouchableOpacity
             style={styles.touchable}
-            onPress={this.goToPrescriptionReminder}
+            onPress={()=>this.goToReminderTemplate(reminder)}
           >
-            <Text>Prescription</Text>
-          </TouchableOpacity>
+            <Text>{reminder}</Text>
+          </TouchableOpacity>)
+          })} */}
+          {this.renderNotifications()}
         </ScrollView>
+        <TouchableOpacity
+            style={styles.addNew}
+            onPress={()=>this.context.setView("NewReminderScreen")}
+          >
+            <Text style={styles.addNewText}>Add new reminder</Text>
+          </TouchableOpacity>
         <Footer
           page="reminder"
           homeFunction={this.goToHome}
@@ -210,7 +240,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderColor: colors.grey,
-    borderwidth: 3,
+    borderWidth: 3,
   },
   topParagraph: {
     padding: 5,
@@ -237,4 +267,10 @@ const styles = StyleSheet.create({
     borderColor: colors.grey,
     borderWidth: 2,
   },
+  addNew: {
+    marginBottom: 5,
+  },
+  addNewText: {
+    color: colors.primary
+  }
 });

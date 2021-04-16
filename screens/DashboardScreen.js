@@ -127,6 +127,6 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     margin: 15,
     color: colors.primary,
-    textDecorationStyle: "",
+    // textDecorationStyle: "",
   },
 });

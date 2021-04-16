@@ -7,7 +7,7 @@ import { getUser, updateUser } from "./database";
 
 export default function App() {
   const [user, setUser] = useState({});
-
+  const [reminder, setReminder] = useState({});
   const [view, setView] = useState("LoginScreen");
 
   useEffect(() => {
@@ -71,6 +71,8 @@ export default function App() {
         setView,
         completeQuestions,
         updateUserAndState,
+        reminder,
+        setReminder,
       }}
     >
       <SetView view={view}></SetView>

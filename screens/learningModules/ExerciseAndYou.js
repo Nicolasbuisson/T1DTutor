@@ -1126,14 +1126,14 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "inherit",
+    // backgroundColor: "inherit",
   },
   row: {
     width: "100%",
     flexDirection: "row",
     alignItems: "stretch",
     justifyContent: "space-between",
-    backgroundColor: "inherit",
+    // backgroundColor: "inherit",
   },
   durationColumn: {
     fontWeight: "500",

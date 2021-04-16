@@ -36,7 +36,8 @@ import LanguageQuestionScreen from "./screens/questions/LanguageQuestionScreen";
 import ExerciseAndYou from "./screens/learningModules/ExerciseAndYou";
 import SickDayManagement from "./screens/learningModules/SickDayManagement";
 import TimeOffThePump from "./screens/learningModules/TimeOffThePump";
-import PrescriptionReminder from "./screens/reminders/PrescriptionReminder";
+import ReminderTemplate from "./screens/reminders/ReminderTemplate";
+import NewReminderScreen from "./screens/reminders/NewReminderScreen";
 
 export default function SetView(props) {
   let view = props.view;
@@ -105,9 +106,10 @@ export default function SetView(props) {
       {view === "ExerciseAndYou" && <ExerciseAndYou></ExerciseAndYou>}
       {view === "TimeOffThePump" && <TimeOffThePump></TimeOffThePump>}
       {view === "SickDayManagement" && <SickDayManagement></SickDayManagement>}
-      {view === "PrescriptionReminder" && (
-        <PrescriptionReminder></PrescriptionReminder>
+      {view === "ReminderTemplate" && (
+        <ReminderTemplate></ReminderTemplate>
       )}
+      {view === "NewReminderScreen" && <NewReminderScreen></NewReminderScreen>}
     </React.Fragment>
   );
 }
