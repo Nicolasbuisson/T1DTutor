@@ -9,34 +9,31 @@ import {
 } from "react-native";
 import colors from "../../style/colors.js";
 import Header from "../../components/header";
-import Greenbutton from "../../components/greenButton"
-import QuestionDescription from "../../components/QuestionDescription"
+import Greenbutton from "../../components/greenButton";
+import QuestionDescription from "../../components/QuestionDescription";
 import Context from "../../Context";
 
 class InjectionScreen2 extends Component {
   constructor() {
     super();
-    this.state = {
-
-    };
+    this.state = {};
 
     //functions
     this.backFunction = this.backFunction.bind(this);
     this.goToNextScreen = this.goToNextScreen.bind(this);
     this.goToFixedDosesScreen = this.goToFixedDosesScreen.bind(this);
-
   }
   static contextType = Context;
 
   componentDidMount() {
-    let updateUser = {...this.context.user};
+    let updateUser = { ...this.context.user };
     delete updateUser.questions?.useForMeals;
     delete updateUser.questions?.breakfast;
     delete updateUser.questions?.lunch;
     delete updateUser.questions?.dinner;
     delete updateUser.questions?.snack;
-    this.context.setUser({...updateUser});
-}
+    this.context.setUser({ ...updateUser });
+  }
 
   backFunction() {
     this.context.setView("InjectionScreen1");
@@ -47,11 +44,17 @@ class InjectionScreen2 extends Component {
   }
 
   goToNextScreen(value) {
-    this.context.setUser({...this.context.user, questions: {...this.context.user?.questions, useForMeals: value}});
-    if(value === "Fixed Doses") {
+    this.context.setUser({
+      ...this.context.user,
+      questions: { ...this.context.user?.questions, useForMeals: value },
+    });
+    if (value === "Fixed Doses") {
       this.context.setView("FixedDosesScreen");
-    } else {
-      this.context.completeQuestions({...this.context.user, questions: {...this.context.user?.questions, useForMeals: value}});
+    } else {
+      this.context.completeQuestions({
+        ...this.context.user,
+        questions: { ...this.context.user?.questions, useForMeals: value },
+      });
     }
   }
 
@@ -59,19 +62,24 @@ class InjectionScreen2 extends Component {
     return (
       <View style={styles.container}>
         <Header
-          title="T1D App"
+          title="T1D Tutor"
           backArrow={true}
           function={this.backFunction}
         ></Header>
         <QuestionDescription title="You are on Injections"></QuestionDescription>
         <QuestionDescription title="What do you use for meals?"></QuestionDescription>
         <View style={styles.fieldsContainer}>
-          <Greenbutton title="Insulin to carbs ratios" onPress={()=>this.goToNextScreen("Insulin to carbs ratios")}></Greenbutton>
-          <Greenbutton title="Fixed Doses" onPress={()=>this.goToNextScreen("Fixed Doses")}></Greenbutton>
+          <Greenbutton
+            title="Insulin to carbs ratios"
+            onPress={() => this.goToNextScreen("Insulin to carbs ratios")}
+          ></Greenbutton>
+          <Greenbutton
+            title="Fixed Doses"
+            onPress={() => this.goToNextScreen("Fixed Doses")}
+          ></Greenbutton>
         </View>
 
         <View style={styles.fieldsContainer}></View>
-
       </View>
     );
   }
@@ -93,4 +101,3 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
-

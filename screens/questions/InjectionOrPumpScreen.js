@@ -9,26 +9,23 @@ import {
 } from "react-native";
 import colors from "../../style/colors.js";
 import Header from "../../components/header";
-import Greenbutton from "../../components/greenButton"
-import QuestionDescription from "../../components/QuestionDescription"
+import Greenbutton from "../../components/greenButton";
+import QuestionDescription from "../../components/QuestionDescription";
 import Context from "../../Context";
 
 class InjectionOrPumpScreen extends Component {
   constructor() {
     super();
-    this.state = {
-
-    };
+    this.state = {};
 
     //functions
     this.backFunction = this.backFunction.bind(this);
     this.goToNextScreen = this.goToNextScreen.bind(this);
-
   }
   static contextType = Context;
 
   componentDidMount() {
-    let updateUser = {...this.context.user};
+    let updateUser = { ...this.context.user };
     delete updateUser.questions?.meals;
     delete updateUser.questions?.longActing;
     delete updateUser.questions?.useForMeals;
@@ -37,23 +34,25 @@ class InjectionOrPumpScreen extends Component {
     delete updateUser.questions?.lunch;
     delete updateUser.questions?.dinner;
     delete updateUser.questions?.snack;
-    this.context.setUser({...updateUser});
-}
+    this.context.setUser({ ...updateUser });
+  }
 
   backFunction() {
-    if(this.context.user.questions?.typeOfRealTime) {
+    if (this.context.user.questions?.typeOfRealTime) {
       this.context.setView("Question2bisscreen");
     } else {
       this.context.setView("Question2screen");
     }
   }
 
-
   goToNextScreen(value) {
-    this.context.setUser({...this.context.user, questions: {...this.context.user?.questions, injectionsOrPump: value}});
-    if(value === "Injections") {
+    this.context.setUser({
+      ...this.context.user,
+      questions: { ...this.context.user?.questions, injectionsOrPump: value },
+    });
+    if (value === "Injections") {
       this.context.setView("InjectionScreen1");
-    } else {
+    } else {
       this.context.setView("PumpScreen1");
     }
   }
@@ -62,17 +61,22 @@ class InjectionOrPumpScreen extends Component {
     return (
       <View style={styles.container}>
         <Header
-          title="T1D App"
+          title="T1D Tutor"
           backArrow={true}
           function={this.backFunction}
         ></Header>
         <QuestionDescription title="Are you on injections or pump?"></QuestionDescription>
         <View style={styles.fieldsContainer}>
-          <Greenbutton title="Injections" onPress={()=>this.goToNextScreen("Injections")}></Greenbutton>
-          <Greenbutton title="Pump" onPress={()=>this.goToNextScreen("Pump")}></Greenbutton>
+          <Greenbutton
+            title="Injections"
+            onPress={() => this.goToNextScreen("Injections")}
+          ></Greenbutton>
+          <Greenbutton
+            title="Pump"
+            onPress={() => this.goToNextScreen("Pump")}
+          ></Greenbutton>
         </View>
         <View style={styles.fieldsContainer}></View>
-
       </View>
     );
   }
@@ -94,4 +98,3 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
-

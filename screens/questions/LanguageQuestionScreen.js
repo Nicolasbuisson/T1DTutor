@@ -9,31 +9,33 @@ import {
 } from "react-native";
 import colors from "../../style/colors.js";
 import Header from "../../components/header";
-import Greenbutton from "../../components/greenButton"
-import QuestionDescription from "../../components/QuestionDescription"
+import Greenbutton from "../../components/greenButton";
+import QuestionDescription from "../../components/QuestionDescription";
 import Context from "../../Context";
 
-
 export default function LanguageQuestionScreen(props) {
-    const context = useContext(Context);
-    const goToNextScreen = (value) => {
-      context.setUser({...context.user, language: value, questions: {}});
-      context.setView("Question1screen");
-    }
-    return   (
+  const context = useContext(Context);
+  const goToNextScreen = (value) => {
+    context.setUser({ ...context.user, language: value, questions: {} });
+    context.setView("Question1screen");
+  };
+  return (
     <View style={styles.container}>
-    <Header
-      title="T1D App"
-      backArrow={false}
-    ></Header>
-    <QuestionDescription title="Select your preferred language"></QuestionDescription>
-    <View style={styles.fieldsContainer}>
-      <Greenbutton title="English" onPress={() => goToNextScreen("English")}></Greenbutton>
-      <Greenbutton title="French" onPress={() => goToNextScreen("French")}></Greenbutton>
+      <Header title="T1D Tutor" backArrow={false}></Header>
+      <QuestionDescription title="Select your preferred language"></QuestionDescription>
+      <View style={styles.fieldsContainer}>
+        <Greenbutton
+          title="English"
+          onPress={() => goToNextScreen("English")}
+        ></Greenbutton>
+        <Greenbutton
+          title="French"
+          onPress={() => goToNextScreen("French")}
+        ></Greenbutton>
+      </View>
+      <View style={styles.fieldsContainer}></View>
     </View>
-    <View style={styles.fieldsContainer}></View>
-
-  </View>)
+  );
 }
 
 const styles = StyleSheet.create({

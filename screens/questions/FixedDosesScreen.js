@@ -9,8 +9,8 @@ import {
 } from "react-native";
 import colors from "../../style/colors.js";
 import Header from "../../components/header";
-import Greenbutton from "../../components/greenButton"
-import QuestionDescription from "../../components/QuestionDescription"
+import Greenbutton from "../../components/greenButton";
+import QuestionDescription from "../../components/QuestionDescription";
 import Context from "../../Context";
 
 class FixedDosesScreen extends Component {
@@ -27,7 +27,6 @@ class FixedDosesScreen extends Component {
     //functions
     this.backFunction = this.backFunction.bind(this);
     this.goToNextScreen = this.goToNextScreen.bind(this);
-
   }
   static contextType = Context;
 
@@ -39,37 +38,39 @@ class FixedDosesScreen extends Component {
     this.isDisabled();
   }
 
-  isDisabled = () => {
-    const {breakfast,lunch,dinner,snack} = this.context.user.questions;
-    if(breakfast && lunch && dinner && snack && this.state.disabled) {
-      this.setState({disabled: false});
+  isDisabled = () => {
+    const { breakfast, lunch, dinner, snack } = this.context.user.questions;
+    if (breakfast && lunch && dinner && snack && this.state.disabled) {
+      this.setState({ disabled: false });
     }
-  }
+  };
 
   backFunction() {
     this.context.setView("InjectionScreen2");
   }
 
   goToNextScreen() {
-    this.context.completeQuestions({...this.context.user});
+    this.context.completeQuestions({ ...this.context.user });
   }
 
   handleInputChange = (field, text) => {
-      if(isNaN(Number(text))) return;
-      this.context.setUser({...this.context.user, questions: {...this.context.user?.questions, [field]: text}})
-  }
+    if (isNaN(Number(text))) return;
+    this.context.setUser({
+      ...this.context.user,
+      questions: { ...this.context.user?.questions, [field]: text },
+    });
+  };
 
   render() {
     return (
       <View style={styles.container}>
         <Header
-          title="T1D App"
+          title="T1D Tutor"
           backArrow={true}
           function={this.backFunction}
         ></Header>
         {/* <QuestionDescription title="Please enter your fixed doses"></QuestionDescription> */}
         <View style={styles.fieldsContainer}>
-
           <Text style={styles.field}>Breakfast Doses</Text>
           <TextInput
             autoCorrect={false}
@@ -103,8 +104,13 @@ class FixedDosesScreen extends Component {
           ></TextInput>
         </View>
 
-        <View style={styles.fieldsContainer}><Greenbutton title="Confirm" onPress={this.goToNextScreen} disabled={this.state.disabled}></Greenbutton></View>
-
+        <View style={styles.fieldsContainer}>
+          <Greenbutton
+            title="Confirm"
+            onPress={this.goToNextScreen}
+            disabled={this.state.disabled}
+          ></Greenbutton>
+        </View>
       </View>
     );
   }
@@ -136,4 +142,3 @@ const styles = StyleSheet.create({
     marginBottom: 25,
   },
 });
-

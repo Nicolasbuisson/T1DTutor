@@ -9,11 +9,11 @@ import {
 } from "react-native";
 import colors from "../../style/colors.js";
 import Header from "../../components/header";
-import Greenbutton from "../../components/greenButton"
-import Dropdown from 'react-dropdown';
+import Greenbutton from "../../components/greenButton";
+import Dropdown from "react-dropdown";
 import Context from "../../Context";
-import DateTimePicker from '@react-native-community/datetimepicker';
-import {Picker} from '@react-native-picker/picker';
+import DateTimePicker from "@react-native-community/datetimepicker";
+import { Picker } from "@react-native-picker/picker";
 
 class Question1screen extends Component {
   constructor() {
@@ -21,13 +21,12 @@ class Question1screen extends Component {
     this.state = {
       showDOB: false,
       showDiagnosis: false,
-      disabled: true
+      disabled: true,
     };
 
     //functions
     this.backFunction = this.backFunction.bind(this);
     this.goToNextScreen = this.goToNextScreen.bind(this);
-    
   }
   static contextType = Context;
 
@@ -39,12 +38,12 @@ class Question1screen extends Component {
     this.isDisabled();
   }
 
-  isDisabled = () => {
-    const {DOB, diagnosisdate} = this.context.user.questions;
-    if(DOB && diagnosisdate && this.state.disabled) {
-      this.setState({disabled: false});
+  isDisabled = () => {
+    const { DOB, diagnosisdate } = this.context.user.questions;
+    if (DOB && diagnosisdate && this.state.disabled) {
+      this.setState({ disabled: false });
     }
-  }
+  };
 
   backFunction() {
     this.context.setView("LanguageQuestionScreen");
@@ -54,91 +53,130 @@ class Question1screen extends Component {
     this.context.setView("Question2screen");
   }
 
-  toggleDate = (val) => {
-    if(val === "DOB") {
+  toggleDate = (val) => {
+    if (val === "DOB") {
       let toggle = !this.state.showDOB;
-      if(!this.context.user?.questions?.DOB) {
-        this.context.setUser({...this.context.user, questions: {...this.context.user?.questions, DOB: new Date()}})
+      if (!this.context.user?.questions?.DOB) {
+        this.context.setUser({
+          ...this.context.user,
+          questions: { ...this.context.user?.questions, DOB: new Date() },
+        });
       }
-      if(toggle) {
-        this.setState({showDOB: toggle, showDiagnosis: false})
+      if (toggle) {
+        this.setState({ showDOB: toggle, showDiagnosis: false });
       } else {
-        this.setState({showDOB: toggle})
+        this.setState({ showDOB: toggle });
       }
-    } else if(val === "diagnosis") {
+    } else if (val === "diagnosis") {
       let toggle = !this.state.showDiagnosis;
-      if(!this.context.user?.questions?.diagnosisdate) {
-        this.context.setUser({...this.context.user, questions: {...this.context.user?.questions, diagnosisdate: new Date()}})
+      if (!this.context.user?.questions?.diagnosisdate) {
+        this.context.setUser({
+          ...this.context.user,
+          questions: {
+            ...this.context.user?.questions,
+            diagnosisdate: new Date(),
+          },
+        });
       }
-      if(toggle) {
-        this.setState({showDiagnosis: toggle, showDOB: false})
+      if (toggle) {
+        this.setState({ showDiagnosis: toggle, showDOB: false });
       } else {
-        this.setState({showDiagnosis: toggle})
+        this.setState({ showDiagnosis: toggle });
       }
     }
-  }
+  };
 
   setDate = (field, date) => {
-    if(field === "DOB") {
-      this.context.setUser({...this.context.user, questions: {...this.context.user?.questions, DOB: date}})
-    } else if(field === "diagnosis") {
-      this.context.setUser({...this.context.user, questions: {...this.context.user?.questions, diagnosisdate: date}})
+    if (field === "DOB") {
+      this.context.setUser({
+        ...this.context.user,
+        questions: { ...this.context.user?.questions, DOB: date },
+      });
+    } else if (field === "diagnosis") {
+      this.context.setUser({
+        ...this.context.user,
+        questions: { ...this.context.user?.questions, diagnosisdate: date },
+      });
     }
-  }
-  
+  };
+
   render() {
     return (
       <View style={styles.container}>
         <Header
-          title="T1D App"
+          title="T1D Tutor"
           backArrow={true}
           function={this.backFunction}
         ></Header>
         <View style={styles.fieldsContainer}>
           <View style={styles.space}>
-          <Text style={styles.field}>Date of birth</Text>
-          {!this.state.showDOB &&
-          <Text>{this.context.user?.questions?.DOB?.toLocaleDateString()}</Text>
-          }
-          {!this.state.showDOB &&
-          <Greenbutton title="Select Date" onPress={()=>this.toggleDate("DOB")}></Greenbutton>
-          }
-          {this.state.showDOB &&
-              <DateTimePicker 
-                value={this.context.user?.questions?.DOB || new Date()}
+            <Text style={styles.field}>Date of birth</Text>
+            {!this.state.showDOB && (
+              <Text>
+                {this.context.user?.questions?.DOB?.toLocaleDateString()}
+              </Text>
+            )}
+            {!this.state.showDOB && (
+              <Greenbutton
+                title="Select Date"
+                onPress={() => this.toggleDate("DOB")}
+              ></Greenbutton>
+            )}
+            {this.state.showDOB && (
+              <DateTimePicker
+                value={this.context.user?.questions?.DOB || new Date()}
                 mode={"date"}
-                style={{width: 300, backgroundColor: "white"}}
+                style={{ width: 300, backgroundColor: "white" }}
                 is24Hour={true}
                 display="default"
-                onChange={(e,val)=>this.setDate("DOB",val)} />
-          }
-          {this.state.showDOB &&
-          <Greenbutton title="Okay" onPress={()=>this.toggleDate("DOB")}></Greenbutton>
-          }
+                onChange={(e, val) => this.setDate("DOB", val)}
+              />
+            )}
+            {this.state.showDOB && (
+              <Greenbutton
+                title="Okay"
+                onPress={() => this.toggleDate("DOB")}
+              ></Greenbutton>
+            )}
           </View>
           <View style={styles.space}>
-          <Text style={styles.field}>Date of diagnosis with T1D</Text>
-          {!this.state.showDiagnosis &&
-          <Text>{this.context.user?.questions?.diagnosisdate?.toLocaleDateString()}</Text>
-          }
-          {!this.state.showDiagnosis &&
-          <Greenbutton title="Select Date" onPress={()=>this.toggleDate("diagnosis")}></Greenbutton>
-          }
-          {this.state.showDiagnosis &&
-              <DateTimePicker 
-                value={this.context.user?.questions?.diagnosisdate || new Date()}
+            <Text style={styles.field}>Date of diagnosis with T1D</Text>
+            {!this.state.showDiagnosis && (
+              <Text>
+                {this.context.user?.questions?.diagnosisdate?.toLocaleDateString()}
+              </Text>
+            )}
+            {!this.state.showDiagnosis && (
+              <Greenbutton
+                title="Select Date"
+                onPress={() => this.toggleDate("diagnosis")}
+              ></Greenbutton>
+            )}
+            {this.state.showDiagnosis && (
+              <DateTimePicker
+                value={
+                  this.context.user?.questions?.diagnosisdate || new Date()
+                }
                 mode={"date"}
-                style={{width: 300, backgroundColor: "white"}}
+                style={{ width: 300, backgroundColor: "white" }}
                 is24Hour={true}
                 display="default"
-                onChange={(e,val)=>this.setDate("diagnosis",val)} />
-          }
-          {this.state.showDiagnosis &&
-          <Greenbutton title="Okay" onPress={()=>this.toggleDate("diagnosis")}></Greenbutton>
-          }
+                onChange={(e, val) => this.setDate("diagnosis", val)}
+              />
+            )}
+            {this.state.showDiagnosis && (
+              <Greenbutton
+                title="Okay"
+                onPress={() => this.toggleDate("diagnosis")}
+              ></Greenbutton>
+            )}
           </View>
 
-          <Greenbutton title="Next" onPress={this.goToNextScreen} disabled={this.state.disabled}></Greenbutton>
+          <Greenbutton
+            title="Next"
+            onPress={this.goToNextScreen}
+            disabled={this.state.disabled}
+          ></Greenbutton>
         </View>
       </View>
     );
@@ -146,7 +184,6 @@ class Question1screen extends Component {
 }
 
 export default Question1screen;
-
 
 const styles = StyleSheet.create({
   container: {
@@ -180,6 +217,5 @@ const styles = StyleSheet.create({
     marginBottom: 40,
     alignItems: "center",
     justifyContent: "center",
-  }
+  },
 });
-
