@@ -66,15 +66,15 @@ class InjectionScreen2 extends Component {
           backArrow={true}
           function={this.backFunction}
         ></Header>
-        <QuestionDescription title="You are on Injections"></QuestionDescription>
-        <QuestionDescription title="What do you use for meals?"></QuestionDescription>
+        <QuestionDescription title={this.context.user.language === "English" ? "You are on Injections" : "Vous utilisez des injections"}></QuestionDescription>
+        <QuestionDescription title={this.context.user.language === "English" ? "What do you use for meals?" : "Que utilisez vous pour les repas?"}></QuestionDescription>
         <View style={styles.fieldsContainer}>
           <Greenbutton
-            title="Insulin to carbs ratios"
+            title={this.context.user.language === "English" ? "Insulin to carbs ratios" : "Ratio d'insuline à glucides"}
             onPress={() => this.goToNextScreen("Insulin to carbs ratios")}
           ></Greenbutton>
           <Greenbutton
-            title="Fixed Doses"
+            title={this.context.user.language === "English" ? "Fixed Doses" : "Doses fixes"}
             onPress={() => this.goToNextScreen("Fixed Doses")}
           ></Greenbutton>
         </View>

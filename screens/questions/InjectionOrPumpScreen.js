@@ -65,14 +65,14 @@ class InjectionOrPumpScreen extends Component {
           backArrow={true}
           function={this.backFunction}
         ></Header>
-        <QuestionDescription title="Are you on injections or pump?"></QuestionDescription>
+        <QuestionDescription title={this.context.user.language === "English" ? "Are you on injections or pump?" : "Utilisez vous des injections ou une pompe?"}></QuestionDescription>
         <View style={styles.fieldsContainer}>
           <Greenbutton
-            title="Injections"
+            title={this.context.user.language === "English" ? "Injections" : "Injections"}
             onPress={() => this.goToNextScreen("Injections")}
           ></Greenbutton>
           <Greenbutton
-            title="Pump"
+            title={this.context.user.language === "English" ? "Pump" : "Pompe"}
             onPress={() => this.goToNextScreen("Pump")}
           ></Greenbutton>
         </View>

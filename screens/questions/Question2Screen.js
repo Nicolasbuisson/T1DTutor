@@ -55,18 +55,18 @@ class Question2screen extends Component {
           backArrow={true}
           function={this.backFunction}
         ></Header>
-        <QuestionDescription title="What do you use to check blood sugars?"></QuestionDescription>
+        <QuestionDescription title={this.context.user.language === "English" ? "What do you use to check blood sugars?" : "Comment faites vous pour mesurer votre glycémie?"}></QuestionDescription>
         <View style={styles.fieldsContainer}>
           <Greenbutton
-            title="Finger-prick testing"
+            title={this.context.user.language === "English" ? "Finger-prick testing" : "Test de piqûre au doigt"}
             onPress={() => this.goToNextScreen("Finger-prick testing")}
           ></Greenbutton>
           <Greenbutton
-            title="Flash CGM (e.g. Freestyle Libre)"
+            title={this.context.user.language === "English" ? "Flash CGM (e.g. Freestyle Libre)" : "Flash CGM (e.g. Freestyle Libre)"}
             onPress={() => this.goToNextScreen("Flash CGM")}
           ></Greenbutton>
           <Greenbutton
-            title="Real-time CGM (e.g. Dexcom, Guardian, Elite)"
+            title={this.context.user.language === "English" ? "Real-time CGM (e.g. Dexcom, Guardian, Elite)" : "CGM en temps réel (e.g. Dexcom, Guardian, Elite)"}
             onPress={() => this.goToNextScreen("Real-time CGM")}
           ></Greenbutton>
         </View>

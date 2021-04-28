@@ -44,7 +44,7 @@ class Question2screen extends Component {
           backArrow={true}
           function={this.backFunction}
         ></Header>
-        <QuestionDescription title="What type of Real-time CGM?"></QuestionDescription>
+        <QuestionDescription title={this.context.user.language === "English" ? "What type of Real-time CGM?" : "Quel type CGM en temps réel?"}></QuestionDescription>
         <View style={styles.fieldsContainer}>
           <Greenbutton
             title="Dexcom"

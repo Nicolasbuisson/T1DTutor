@@ -22,14 +22,14 @@ export default function LanguageQuestionScreen(props) {
   return (
     <View style={styles.container}>
       <Header title="T1D Tutor" backArrow={false}></Header>
-      <QuestionDescription title="Select your preferred language"></QuestionDescription>
+      <QuestionDescription title="Select your preferred language / Choississez votre langue"></QuestionDescription>
       <View style={styles.fieldsContainer}>
         <Greenbutton
           title="English"
           onPress={() => goToNextScreen("English")}
         ></Greenbutton>
         <Greenbutton
-          title="French"
+          title="Français"
           onPress={() => goToNextScreen("French")}
         ></Greenbutton>
       </View>

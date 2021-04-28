@@ -111,17 +111,17 @@ class InjectionScreen1 extends Component {
           backArrow={true}
           function={this.backFunction}
         ></Header>
-        <QuestionDescription title="You are on Injections"></QuestionDescription>
-        <Text style={styles.subtitle}>What type of insulin do you use?</Text>
+        <QuestionDescription title={this.context.user.language === "English" ? "You are on Injections" : "Vous utilisez des injections"}></QuestionDescription>
+        <Text style={styles.subtitle}>{this.context.user.language === "English" ? "What type of insulin do you use?" : "Quel type d'insuline utilisez vous?"}</Text>
         <View style={styles.fieldsContainer}>
           <View style={styles.space}>
-            <Text style={styles.field}>For meals</Text>
+            <Text style={styles.field}>{this.context.user.language === "English" ? "For meals" : "Pour les repas"}</Text>
             {!this.state.showMeals && (
               <Text>{this.context.user?.questions?.meals}</Text>
             )}
             {!this.state.showMeals && (
               <Greenbutton
-                title="Select"
+                title={this.context.user.language === "English" ? "Select" : "Sélectionner"}
                 onPress={() => this.toggleSelect("meals")}
               ></Greenbutton>
             )}
@@ -161,13 +161,13 @@ class InjectionScreen1 extends Component {
             )}
           </View>
           <View style={styles.space}>
-            <Text style={styles.field}>For long-acting</Text>
+            <Text style={styles.field}>{this.context.user.language === "English" ? "For long-acting" : "Pour l'insuline à action prolongée"}</Text>
             {!this.state.showLongActing && (
               <Text>{this.context.user?.questions?.longActing}</Text>
             )}
             {!this.state.showLongActing && (
               <Greenbutton
-                title="Select"
+                title={this.context.user.language === "English" ? "Select" : "Sélectionner"}
                 onPress={() => this.toggleSelect("longActing")}
               ></Greenbutton>
             )}
@@ -211,7 +211,7 @@ class InjectionScreen1 extends Component {
 
         <View style={styles.footer}>
           <Greenbutton
-            title="Next"
+            title={this.context.user.language === "English" ? "Next" : "Suivant"}
             onPress={this.goToNextScreen}
             disabled={this.state.disabled}
           ></Greenbutton>
