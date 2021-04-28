@@ -22,12 +22,12 @@ export default function App() {
       ) {
         getUser(currentUser.uid, (data) => {
           
-          if (data.questions.DOB) {
+          if (data && data.questions && data.questions.DOB) {
             let dob = new Date(1970, 0, 1); 
             dob.setSeconds(data.questions.DOB.seconds);
             data = {...data, questions: {...data.questions, DOB: dob}}
           }
-          if (data.questions.diagnosisdate) {
+          if (data && data.questions && data.questions.diagnosisdate) {
             let diagnosisdate = new Date(1970, 0, 1); 
             diagnosisdate.setSeconds(data.questions.diagnosisdate.seconds);
             data = {...data, questions: {...data.questions, diagnosisdate: diagnosisdate}}

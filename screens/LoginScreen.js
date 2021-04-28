@@ -63,7 +63,7 @@ const LoginScreen = () => {
               // console.log("user signed in");
               if (result.additionalUserInfo.isNewUser) {
                 createUser(result.user.uid, {
-                  gmail: result.user.email,
+                  email: result.user.email,
                   profile_pic: result.additionalUserInfo.profile.picture,
                   locale: result.additionalUserInfo.profile.locale,
                   created_at: Date.now(),
