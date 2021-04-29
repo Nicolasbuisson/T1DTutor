@@ -133,7 +133,11 @@ class ReminderTemplate extends Component {
     } else if (val === "frequency") {
       let toggle = !this.state.showFrequency;
       if (!this.state.frequency) {
-        this.setState({ frequency: "Once" });
+        if (this.context.user?.language === "English") {
+          this.setState({ frequency: "Once" });
+        } else {
+          this.setState({ frequency: "Une Fois" });
+        }
       }
       if (toggle) {
         this.setState({
@@ -153,10 +157,16 @@ class ReminderTemplate extends Component {
     }
 
     let trigger = {};
-    trigger.repeats = this.state.frequency === "Once" ? false : true;
+    trigger.repeats =
+      this.state.frequency === "Once" || this.state.frequency === "Une Fois"
+        ? false
+        : true;
     trigger.hour = this.state.time.getHours();
     trigger.minute = this.state.time.getMinutes();
-    if (this.state.frequency === "Weekly") {
+    if (
+      this.state.frequency === "Weekly" ||
+      this.state.frequency === "Hebdomadaire"
+    ) {
       trigger.weekday = this.state.date.getDay() + 1;
     }
 
