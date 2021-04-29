@@ -1,11 +1,5 @@
 import React, { Component } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import colors from "../style/colors.js";
 import Header from "../components/header";
@@ -28,8 +22,7 @@ class RemindersScreen extends Component {
     this.state = {
       expoPushToken: "",
       notification: false,
-      existingReminders: ["Prescription reminder", "Exercise reminder", "Insuling reminder"],
-      notificationsList: []
+      notificationsList: [],
     };
     //refs
     this.notificationListener = null;
@@ -44,8 +37,6 @@ class RemindersScreen extends Component {
     this.registerForPushNotificationsAsync = this.registerForPushNotificationsAsync.bind(
       this
     );
-    this.schedulePushNotification = this.schedulePushNotification.bind(this);
-    this.cancelAllNotifications = this.cancelAllNotifications.bind(this);
   }
   static contextType = Context;
 
@@ -70,9 +61,9 @@ class RemindersScreen extends Component {
   }
 
   goToReminderTemplate = (reminder) => {
-    this.context.setReminder({body: reminder});
+    this.context.setReminder({ body: reminder });
     this.context.setView("ReminderTemplate");
-  }
+  };
 
   registerForPushNotificationsAsync = async () => {
     let token;
@@ -106,27 +97,6 @@ class RemindersScreen extends Component {
     return token;
   };
 
-  schedulePushNotification = async () => {
-    await Notifications.scheduleNotificationAsync({
-      content: {
-        title: "You've got mail! 📬",
-        body: "Here is the notification body",
-        data: { data: "goes here", date: "today" },
-      },
-      trigger: {
-        // seconds: 3,
-        //to make it repeat follow this template
-        hour: 14,
-        minute: 58,
-        repeats: true,
-      },
-    });
-  };
-
-  cancelAllNotifications = async () => {
-    Notifications.cancelAllScheduledNotificationsAsync();
-  };
-
   componentDidMount = async () => {
     this.registerForPushNotificationsAsync().then((token) => {
       console.log(token);
@@ -146,39 +116,69 @@ class RemindersScreen extends Component {
     );
 
     const notificationsList = await Notifications.getAllScheduledNotificationsAsync();
-    this.setState({notificationsList});
+    this.setState({ notificationsList });
     return () => {
       Notifications.removeNotificationSubscription(this.notificationListener);
       Notifications.removeNotificationSubscription(this.responseListener);
     };
-  }
+  };
 
-  handlePress = (notification) => {
+  handlePress = (notification) => {
     this.context.setReminder(notification);
     this.context.setView("ReminderTemplate");
-  }
+  };
 
-  renderNotifications = () => {
-
-    return this.state.notificationsList.map(notification => {
-      let date = notification.content.data.frequency === "Daily" ? <Text>Daily, {notification.content.data.timeLabel}</Text> : <Text>{notification.content.data.date}, {notification.content.data.timeLabel}</Text>;
-      return <TouchableOpacity style={styles.touchable} onPress={()=>this.handlePress(notification)}>
-        <Text>{notification.content.body}</Text>
-        {date}
-      </TouchableOpacity>
+  renderNotifications = () => {
+    return this.state.notificationsList.map((notification) => {
+      let date =
+        notification.content.data.frequency === "Daily" ? (
+          <Text>Daily, {notification.content.data.timeLabel}</Text>
+        ) : notification.content.data.frequency === "Quotidien" ? (
+          <Text>Quotidien, {notification.content.data.timeLabel}</Text>
+        ) : (
+          <Text>
+            {notification.content.data.date},{" "}
+            {notification.content.data.timeLabel}
+          </Text>
+        );
+      return (
+        <TouchableOpacity
+          style={styles.touchable}
+          onPress={() => this.handlePress(notification)}
+        >
+          <Text>{notification.content.body}</Text>
+          {date}
+        </TouchableOpacity>
+      );
     });
-  }
+  };
 
   render() {
     return (
       <View style={styles.container}>
-        <Header title="Reminders"></Header>
+        {this.context.user?.language === "English" && (
+          <Header title="Reminders"></Header>
+        )}
+        {this.context.user?.language === "French" && (
+          <Header title="Rappels"></Header>
+        )}
         <View style={styles.topParagraph}>
-          <Text style={styles.text}>
-            Here are some reminders you can set to have notifications for
-            day-to-day items and important dates.{"\n"}With diabetes, there's a
-            lot of things to remember. This tool is here to help!
-          </Text>
+          {this.context.user?.language === "English" && (
+            <Text style={styles.text}>
+              Here are some reminders you can set to have notifications for
+              day-to-day items and important dates.{"\n"}With diabetes, there's
+              a lot of things to remember. This tool is here to help!
+            </Text>
+          )}
+          {this.context.user?.language === "French" && (
+            <Text style={styles.text}>
+              Voici quelques rappels que vous pouvez définir pour recevoir des
+              notifications pour des articles quotidiens et des dates
+              importantes.{"\n"}
+              Avec le diabète, il y a un beaucoup de choses à retenir. Cet outil
+              est là pour vous aider!
+            </Text>
+          )}
         </View>
         <ScrollView
           contentContainerStyle={styles.fieldsContainer}
@@ -188,12 +188,17 @@ class RemindersScreen extends Component {
           {this.renderNotifications()}
         </ScrollView>
         <TouchableOpacity
-            style={styles.addNew}
-            onPress={()=>this.context.setView("NewReminderScreen")}
-          >
-            <Text style={styles.addNewText}>Add new reminder</Text>
-          </TouchableOpacity>
-          <Footer></Footer>
+          style={styles.addNew}
+          onPress={() => this.context.setView("NewReminderScreen")}
+        >
+          {this.context.user?.language === "English" && (
+            <Text style={styles.addNewText}>Add Reminder</Text>
+          )}
+          {this.context.user?.language === "French" && (
+            <Text style={styles.addNewText}>Rajouter un Rappel</Text>
+          )}
+        </TouchableOpacity>
+        <Footer></Footer>
       </View>
     );
   }
@@ -242,6 +247,6 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   addNewText: {
-    color: colors.primary
-  }
+    color: colors.primary,
+  },
 });

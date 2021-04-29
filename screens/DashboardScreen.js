@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, Button, Image } from "react-native";
-import * as firebase from "firebase";
+import { View, Text, StyleSheet, Image } from "react-native";
 import "firebase/auth";
 import Header from "../components/header";
 import Footer from "../components/footer";
@@ -63,28 +62,8 @@ class DashboardScreen extends Component {
             source={require("../assets/logoCircle.png")}
             style={styles.logo}
           />
-          {this.state.english && (
-            <Text style={styles.title}>
-              Welcome
-            </Text>
-          )}
-          {!this.state.english && (
-            <Text style={styles.title}>
-              Bienvenue
-            </Text>
-          )}
-          <Button
-            title="Sign out"
-            onPress={() =>
-              firebase
-                .auth()
-                .signOut()
-                .then(() => {
-                  this.context.setView("LoginScreen");
-                })
-                .catch((e) => console.log(e))
-            }
-          />
+          {this.state.english && <Text style={styles.title}>Welcome</Text>}
+          {!this.state.english && <Text style={styles.title}>Bienvenue</Text>}
         </View>
         <Footer></Footer>
       </View>
