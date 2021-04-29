@@ -132,11 +132,9 @@ class RemindersScreen extends Component {
     return this.state.notificationsList.map((notification) => {
       let date =
         notification.content.data.frequency === "Daily" ? (
-          this.context.user?.language === "English" ? (
-            <Text>Daily, {notification.content.data.timeLabel}</Text>
-          ) : (
-            <Text>Hebdomadaire, {notification.content.data.timeLabel}</Text>
-          )
+          <Text>Daily, {notification.content.data.timeLabel}</Text>
+        ) : notification.content.data.frequency === "Quotidien" ? (
+          <Text>Quotidien, {notification.content.data.timeLabel}</Text>
         ) : (
           <Text>
             {notification.content.data.date},{" "}
