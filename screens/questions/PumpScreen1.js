@@ -83,8 +83,8 @@ class PumpScreen1 extends Component {
           backArrow={true}
           function={this.backFunction}
         ></Header>
-        <QuestionDescription title="You are on Pump"></QuestionDescription>
-        <QuestionDescription title="What type of Pump do you use?"></QuestionDescription>
+        <QuestionDescription title={this.context.user.language === "English" ? "You are on Pump" : "Vous utilisez une pompe"}></QuestionDescription>
+        <QuestionDescription title={this.context.user.language === "English" ? "What type of Pump do you use?" : "Quel type de pumpe utilisez vous?"}></QuestionDescription>
         <View style={styles.fieldsContainer}>
           <View style={styles.space}>
             <Text style={styles.field}>Brand/model</Text>
@@ -93,7 +93,7 @@ class PumpScreen1 extends Component {
             )}
             {!this.state.showBrand && (
               <Greenbutton
-                title="Select"
+                title={this.context.user.language === "English" ? "Select" : "Sélectionner"}
                 onPress={() => this.toggleSelect()}
               ></Greenbutton>
             )}
@@ -142,7 +142,7 @@ class PumpScreen1 extends Component {
 
         <View style={styles.footer}>
           <Greenbutton
-            title="Go to Dashboard!"
+            title={this.context.user.language === "English" ? "Go to Dashboard!" : "Terminer"}
             onPress={this.goToNextScreen}
             disabled={this.state.disabled}
           ></Greenbutton>

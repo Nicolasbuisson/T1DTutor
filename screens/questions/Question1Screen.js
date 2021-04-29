@@ -110,7 +110,7 @@ class Question1screen extends Component {
         ></Header>
         <View style={styles.fieldsContainer}>
           <View style={styles.space}>
-            <Text style={styles.field}>Date of birth</Text>
+            <Text style={styles.field}>{this.context.user.language === "English" ? "Date of birth" : "Date de Naissance"}</Text>
             {!this.state.showDOB && (
               <Text>
                 {this.context.user?.questions?.DOB?.toLocaleDateString()}
@@ -118,7 +118,7 @@ class Question1screen extends Component {
             )}
             {!this.state.showDOB && (
               <Greenbutton
-                title="Select Date"
+                title={this.context.user.language === "English" ? "Select Date" : "Sélectionner une date"}
                 onPress={() => this.toggleDate("DOB")}
               ></Greenbutton>
             )}
@@ -140,7 +140,7 @@ class Question1screen extends Component {
             )}
           </View>
           <View style={styles.space}>
-            <Text style={styles.field}>Date of diagnosis with T1D</Text>
+            <Text style={styles.field}>{this.context.user.language === "English" ? "Date of diagnosis with T1D" : "Date de diagnostic du T1D"}</Text>
             {!this.state.showDiagnosis && (
               <Text>
                 {this.context.user?.questions?.diagnosisdate?.toLocaleDateString()}
@@ -148,7 +148,7 @@ class Question1screen extends Component {
             )}
             {!this.state.showDiagnosis && (
               <Greenbutton
-                title="Select Date"
+                title={this.context.user.language === "English" ? "Select Date" : "Sélectionner une date"}
                 onPress={() => this.toggleDate("diagnosis")}
               ></Greenbutton>
             )}
@@ -173,7 +173,7 @@ class Question1screen extends Component {
           </View>
 
           <Greenbutton
-            title="Next"
+            title={this.context.user.language === "English" ? "Next" : "Suivant"}
             onPress={this.goToNextScreen}
             disabled={this.state.disabled}
           ></Greenbutton>

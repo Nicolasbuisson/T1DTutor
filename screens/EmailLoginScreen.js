@@ -11,6 +11,7 @@ import firebase from "firebase";
 import colors from "../style/colors.js";
 import Header from "../components/header";
 import Context from '../Context';
+import { updateUser } from "../database";
 
 class EmailLoginScreen extends Component {
   constructor() {
@@ -42,7 +43,10 @@ class EmailLoginScreen extends Component {
       .signInWithEmailAndPassword(this.state.email, this.state.password)
       .then((userCredential) => {
         // Signed in
-        var user = userCredential.user;
+        let user = userCredential.user;
+        updateUser(user.uid, {
+          last_logged_in: Date.now(),
+        });
         // ...
       })
       .catch((error) => {

@@ -71,14 +71,14 @@ class FixedDosesScreen extends Component {
         ></Header>
         {/* <QuestionDescription title="Please enter your fixed doses"></QuestionDescription> */}
         <View style={styles.fieldsContainer}>
-          <Text style={styles.field}>Breakfast Doses</Text>
+          <Text style={styles.field}>{this.context.user.language === "English" ? "Breakfast Doses" : "Doses pour le déjeuner"}</Text>
           <TextInput
             autoCorrect={false}
             onChangeText={(text) => this.handleInputChange("breakfast", text)}
             value={this.context.user?.questions?.breakfast}
             style={styles.input}
           ></TextInput>
-          <Text style={styles.field}>Lunch Doses</Text>
+          <Text style={styles.field}>{this.context.user.language === "English" ? "Lunch Doses" : "Doses pour le diner"}</Text>
           <TextInput
             autoCorrect={false}
             secureTextEntry={false}
@@ -86,7 +86,7 @@ class FixedDosesScreen extends Component {
             value={this.context.user?.questions?.lunch}
             style={styles.input}
           ></TextInput>
-          <Text style={styles.field}>Dinner Doses</Text>
+          <Text style={styles.field}>{this.context.user.language === "English" ? "Dinner Doses" : "Doses pour le souper"}</Text>
           <TextInput
             autoCorrect={false}
             secureTextEntry={false}
@@ -94,7 +94,7 @@ class FixedDosesScreen extends Component {
             value={this.context.user?.questions?.dinner}
             style={styles.input}
           ></TextInput>
-          <Text style={styles.field}>Snack Doses</Text>
+          <Text style={styles.field}>{this.context.user.language === "English" ? "Snack Doses" : "Doses pour le goûter"}</Text>
           <TextInput
             autoCorrect={false}
             secureTextEntry={false}
@@ -106,7 +106,7 @@ class FixedDosesScreen extends Component {
 
         <View style={styles.fieldsContainer}>
           <Greenbutton
-            title="Confirm"
+            title={this.context.user.language === "English" ? "Confirm" : "Confirmer"}
             onPress={this.goToNextScreen}
             disabled={this.state.disabled}
           ></Greenbutton>

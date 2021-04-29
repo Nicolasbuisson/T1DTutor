@@ -11,6 +11,7 @@ import firebase from "firebase";
 import colors from "../style/colors.js";
 import Header from "../components/header";
 import Context from '../Context';
+import { createUser } from "../database";
 
 class EmailSignUpScreen extends Component {
   constructor() {
@@ -59,18 +60,15 @@ class EmailSignUpScreen extends Component {
           var user = userCredential.user;
           //save to dbh
           if (user) {
-            Alert.alert(
-              "Successfully Signed Up",
-              "",
-              [
-                {
-                  text: "OK",
-                  style: "cancel",
-                },
-              ],
-              { cancelable: false }
-            );
-            // ...
+            createUser(user.uid, {
+              email: user.email,
+              created_at: Date.now(),
+              isNewUser: true,
+              uid: user.uid
+            }, ()=>{
+              this.context.setView("LanguageQuestionScreen");
+              this.context.setUser({...user});
+            });
           }
         })
         .catch((error) => {

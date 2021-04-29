@@ -41,7 +41,8 @@ class MoreScreen extends Component {
       <View style={styles.container}>
         <Header title="More"></Header>
         <View style={styles.fieldsContainer}>
-          <Greenbutton title={this.context.user.language === "English" ? "Change Language" : "Changer la langue"} onPress={this.changeLanguage} /> 
+          <Greenbutton title={this.context.user.language === "English" ? "Re-answer questionnaire" : "Changer mes réponses aux questions"} onPress={()=>this.context.setView("Question1screen")} /> 
+          <Greenbutton title={this.context.user.language === "English" ? "Change language" : "Changer la langue"} onPress={this.changeLanguage} /> 
           <Greenbutton title={this.context.user.language === "English" ? "Contact us" : "Contactez nous"} onPress={this._handlePress} />      
           <Greenbutton title={this.context.user.language === "English" ? "Sign out" : "Se déconnecter"} onPress={() => firebase.auth().signOut().then(()=>{this.context.setView("LoginScreen")}).catch((e)=>console.log(e))} />
         </View>

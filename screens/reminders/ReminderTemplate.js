@@ -44,7 +44,6 @@ class ReminderTemplate extends Component {
   }
 
   componentDidMount = async () => {
-    console.log(this.context.reminder)
     this.isDisabled();
     if(this.context.reminder.identifier) {
       this.parseTime(this.context.reminder.content.data.time);

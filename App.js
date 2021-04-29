@@ -21,6 +21,18 @@ export default function App() {
         ((user.uid && currentUser?.uid !== user.uid) || !user.uid)
       ) {
         getUser(currentUser.uid, (data) => {
+          
+          if (data && data.questions && data.questions.DOB) {
+            let dob = new Date(1970, 0, 1); 
+            dob.setSeconds(data.questions.DOB.seconds);
+            data = {...data, questions: {...data.questions, DOB: dob}}
+          }
+          if (data && data.questions && data.questions.diagnosisdate) {
+            let diagnosisdate = new Date(1970, 0, 1); 
+            diagnosisdate.setSeconds(data.questions.diagnosisdate.seconds);
+            data = {...data, questions: {...data.questions, diagnosisdate: diagnosisdate}}
+          }
+
           if (data) {
             setUser({ ...data });
             if (view === "LoginScreen" && !data?.isNewUser) {
