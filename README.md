@@ -7,6 +7,6 @@ This mobile application is the result of our Engineering Capstone Project. This 
  - Reminders
  
  
- Final Report: https://mcgill-my.sharepoint.com/:w:/g/personal/nicolas_buisson_mail_mcgill_ca/ER-FGMy0QaRAkn9Nka5tNy4BkeVUlKXrGOnFTqN670G45g?e=0wJ0mm
+ Final Report and Design: https://mcgill-my.sharepoint.com/:w:/g/personal/nicolas_buisson_mail_mcgill_ca/ER-FGMy0QaRAkn9Nka5tNy4BkeVUlKXrGOnFTqN670G45g?e=0wJ0mm
  
  Video Demo: https://www.youtube.com/watch?v=E7x6uB64YQc&ab_channel=TF2Cascade
